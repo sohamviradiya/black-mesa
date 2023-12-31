@@ -20,6 +20,8 @@
         "cost": 100,
         "name": "Explosive",
         "description": "Explodes when destroyed.",
-        "health": 100
+        "health": 100,
+        "damage" : 100,
+        "range" : 1
     }
 }
