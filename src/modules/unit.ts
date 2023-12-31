@@ -22,9 +22,16 @@ export enum AlignmentTypes {
     "SCALAR",
 };
 
+export interface UnitInterface extends StateInterface {
+    id: number;
+    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    update(state: any): void;
+    getState(): StateInterface;
+};
+
 export type AlignmentType = keyof typeof AlignmentTypes;
 
-export class Unit implements StateInterface {
+export abstract class Unit implements UnitInterface {
     static nextId = 0;
     public width: number;
     public height: number;
@@ -35,23 +42,20 @@ export class Unit implements StateInterface {
         this.width = cellSize;
         this.height = cellSize;
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) { };
-
-    update() { };
+    abstract draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    abstract update(state: any): void;
 
     getState(): StateInterface {
         return this;
     }
 };
 
-export class VectorUnit extends Unit implements VectorStateInterface {
+export abstract class VectorUnit extends Unit implements VectorStateInterface {
     constructor(public x: number, public y: number, public width: number, public height: number, public angle: number) {
         super(x, y, width);
         this.width = width;
         this.height = height;
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) { };
-    update() { };
     getState(): VectorStateInterface {
         return this;
     }
