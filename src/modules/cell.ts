@@ -30,6 +30,9 @@ export class Cell extends Unit {
             context.strokeRect(this.x, this.y, this.width, this.height);
         }
     };
+    update(state: any): void {
+        return;
+    }
 }
 
 export class WallCell extends Cell {
