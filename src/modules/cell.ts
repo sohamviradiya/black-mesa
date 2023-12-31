@@ -14,7 +14,7 @@ export class Cell extends Unit {
     public width: number;
     public height: number;
     constructor(public x: number, public y: number, cellSize: number, public type: CellType) {
-        super(x, y, cellSize);
+        super(x, y, cellSize, "SCALAR");
         this.width = cellSize;
         this.height = cellSize;
     }

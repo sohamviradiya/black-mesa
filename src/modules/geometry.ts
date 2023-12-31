@@ -1,28 +1,27 @@
-import { AlignmentType } from "./turret";
 import { StateInterface } from "./unit";
 
-export function collision(first: StateInterface, second: StateInterface) {
-    if (!first?.x || !second?.x) return false;
-    if (first.x + first.width < second.x + 1 || second.x + second.width < first.x + 1 || first.y + first.height < second.y + 1 || second.y + second.height < first.y + 1)
+export function collision(defense: StateInterface, invader: StateInterface) {
+    if (!defense?.x || !invader?.x) return false;
+    if (defense.x + defense.width < invader.x + 1 || invader.x + invader.width < defense.x + 1 || defense.y + defense.height < invader.y + 1 || invader.y + invader.height < defense.y + 1)
         return false;
     else
         return true;
 };
 
-export function distance(first: StateInterface, second: StateInterface) {
-    if (!first?.x || !second?.x) return 0;
-    return Math.sqrt(Math.pow(first.x - second.x, 2) + Math.pow(first.y - second.y, 2));
+export function distance(defense: StateInterface, invader: StateInterface) {
+    if (!defense?.x || !invader?.x) return 0;
+    return Math.sqrt(Math.pow(defense.x - invader.x, 2) + Math.pow(defense.y - invader.y, 2));
 };
 
-export function angle(first: StateInterface, second: StateInterface) {
-    if (!first?.x || !second?.x) return 0;
-    return Math.atan2(second.y - first.y, second.x - first.x);
+export function angle(defense: StateInterface, invader: StateInterface) {
+    if (!defense?.x || !invader?.x) return 0;
+    return Math.atan2(invader.y - defense.y, invader.x - defense.x);
 };
 
-export function angleToAlignment(first: StateInterface, second: StateInterface, alignment: AlignmentType) {
-    if (!first?.x || !second?.x) return 0;
-    let angle = Math.atan2(second.y - first.y, second.x - first.x);
-    switch (alignment) {
+export function angleToAlignment(defense: StateInterface, invader: StateInterface) {
+    if (!defense?.x || !invader?.x) return 0;
+    let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
+    switch (defense.alignment) {
         case "NORTH":
             return angle;
         case "SOUTH":

@@ -2,7 +2,8 @@ export enum AlignmentTypes {
     "NORTH",
     "SOUTH",
     "EAST",
-    "WEST"
+    "WEST",
+    "SCALAR",
 };
 
 export type AlignmentType = keyof typeof AlignmentTypes;
@@ -28,7 +29,7 @@ export class Unit implements StateInterface {
     update() {
 
     };
-    
+
     getState(): StateInterface {
         return this;
     }
