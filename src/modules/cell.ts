@@ -1,5 +1,5 @@
 import { collision } from "./geometry";
-import { BoardState } from "./state";
+import { BoardState, CollectionType } from "./state";
 import { ScalarInterface, Unit } from "./unit";
 
 export enum CellTypes {
@@ -15,7 +15,7 @@ export abstract class Cell extends Unit {
     public width: number;
     public height: number;
     public triggered: boolean = false;
-    collection: string = "cells";
+    collection: CollectionType = "cells";
     constructor(public x: number, public y: number, cellSize: number, public type: CellType, public timer: number) {
         super(x, y, cellSize);
         this.width = cellSize;
@@ -35,6 +35,12 @@ export abstract class Cell extends Unit {
                 this.triggered = false;
             }
         }
+    }
+    addSelf(state: BoardState): void {
+        state.collections.cells.push(this);
+    }
+    removeSelf(state: BoardState): void {
+        state.collections.cells = state.collections.cells.filter((cell: Cell) => cell.id !== this.id);
     }
 }
 
