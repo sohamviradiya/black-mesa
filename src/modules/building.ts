@@ -1,5 +1,5 @@
 import { isInRadius } from "./geometry";
-import { StateInterface, Unit } from "./unit";
+import { ScalarInterface, Unit } from "./unit";
 
 
 export enum BuildingTypes {
@@ -53,7 +53,7 @@ export class Base extends Installation {
         super(x, y, cellSize, health, rate, "BASE", cost, period);
     };
 
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'blue';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
@@ -63,7 +63,7 @@ export class Generator extends Installation {
     constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
         super(x, y, cellSize, health, rate, "GENERATOR", cost, period);
     };
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'green';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
@@ -75,7 +75,7 @@ export class Explosive extends Building {
     constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
         super(x, y, cellSize, "EXPLOSIVE", cost);
     };
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
     }

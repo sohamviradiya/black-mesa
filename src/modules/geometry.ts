@@ -1,8 +1,8 @@
 import { Explosive } from "./building";
 import { Turret, VectorTurret } from "./turret";
-import { AlignmentType, StateInterface, VectorStateInterface } from "./unit";
+import { AlignmentType, ScalarInterface, VectorInterface } from "./unit";
 
-export function collision(defense: StateInterface, invader: StateInterface) {
+export function collision(defense: ScalarInterface, invader: ScalarInterface) {
     if (defense.x + defense.width < invader.x + 1 || invader.x + invader.width < defense.x + 1 || defense.y + defense.height < invader.y + 1 || invader.y + invader.height < defense.y + 1)
         return false;
     else
@@ -10,17 +10,17 @@ export function collision(defense: StateInterface, invader: StateInterface) {
 };
 
 
-export function distance(defense: StateInterface, invader: StateInterface) {
+export function distance(defense: ScalarInterface, invader: ScalarInterface) {
     if (!defense?.x || !invader?.x) return 0;
     return Math.sqrt(Math.pow(defense.x - invader.x, 2) + Math.pow(defense.y - invader.y, 2));
 };
 
-export function getAngle(defense: StateInterface, invader: StateInterface) {
+export function getAngle(defense: ScalarInterface, invader: ScalarInterface) {
     if (!defense?.x || !invader?.x) return 0;
     return Math.atan2(invader.y - defense.y, invader.x - defense.x);
 };
 
-export function angleToAlignment(defense: VectorStateInterface, invader: StateInterface, alignment: AlignmentType) {
+export function angleToAlignment(defense: VectorInterface, invader: ScalarInterface, alignment: AlignmentType) {
     if (!defense?.x || !invader?.x) return 0;
     let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
     switch (alignment) {
@@ -37,15 +37,15 @@ export function angleToAlignment(defense: VectorStateInterface, invader: StateIn
     }
 }
 
-export function isInRadius(bomb: Explosive, invader: StateInterface) {
+export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
     return distance(bomb, invader) <= bomb.radius;
 };
 
-export function isInRange(defense: Turret, invader: StateInterface) {
+export function isInRange(defense: Turret, invader: ScalarInterface) {
     return distance(defense, invader) <= defense.range;
 };
 
-export function isInScope(defense: VectorTurret, invader: StateInterface) {
+export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
     let angle = angleToAlignment(defense, invader, defense.alignment);
     return distance(defense, invader) <= defense.range && Math.abs(angle - defense.angle) <= defense.scope;
 };

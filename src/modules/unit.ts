@@ -5,12 +5,12 @@ export interface PositionInterface {
     y: number;
 };
 
-export interface StateInterface extends PositionInterface {
+export interface ScalarInterface extends PositionInterface {
     width: number;
     height: number;
 };
 
-export interface VectorStateInterface extends StateInterface {
+export interface VectorInterface extends ScalarInterface {
     angle: number;
 };
 
@@ -22,11 +22,11 @@ export enum AlignmentTypes {
     "SCALAR",
 };
 
-export interface UnitInterface extends StateInterface {
+export interface UnitInterface extends ScalarInterface {
     id: number;
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
     update(state: any): void;
-    getState(): StateInterface;
+    getState(): ScalarInterface;
 };
 
 export type AlignmentType = keyof typeof AlignmentTypes;
@@ -43,27 +43,27 @@ export abstract class Unit implements UnitInterface {
         this.width = cellSize;
         this.height = cellSize;
     }
-    abstract draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
     abstract update(state: any): void;
 
-    getState(): StateInterface {
+    getState(): ScalarInterface {
         return this;
     }
     removeSelf(state: any): void {
-        state[this.collection] = state[this.collection].filter((unit: UnitInterface) => unit.id !== this.id);
+        state.collections[this.collection] = state.collections[this.collection].filter((unit: UnitInterface) => unit.id !== this.id);
     }
     addSelf(state: any): void {
-        state[this.collection].push(this);
+        state.collections[this.collection].push(this);
     }
 };
 
-export abstract class VectorUnit extends Unit implements VectorStateInterface {
+export abstract class VectorUnit extends Unit implements VectorInterface {
     constructor(public x: number, public y: number, public width: number, public height: number, public angle: number) {
         super(x, y, width);
         this.width = width;
         this.height = height;
     }
-    getState(): VectorStateInterface {
+    getState(): VectorInterface {
         return this;
     }
 }

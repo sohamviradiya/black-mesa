@@ -1,4 +1,4 @@
-import { StateInterface } from "./unit";
+import { ScalarInterface } from "./unit";
 import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
@@ -20,7 +20,7 @@ export class Turret extends Building {
     constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
         super(x, y, cellSize, "TURRET", cost);
     };
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
@@ -59,7 +59,7 @@ export class VectorTurret extends Turret {
         super(x, y, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };

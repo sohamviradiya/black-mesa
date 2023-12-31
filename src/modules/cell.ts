@@ -1,5 +1,5 @@
 import { collision } from "./geometry";
-import { StateInterface, Unit } from "./unit";
+import { ScalarInterface, Unit } from "./unit";
 
 export enum CellTypes {
     "PATH",
@@ -20,7 +20,7 @@ export abstract class Cell extends Unit {
         this.width = cellSize;
         this.height = cellSize;
     }
-    abstract draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
 
     update(state: any): void {
         if (collision(state.mouse, this)) {
@@ -41,7 +41,7 @@ export class WallCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "WALL", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
         context.fillStyle = 'grey';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
@@ -51,7 +51,7 @@ export class PathCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "PATH", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
         context.fillStyle = 'whitesmoke';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
@@ -61,7 +61,7 @@ export class EmptyCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "EMPTY", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
@@ -81,7 +81,7 @@ export class SlotCell extends Cell {
         return this.getState();
     }
 
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
         if (collision(mouse, this))
             context.strokeStyle = 'lightgreen';
         else if (this.isOccupied)
