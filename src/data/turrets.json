@@ -1,0 +1,33 @@
+{
+    "Sniper" : {
+        "range" : 500,
+        "damage" : 300,
+        "angle" : 0.2,
+        "rate" : 0.3,
+        "cost" : 300
+    },
+    "Bazooka" : {
+        "range" : 200,
+        "damage" : 400,
+        "rate" : 0.2,
+        "cost" : 400
+    },
+    "MachineGun" : {
+        "range" : 200,
+        "damage" : 50,
+        "rate" : 3,
+        "cost" : 200
+    },
+    "Shotgun" : {
+        "range" : 100,
+        "damage" : 200,
+        "rate" : 0.5,
+        "cost" : 200
+    },
+    "Rifle" : {
+        "range" : 200,
+        "damage" : 100,
+        "rate" : 1,
+        "cost" : 100
+    }
+}
