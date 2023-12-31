@@ -2,7 +2,7 @@ import { PositionInterface, VectorUnit } from "./unit";
 
 
 export class Invader extends VectorUnit {
-    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number) {
+    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number) {
         super(x, y, width, height, 0);
     };
     draw(context: CanvasRenderingContext2D): void {
