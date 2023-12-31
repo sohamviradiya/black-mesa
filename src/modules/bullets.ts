@@ -11,13 +11,20 @@ export class Bullet extends VectorUnit {
         context.fillRect(this.x, this.y, this.width, this.height);
     };
     update(): void {
+        if (!this.active) return;
+
+        if (this.target.dead) {
+            this.active = false;
+            return;
+        }
+
         const dx = this.target.x - this.x;
         const dy = this.target.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.speed) {
             this.x = this.target.x;
             this.y = this.target.y;
-            this.target.health -= this.damage;
+            this.target.takeDamage(this.damage);
             this.active = false;
             return;
         }
