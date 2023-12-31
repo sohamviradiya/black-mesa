@@ -1,3 +1,4 @@
+import { collision } from "./geometry";
 import { Invader } from "./invader";
 import { VectorUnit } from "./unit";
 
@@ -22,7 +23,11 @@ export class Projectile extends VectorUnit {
             return;
         }
 
-        // TODO: Check for collisions with the target
+        if (collision(this, this.target)) {
+            this.target.takeDamage(this.damage);
+            this.active = false;
+            return;
+        }
 
         const dx = this.target.x - this.x;
         const dy = this.target.y - this.y;
