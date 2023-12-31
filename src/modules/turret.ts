@@ -2,11 +2,10 @@ import { StateInterface } from "./unit";
 import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
-import { isInRange, isInScope } from "./geometry";
+import { getAngle, isInRange, isInScope } from "./geometry";
 
 
 export class Turret extends Building {
-    public target: Invader | null = null;
     public angle = 0;
     public timer = 0;
     constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number) {
@@ -24,22 +23,19 @@ export class Turret extends Building {
                 return enemies[i];
             }
         }
-        return this.target;
+        return null;
     };
 
     isFireReady(): boolean {
-        return this.timer % Math.floor(this.period) === 0;
+        return this.timer % this.period === 0;
     };
 
     update(state: any): void {
         this.timer++;
-        if (this.target?.dead)
-            this.target = null;
-        if (!this.target)
-            this.target = this.findTarget(state.enemies);
-        if (this.target) {
-            this.angle = Math.atan2(this.target.y - this.y, this.target.x - this.x);
-            if (this.isFireReady()) {
+        if (this.isFireReady()) {
+            const target = this.findTarget(state.enemies);
+            if (target) {
+                this.angle = getAngle(this, target);
                 state.projectiles.push({});
             }
         }
@@ -64,6 +60,6 @@ export class VectorTurret extends Turret {
                 return enemies[i];
             }
         }
-        return this.target;
+        return null;
     };
 }

@@ -15,7 +15,7 @@ export function distance(defense: StateInterface, invader: StateInterface) {
     return Math.sqrt(Math.pow(defense.x - invader.x, 2) + Math.pow(defense.y - invader.y, 2));
 };
 
-export function angle(defense: StateInterface, invader: StateInterface) {
+export function getAngle(defense: StateInterface, invader: StateInterface) {
     if (!defense?.x || !invader?.x) return 0;
     return Math.atan2(invader.y - defense.y, invader.x - defense.x);
 };
