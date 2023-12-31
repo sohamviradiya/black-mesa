@@ -1,0 +1,26 @@
+{
+    "BASE": {
+        "cost": 0,
+        "name": "Base",
+        "description": "If you lose this, you lose the game.",
+        "health": 1000
+    },
+    "GENERATOR": {
+        "cost": 100,
+        "name": "Generator",
+        "description": "Generates fixed energy per turn.",
+        "health": 100
+    },
+    "TURRET": {
+        "cost": 200,
+        "name": "Turret",
+        "description": "Shoots at enemy units.",
+        "health": 100
+    },
+    "EXPLOSIVE": {
+        "cost": 100,
+        "name": "Explosive",
+        "description": "Explodes when destroyed.",
+        "health": 100
+    }
+}
