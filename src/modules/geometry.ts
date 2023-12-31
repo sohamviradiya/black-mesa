@@ -1,3 +1,5 @@
+import { Explosive } from "./building";
+import { Turret, VectorTurret } from "./turret";
 import { AlignmentType, StateInterface, VectorStateInterface } from "./unit";
 
 export function collision(defense: StateInterface, invader: StateInterface) {
@@ -7,9 +9,6 @@ export function collision(defense: StateInterface, invader: StateInterface) {
         return true;
 };
 
-export function isInRange(defense: StateInterface, invader: StateInterface, range: number) {
-    return distance(defense, invader) <= range;
-};
 
 export function distance(defense: StateInterface, invader: StateInterface) {
     if (!defense?.x || !invader?.x) return 0;
@@ -33,5 +32,20 @@ export function angleToAlignment(defense: VectorStateInterface, invader: StateIn
             return angle + Math.PI / 2;
         case "WEST":
             return angle - Math.PI / 2;
+        default:
+            return 0;
     }
 }
+
+export function isInRadius(bomb: Explosive, invader: StateInterface) {
+    return distance(bomb, invader) <= bomb.radius;
+};
+
+export function isInRange(defense: Turret, invader: StateInterface) {
+    return distance(defense, invader) <= defense.range;
+};
+
+export function isInScope(defense: VectorTurret, invader: StateInterface) {
+    let angle = angleToAlignment(defense, invader, defense.alignment);
+    return distance(defense, invader) <= defense.range && Math.abs(angle - defense.angle) <= defense.scope;
+};
