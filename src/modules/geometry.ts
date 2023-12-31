@@ -1,6 +1,6 @@
 import { AlignmentType, StateInterface, VectorStateInterface } from "./unit";
 
-export function collision(defense: VectorStateInterface, invader: StateInterface) {
+export function collision(defense: StateInterface, invader: StateInterface) {
     if (!defense?.x || !invader?.x) return false;
     if (defense.x + defense.width < invader.x + 1 || invader.x + invader.width < defense.x + 1 || defense.y + defense.height < invader.y + 1 || invader.y + invader.height < defense.y + 1)
         return false;
