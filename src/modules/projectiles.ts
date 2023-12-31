@@ -9,7 +9,7 @@ export class Projectile extends VectorUnit {
     constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
         super(x, y, width, height, angle);
     }
-    draw(context: CanvasRenderingContext2D, mouse: any): void {
+    draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
