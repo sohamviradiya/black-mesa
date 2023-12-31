@@ -1,4 +1,4 @@
-import { isInRange } from "./geometry";
+import { isInRadius } from "./geometry";
 import { StateInterface, Unit } from "./unit";
 
 
@@ -79,16 +79,14 @@ export class Explosive extends Building {
     update(state: any): void {
         if (this.triggered) {
             state.invaders.forEach((invader: any) => {
-                if (isInRange(this, invader, this.radius)) {
+                if (isInRadius(this, invader)) {
                     invader.takeDamage(this.damage);
                 }
             });
-            state.buildings = state.buildings.filter((building: Building) => building.id !== this.id);
         }
 
-
         state.invaders.forEach((invader: any) => {
-            if (isInRange(this, invader, this.radius)) {
+            if (isInRadius(this, invader)) {
                 this.triggered = true;
             }
         });
