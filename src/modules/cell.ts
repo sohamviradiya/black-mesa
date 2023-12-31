@@ -1,4 +1,4 @@
-import { collision } from "./collision";
+import { collision } from "./geometry";
 import { StateInterface, Unit } from "./unit";
 
 export enum CellTypes {
