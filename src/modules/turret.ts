@@ -6,7 +6,7 @@ import { AlignmentType } from "./unit";
 export class Turret extends Building {
     public target: any | null = null;
     constructor(x: number, y: number, cellSize: number, public cost: number, public rate: number, public range: number) {
-        super(x, y, cellSize, "TURRET", cost, "SCALAR");
+        super(x, y, cellSize, "TURRET", cost);
     };
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
         context.fillStyle = 'black';

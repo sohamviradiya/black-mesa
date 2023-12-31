@@ -13,13 +13,16 @@ export interface StateInterface {
     y: number;
     width: number;
     height: number;
+};
+
+export interface StateInterfaceWithAlignment extends StateInterface {
     alignment: AlignmentType;
 };
 
 export class Unit implements StateInterface {
     public width: number;
     public height: number;
-    constructor(public x: number, public y: number, cellSize: number, public alignment: AlignmentType) {
+    constructor(public x: number, public y: number, cellSize: number) {
         this.width = cellSize;
         this.height = cellSize;
     }

@@ -1,4 +1,4 @@
-import { StateInterface } from "./unit";
+import { StateInterface, StateInterfaceWithAlignment } from "./unit";
 
 export function collision(defense: StateInterface, invader: StateInterface) {
     if (!defense?.x || !invader?.x) return false;
@@ -18,7 +18,7 @@ export function angle(defense: StateInterface, invader: StateInterface) {
     return Math.atan2(invader.y - defense.y, invader.x - defense.x);
 };
 
-export function angleToAlignment(defense: StateInterface, invader: StateInterface) {
+export function angleToAlignment(defense: StateInterfaceWithAlignment, invader: StateInterface) {
     if (!defense?.x || !invader?.x) return 0;
     let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
     switch (defense.alignment) {
