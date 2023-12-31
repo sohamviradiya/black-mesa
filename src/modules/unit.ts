@@ -40,9 +40,9 @@ export class Unit implements StateInterface {
     }
 };
 
-export class VectorUnit extends Unit implements VectorStateInterface {
-    constructor(x: number, y: number, cellSize: number, public angle: number) {
-        super(x, y, cellSize);
+export class VectorUnit implements VectorStateInterface {
+    constructor(public x: number, public y: number, public width: number, public height: number, public angle: number) {
+        
     }
     draw(context: CanvasRenderingContext2D, mouse: StateInterface) { };
     update() { };
