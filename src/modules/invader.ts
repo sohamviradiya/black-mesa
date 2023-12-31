@@ -1,8 +1,10 @@
+
 import { PositionInterface, VectorUnit } from "./unit";
 
 
 export class Invader extends VectorUnit {
-    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number) {
+    dead: boolean = false;
+    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number) {
         super(x, y, width, height, 0);
     };
     draw(context: CanvasRenderingContext2D): void {
@@ -10,6 +12,10 @@ export class Invader extends VectorUnit {
         context.fillRect(this.x, this.y, this.width, this.height);
     }
     update(): void {
+        if (this.dead) return;
+
+        // TODO: Check for collisions with the buildings
+
         if (this.path.length > 0) {
             const target = this.path[0];
             const dx = target.x - this.x;
@@ -24,6 +30,13 @@ export class Invader extends VectorUnit {
                 this.x += dx / distance * this.speed;
                 this.y += dy / distance * this.speed;
             }
+        }
+    };
+    takeDamage(damage: number): void {
+        if (this.dead) return;
+        this.health -= damage;
+        if (this.health <= 0) {
+            this.dead = true;
         }
     };
 };
