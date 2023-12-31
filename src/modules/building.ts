@@ -1,4 +1,3 @@
-import { isInRadius } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarInterface, Unit } from "./unit";
 
@@ -43,7 +42,7 @@ abstract class Installation extends Building {
         if (this.health <= 0)
             this.active = false;
     };
-    
+
     update(state: BoardState): void {
         if (!this.active) {
             this.removeSelf(state);
@@ -66,6 +65,9 @@ export class Base extends Installation {
         context.fillStyle = 'blue';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
+    addSelf(state: BoardState): void {
+        state.collections.base = this;
+    }
 
     update(state: BoardState): void {
         super.update(state);
@@ -86,31 +88,5 @@ export class Generator extends Installation {
     }
 };
 
-
-export class Explosive extends Building {
-    public triggered: boolean = false;
-    constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
-        super(x, y, cellSize, "EXPLOSIVE", cost);
-    };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'red';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    }
-    update(state: BoardState): void {
-        if (this.triggered) {
-            state.collections.invaders.forEach((invader: any) => {
-                if (isInRadius(this, invader)) {
-                    invader.takeDamage(this.damage);
-                }
-            });
-        }
-
-        state.collections.invaders.forEach((invader: any) => {
-            if (isInRadius(this, invader)) {
-                this.triggered = true;
-            }
-        });
-    }
-};
 
 

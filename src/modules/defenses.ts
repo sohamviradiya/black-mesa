@@ -2,7 +2,7 @@ import { ScalarInterface } from "./unit";
 import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
-import { getAngle, isInRange, isInScope } from "./geometry";
+import { getAngle, isInRadius, isInRange, isInScope } from "./geometry";
 import { Projectile } from "./projectiles";
 import { BoardState } from "./state";
 
@@ -75,3 +75,30 @@ export class VectorTurret extends Turret {
         return null;
     };
 }
+
+export class Explosive extends Building {
+    public triggered: boolean = false;
+    constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
+        super(x, y, cellSize, "EXPLOSIVE", cost);
+    };
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
+        context.fillStyle = 'red';
+        context.fillRect(this.x, this.y, this.width, this.height);
+    }
+    update(state: BoardState): void {
+        if (this.triggered) {
+            state.collections.invaders.forEach((invader: Invader) => {
+                if (isInRadius(this, invader)) {
+                    invader.takeDamage(this.damage);
+                }
+            });
+        }
+
+        state.collections.invaders.forEach((invader: Invader) => {
+            if (isInRadius(this, invader)) {
+                this.triggered = true;
+            }
+        });
+    }
+}
+;
