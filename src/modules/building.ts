@@ -1,3 +1,4 @@
+import { isInRange } from "./geometry";
 import { StateInterface, Unit } from "./unit";
 
 
@@ -10,7 +11,7 @@ export enum BuildingTypes {
 
 export type BuildingType = keyof typeof BuildingTypes;
 
-export class Building extends Unit {
+export abstract class Building extends Unit {
     public width: number;
     public height: number;
     constructor(public x: number, public y: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
@@ -20,9 +21,10 @@ export class Building extends Unit {
     }
 }
 
-class Installation extends Building {
+abstract class Installation extends Building {
     active: boolean = true;
-    constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number) {
+    timer: number = 0;
+    constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number, public period: number) {
         super(x, y, cellSize, type, cost);
     };
     takeDamage(damage: number): void {
@@ -32,12 +34,22 @@ class Installation extends Building {
         if (this.health <= 0)
             this.active = false;
     };
+    update(state: any): void {
+        if (!this.active)
+            return;
+        this.timer++;
+        if (this.timer >= this.period) {
+            state.energy += this.rate;
+            this.timer = 0;
+        };
+    }
 };
 
 export class Base extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number) {
-        super(x, y, cellSize, health, rate, "BASE", cost);
+    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
+        super(x, y, cellSize, health, rate, "BASE", cost, period);
     };
+
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
         context.fillStyle = 'blue';
         context.fillRect(this.x, this.y, this.width, this.height);
@@ -45,8 +57,8 @@ export class Base extends Installation {
 };
 
 export class Generator extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number) {
-        super(x, y, cellSize, health, rate, "GENERATOR", cost);
+    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
+        super(x, y, cellSize, health, rate, "GENERATOR", cost, period);
     };
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
         context.fillStyle = 'green';
@@ -56,12 +68,30 @@ export class Generator extends Installation {
 
 
 export class Explosive extends Building {
-    constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number) {
+    public triggered: boolean = false;
+    constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
         super(x, y, cellSize, "EXPLOSIVE", cost);
     };
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
+    }
+    update(state: any): void {
+        if (this.triggered) {
+            state.invaders.forEach((invader: any) => {
+                if (isInRange(this, invader, this.radius)) {
+                    invader.takeDamage(this.damage);
+                }
+            });
+            state.buildings = state.buildings.filter((building: Building) => building.id !== this.id);
+        }
+
+
+        state.invaders.forEach((invader: any) => {
+            if (isInRange(this, invader, this.radius)) {
+                this.triggered = true;
+            }
+        });
     }
 };
 
