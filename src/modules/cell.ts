@@ -14,13 +14,14 @@ export abstract class Cell extends Unit {
     public width: number;
     public height: number;
     public triggered: boolean = false;
+    collection: string = "cells";
     constructor(public x: number, public y: number, cellSize: number, public type: CellType, public timer: number) {
         super(x, y, cellSize);
         this.width = cellSize;
         this.height = cellSize;
     }
     abstract draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
-    
+
     update(state: any): void {
         if (collision(state.mouse, this)) {
             this.triggered = true;
