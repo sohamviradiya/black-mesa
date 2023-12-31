@@ -1,10 +1,11 @@
 
+import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 
 
 export class Invader extends VectorUnit {
     dead: boolean = false;
-    collection: string = "invaders";
+    collection: CollectionType = "invaders";
     constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number) {
         super(x, y, width, height, 0);
     };
@@ -12,7 +13,7 @@ export class Invader extends VectorUnit {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
-    update(state: any): void {
+    update(state: BoardState): void {
         if (this.dead) {
             this.removeSelf(state);
             return;
@@ -36,6 +37,7 @@ export class Invader extends VectorUnit {
             }
         }
     };
+
     takeDamage(damage: number): void {
         if (this.dead) return;
         this.health -= damage;
@@ -43,4 +45,12 @@ export class Invader extends VectorUnit {
             this.dead = true;
         }
     };
+
+    addSelf(state: BoardState): void {
+        state.collections.invaders.push(this);
+    }
+
+    removeSelf(state: BoardState): void {
+        state.collections.invaders = state.collections.invaders.filter((invader: Invader) => invader.id !== this.id);
+    }
 };

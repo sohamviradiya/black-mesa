@@ -1,4 +1,5 @@
 import { collision } from "./geometry";
+import { BoardState } from "./state";
 import { ScalarInterface, Unit } from "./unit";
 
 export enum CellTypes {
@@ -22,7 +23,7 @@ export abstract class Cell extends Unit {
     }
     abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
 
-    update(state: any): void {
+    update(state: BoardState): void {
         if (collision(state.mouse, this)) {
             this.triggered = true;
             this.timer = 100;

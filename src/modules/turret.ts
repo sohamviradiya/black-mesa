@@ -4,6 +4,7 @@ import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
 import { getAngle, isInRange, isInScope } from "./geometry";
 import { Projectile } from "./projectiles";
+import { BoardState } from "./state";
 
 interface ProjectileTemplate {
     width: number;
@@ -39,10 +40,10 @@ export class Turret extends Building {
         return this.timer % this.period === 0;
     };
 
-    update(state: any): void {
+    update(state: BoardState): void {
         this.timer++;
         if (this.isFireReady()) {
-            const target = this.findTarget(state.enemies);
+            const target = this.findTarget(state.collections.invaders);
             if (target) {
                 this.angle = getAngle(this, target);
                 const { width, height, speed, damage } = this.projectileTemplate;

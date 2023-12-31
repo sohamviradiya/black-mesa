@@ -1,3 +1,4 @@
+import { BoardState, CollectionType } from "./state";
 
 
 export interface PositionInterface {
@@ -22,21 +23,16 @@ export enum AlignmentTypes {
     "SCALAR",
 };
 
-export interface UnitInterface extends ScalarInterface {
-    id: number;
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
-    update(state: any): void;
-    getState(): ScalarInterface;
-};
+
 
 export type AlignmentType = keyof typeof AlignmentTypes;
 
-export abstract class Unit implements UnitInterface {
+export abstract class Unit {
     static nextId = 0;
     public width: number;
     public height: number;
     public id: number;
-    abstract collection: string;
+    abstract collection: CollectionType;
     constructor(public x: number, public y: number, cellSize: number) {
         this.id = Unit.nextId;
         Unit.nextId++;
@@ -44,17 +40,13 @@ export abstract class Unit implements UnitInterface {
         this.height = cellSize;
     }
     abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
-    abstract update(state: any): void;
+    abstract update(state: BoardState): void;
 
     getState(): ScalarInterface {
         return this;
     }
-    removeSelf(state: any): void {
-        state.collections[this.collection] = state.collections[this.collection].filter((unit: UnitInterface) => unit.id !== this.id);
-    }
-    addSelf(state: any): void {
-        state.collections[this.collection].push(this);
-    }
+    abstract addSelf(state: BoardState): void;
+    abstract removeSelf(state: BoardState): void;
 };
 
 export abstract class VectorUnit extends Unit implements VectorInterface {

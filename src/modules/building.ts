@@ -1,4 +1,5 @@
 import { isInRadius } from "./geometry";
+import { BoardState, CollectionType } from "./state";
 import { ScalarInterface, Unit } from "./unit";
 
 
@@ -14,11 +15,17 @@ export type BuildingType = keyof typeof BuildingTypes;
 export abstract class Building extends Unit {
     public width: number;
     public height: number;
-    collection: string = "buildings";
+    collection: CollectionType = "buildings";
     constructor(public x: number, public y: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
         super(x, y, cellSize);
         this.width = cellSize;
         this.height = cellSize;
+    }
+    addSelf(state: BoardState): void {
+        state.collections.buildings.push(this);
+    }
+    removeSelf(state: BoardState): void {
+        state.collections.buildings = state.collections.buildings.filter((building: Building) => building.id !== this.id);
     }
 }
 
@@ -35,7 +42,7 @@ abstract class Installation extends Building {
         if (this.health <= 0)
             this.active = false;
     };
-    update(state: any): void {
+    update(state: BoardState): void {
         if (!this.active) {
             this.removeSelf(state);
             return;
@@ -57,6 +64,14 @@ export class Base extends Installation {
         context.fillStyle = 'blue';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
+
+    update(state: BoardState): void {
+        super.update(state);
+        if (!this.active) {
+            state.gameOver = true;
+        }
+    }
+
 };
 
 export class Generator extends Installation {
@@ -79,16 +94,16 @@ export class Explosive extends Building {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
-    update(state: any): void {
+    update(state: BoardState): void {
         if (this.triggered) {
-            state.invaders.forEach((invader: any) => {
+            state.collections.invaders.forEach((invader: any) => {
                 if (isInRadius(this, invader)) {
                     invader.takeDamage(this.damage);
                 }
             });
         }
 
-        state.invaders.forEach((invader: any) => {
+        state.collections.invaders.forEach((invader: any) => {
             if (isInRadius(this, invader)) {
                 this.triggered = true;
             }

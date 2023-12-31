@@ -1,10 +1,11 @@
 import { collision } from "./geometry";
 import { Invader } from "./invader";
+import { BoardState, CollectionType } from "./state";
 import { VectorUnit } from "./unit";
 
 export class Projectile extends VectorUnit {
     public active: boolean = true;
-    collection: string = "projectiles";
+    collection: CollectionType = "projectiles";
     constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
         super(x, y, width, height, angle);
     }
@@ -12,7 +13,7 @@ export class Projectile extends VectorUnit {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
-    update(state: any): void {
+    update(state: BoardState): void {
         if (!this.active) {
             this.removeSelf(state);
             return;
@@ -42,4 +43,11 @@ export class Projectile extends VectorUnit {
         this.y += dy / distance * this.speed;
         this.angle = Math.atan2(dy + 0.001, dx + 0.001);
     };
+
+    addSelf(state: BoardState): void {
+        state.collections.projectiles.push(this);
+    }
+    removeSelf(state: BoardState): void {
+        state.collections.projectiles = state.collections.projectiles.filter((projectile: Projectile) => projectile.id !== this.id);
+    }
 }
