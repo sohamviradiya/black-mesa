@@ -1,0 +1,26 @@
+{
+    "Alpha" : {
+        "health" : 100,
+        "damage" : 10,
+        "speed" : 20,
+        "bounty" : 25
+    },
+    "Beta" : {
+        "health" : 200,
+        "damage" : 20,
+        "speed" : 10,
+        "bounty" : 50
+    },
+    "Gamma" : {
+        "health" : 300,
+        "damage" : 30,
+        "speed" : 10,
+        "bounty" : 75
+    },
+    "Delta" : {
+        "health" : 400,
+        "damage" : 40,
+        "speed" : 5,
+        "bounty" : 100
+    }
+}

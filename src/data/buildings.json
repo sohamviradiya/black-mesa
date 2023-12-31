@@ -14,8 +14,7 @@
     "TURRET": {
         "cost": 200,
         "name": "Turret",
-        "description": "Shoots at enemy units.",
-        "health": 100
+        "description": "Shoots at enemy units."
     },
     "EXPLOSIVE": {
         "cost": 100,
