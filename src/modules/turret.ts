@@ -3,6 +3,7 @@ import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
 import { getAngle, isInRange, isInScope } from "./geometry";
+import { Projectile } from "./projectiles";
 
 
 export class Turret extends Building {
@@ -36,7 +37,7 @@ export class Turret extends Building {
             const target = this.findTarget(state.enemies);
             if (target) {
                 this.angle = getAngle(this, target);
-                state.projectiles.push({});
+                state.projectiles.push(new Projectile(this.x, this.y, 20, 10, this.angle, 100, target, 100)); // TODO: abstract the projectile
             }
         }
     }
