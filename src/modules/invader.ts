@@ -12,7 +12,8 @@ export class Invader extends VectorUnit {
     draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
-    }
+    };
+    
     update(state: BoardState): void {
         if (this.dead) {
             this.removeSelf(state);
