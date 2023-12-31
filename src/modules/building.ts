@@ -21,8 +21,16 @@ export class Building extends Unit {
 }
 
 class Installation extends Building {
+    active: boolean = true;
     constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number) {
         super(x, y, cellSize, type, cost);
+    };
+    takeDamage(damage: number): void {
+        if (!this.active)
+            return;
+        this.health -= damage;
+        if (this.health <= 0)
+            this.active = false;
     };
 };
 
@@ -56,3 +64,5 @@ export class Explosive extends Building {
         context.fillRect(this.x, this.y, this.width, this.height);
     }
 };
+
+
