@@ -23,8 +23,6 @@ export enum AlignmentTypes {
     "SCALAR",
 };
 
-
-
 export type AlignmentType = keyof typeof AlignmentTypes;
 
 export abstract class Unit {

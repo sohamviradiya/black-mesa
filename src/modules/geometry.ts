@@ -1,5 +1,5 @@
-import { Explosive } from "./building";
-import { Turret, VectorTurret } from "./turret";
+import { Explosive } from "./defenses";
+import { Turret, VectorTurret } from "./defenses";
 import { AlignmentType, ScalarInterface, VectorInterface } from "./unit";
 
 export function collision(defense: ScalarInterface, invader: ScalarInterface) {
