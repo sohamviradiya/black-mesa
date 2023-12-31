@@ -18,14 +18,14 @@ export class Bullet extends VectorUnit {
             return;
         }
 
+        // TODO: Check for collisions with the target
+
         const dx = this.target.x - this.x;
         const dy = this.target.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.speed) {
             this.x = this.target.x;
             this.y = this.target.y;
-            this.target.takeDamage(this.damage);
-            this.active = false;
             return;
         }
 
