@@ -1,7 +1,7 @@
 import { Invader } from "./invader";
 import { VectorUnit } from "./unit";
 
-export class Bullet extends VectorUnit {
+export class Projectile extends VectorUnit {
     public active: boolean = true;
     constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
         super(x, y, width, height, angle);
