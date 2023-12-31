@@ -36,6 +36,7 @@ export abstract class Unit implements UnitInterface {
     public width: number;
     public height: number;
     public id: number;
+    abstract collection: string;
     constructor(public x: number, public y: number, cellSize: number) {
         this.id = Unit.nextId;
         Unit.nextId++;
@@ -47,6 +48,9 @@ export abstract class Unit implements UnitInterface {
 
     getState(): StateInterface {
         return this;
+    }
+    removeSelf(state: any): void {
+        state[this.collection] = state[this.collection].filter((unit: UnitInterface) => unit.id !== this.id);
     }
 };
 

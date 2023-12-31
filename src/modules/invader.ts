@@ -4,6 +4,7 @@ import { PositionInterface, VectorUnit } from "./unit";
 
 export class Invader extends VectorUnit {
     dead: boolean = false;
+    collection: string = "invaders";
     constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number) {
         super(x, y, width, height, 0);
     };
@@ -11,8 +12,11 @@ export class Invader extends VectorUnit {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
-    update(): void {
-        if (this.dead) return;
+    update(state: any): void {
+        if (this.dead) {
+            this.removeSelf(state);
+            return;
+        }
 
         // TODO: Check for collisions with the buildings
 

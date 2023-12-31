@@ -14,6 +14,7 @@ export type BuildingType = keyof typeof BuildingTypes;
 export abstract class Building extends Unit {
     public width: number;
     public height: number;
+    collection: string = "buildings";
     constructor(public x: number, public y: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
         super(x, y, cellSize);
         this.width = cellSize;
@@ -35,8 +36,10 @@ abstract class Installation extends Building {
             this.active = false;
     };
     update(state: any): void {
-        if (!this.active)
+        if (!this.active) {
+            this.removeSelf(state);
             return;
+        }
         this.timer++;
         if (this.timer >= this.period) {
             state.energy += this.rate;

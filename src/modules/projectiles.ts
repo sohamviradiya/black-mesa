@@ -3,6 +3,7 @@ import { VectorUnit } from "./unit";
 
 export class Projectile extends VectorUnit {
     public active: boolean = true;
+    collection: string = "projectiles";
     constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
         super(x, y, width, height, angle);
     }
@@ -10,8 +11,11 @@ export class Projectile extends VectorUnit {
         context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
-    update(): void {
-        if (!this.active) return;
+    update(state: any): void {
+        if (!this.active) {
+            this.removeSelf(state);
+            return;
+        }
 
         if (this.target.dead) {
             this.active = false;
