@@ -10,34 +10,35 @@ export enum CellTypes {
 
 export type CellType = keyof typeof CellTypes;
 
-export class Cell extends Unit {
+export abstract class Cell extends Unit {
     public width: number;
     public height: number;
-    constructor(public x: number, public y: number, cellSize: number, public type: CellType) {
+    public triggered: boolean = false;
+    constructor(public x: number, public y: number, cellSize: number, public type: CellType, public timer: number) {
         super(x, y, cellSize);
         this.width = cellSize;
         this.height = cellSize;
     }
-    draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
-        if (collision(mouse, this)) {
-            context.strokeStyle = 'blue';
-            context.lineWidth = 3;
-            context.strokeRect(this.x, this.y, this.width, this.height);
+    abstract draw(context: CanvasRenderingContext2D, mouse: StateInterface): void;
+    
+    update(state: any): void {
+        if (collision(state.mouse, this)) {
+            this.triggered = true;
+            this.timer = 100;
         }
         else {
-            context.strokeStyle = 'black';
-            context.lineWidth = 1;
-            context.strokeRect(this.x, this.y, this.width, this.height);
+            this.timer--;
+            if (this.timer <= 0) {
+                this.timer = 0;
+                this.triggered = false;
+            }
         }
-    };
-    update(state: any): void {
-        return;
     }
 }
 
 export class WallCell extends Cell {
-    constructor(x: number, y: number, cellSize: number) {
-        super(x, y, cellSize, "WALL");
+    constructor(x: number, y: number, cellSize: number, public timer: number) {
+        super(x, y, cellSize, "WALL", timer);
     }
     draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
         context.fillStyle = 'grey';
@@ -46,28 +47,28 @@ export class WallCell extends Cell {
 }
 
 export class PathCell extends Cell {
-    constructor(x: number, y: number, cellSize: number) {
-        super(x, y, cellSize, "PATH");
+    constructor(x: number, y: number, cellSize: number, public timer: number) {
+        super(x, y, cellSize, "PATH", timer);
     }
     draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
-        context.fillStyle = 'white';
+        context.fillStyle = 'whitesmoke';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
 }
 
 export class EmptyCell extends Cell {
-    constructor(x: number, y: number, cellSize: number) {
-        super(x, y, cellSize, "EMPTY");
+    constructor(x: number, y: number, cellSize: number, public timer: number) {
+        super(x, y, cellSize, "EMPTY", timer);
     }
     draw(context: CanvasRenderingContext2D, mouse: StateInterface) {
-        context.fillStyle = 'white';
+        context.fillStyle = 'black';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
 }
 
 export class SlotCell extends Cell {
-    constructor(x: number, y: number, cellSize: number, public isOccupied: boolean = false, public isLocked: boolean = false, public unlockCost: number = 0) {
-        super(x, y, cellSize, "SLOT");
+    constructor(x: number, y: number, cellSize: number, public isOccupied: boolean = false, public isLocked: boolean = false, public unlockCost: number = 0, public timer: number) {
+        super(x, y, cellSize, "SLOT", timer);
     }
 
     unlock() {
