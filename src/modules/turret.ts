@@ -5,6 +5,7 @@ import { AlignmentType } from "./unit";
 
 export class Turret extends Building {
     public target: any | null = null;
+    public angle = 0;
     constructor(x: number, y: number, cellSize: number, public cost: number, public rate: number, public range: number) {
         super(x, y, cellSize, "TURRET", cost);
     };
@@ -28,7 +29,5 @@ export class VectorTurret extends Turret {
         context.fillRect(this.x, this.y, this.width, this.height);
     };
     findTarget(enemies: any[]): void {
-
-
     };
 }
