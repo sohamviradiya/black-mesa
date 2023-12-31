@@ -35,6 +35,7 @@ abstract class Installation extends Building {
     constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number, public period: number) {
         super(x, y, cellSize, type, cost);
     };
+
     takeDamage(damage: number): void {
         if (!this.active)
             return;
@@ -42,6 +43,7 @@ abstract class Installation extends Building {
         if (this.health <= 0)
             this.active = false;
     };
+    
     update(state: BoardState): void {
         if (!this.active) {
             this.removeSelf(state);
