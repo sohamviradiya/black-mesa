@@ -52,6 +52,9 @@ export abstract class Unit implements UnitInterface {
     removeSelf(state: any): void {
         state[this.collection] = state[this.collection].filter((unit: UnitInterface) => unit.id !== this.id);
     }
+    addSelf(state: any): void {
+        state[this.collection].push(this);
+    }
 };
 
 export abstract class VectorUnit extends Unit implements VectorStateInterface {

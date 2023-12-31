@@ -5,11 +5,19 @@ import { Invader } from "./invader";
 import { getAngle, isInRange, isInScope } from "./geometry";
 import { Projectile } from "./projectiles";
 
+interface ProjectileTemplate {
+    width: number;
+    height: number;
+    speed: number;
+    damage: number;
+};
+
 
 export class Turret extends Building {
     public angle = 0;
     public timer = 0;
-    constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number) {
+
+    constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
         super(x, y, cellSize, "TURRET", cost);
     };
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
@@ -37,7 +45,9 @@ export class Turret extends Building {
             const target = this.findTarget(state.enemies);
             if (target) {
                 this.angle = getAngle(this, target);
-                state.projectiles.push(new Projectile(this.x, this.y, 20, 10, this.angle, 100, target, 100)); // TODO: abstract the projectile
+                const { width, height, speed, damage } = this.projectileTemplate;
+                const projectile = new Projectile(this.x, this.y, width, height, this.angle, speed, target, damage);
+                projectile.addSelf(state);
             }
         }
     }
@@ -45,8 +55,8 @@ export class Turret extends Building {
 
 export class VectorTurret extends Turret {
     public alignment: AlignmentType;
-    constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, public scope: number) {
-        super(x, y, cellSize, cost, period, range);
+    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, public scope: number, projectileTemplate: ProjectileTemplate) {
+        super(x, y, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
     draw(context: CanvasRenderingContext2D, mouse: StateInterface): void {
