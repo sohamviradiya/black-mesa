@@ -2,12 +2,12 @@ import { Box } from "@mui/material";
 import { Cell, CellType } from "../../modules/cell";
 
 export default function CellComponent({ cell }: { cell: Cell }) {
-    return <Box sx={{ minWidth: "40px", minHeight: "40px", backgroundColor: getCellColor(cell.type), border: "1px solid black" }} onClick={(e) => {
+    return <Box sx={{ width: cell.width, height: cell.height, backgroundColor: getCellColor(cell.type), border: "1px solid black", position: "absolute", top: cell.y, left: cell.x }} onClick={(e) => {
         e.currentTarget.style.backgroundColor = getCellColor("WALL");
         setTimeout(() => {
             e.currentTarget.style.backgroundColor = getCellColor(cell.type);
         }, 1000);
-    }  } />
+    }} />
 };
 
 
