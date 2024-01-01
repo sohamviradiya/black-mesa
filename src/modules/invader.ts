@@ -7,7 +7,7 @@ import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 
 
-interface InvaderTemplate {
+export interface InvaderTemplate {
     speed: number;
     maxHealth: number;
     bounty: number;
@@ -36,9 +36,7 @@ export class Invader extends VectorUnit {
         this.timer++;
 
         if (this.dead) {
-            state.energy += this.template.bounty;
-            this.removeSelf(state);
-            return;
+            return this.die(state);
         }
         if (this.isFireReady())
             this.hit(state.collections.buildings);
@@ -65,6 +63,13 @@ export class Invader extends VectorUnit {
         else
             state.gameOver = true;
     };
+
+    private die(state: BoardState) {
+        state.energy += this.template.bounty;
+        state.score += this.template.bounty;
+        this.removeSelf(state);
+        return;
+    }
 
     private hit(buildings: Building[]) {
         for (let i = 0; i < buildings.length; i++) {
