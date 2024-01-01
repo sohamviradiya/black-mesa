@@ -1,58 +1,59 @@
-import { Box, Container, Slider, Typography } from "@mui/material"
+import { Box,  FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import { useMemo, useState } from "react";
-import { generateMatrix } from "../modules/grid";
+import { generateGrid } from "../modules/grid";
 import { CellType } from "../modules/cell";
-import { ScalarTurret } from "../modules/buildings/defenses";
-import TurretComponent from "../components/turret";
-import { Invader } from "../modules/invader";
-import InvaderComponent from "../components/invader";
 import CellComponent from "../components/units/cell";
 import { Cell } from "../modules/cell";
-import { cellSize } from "../utilities/constants";
+import { Difficulty, difficultyMapper } from "../modules/game-setter";
 
 
 export default function Test() {
-    const [rows, setRows] = useState<number>(4);
-    const [cols, setCols] = useState<number>(4);
-    const [turnFactor, setTurnFactor] = useState<number>(0);
+    const [difficulty, setDifficulty] = useState<Difficulty>("ROOKIE");
 
-    const { matrix } = useMemo(() => {
+    const { matrix, cellSize } = useMemo(() => {
+        const { rows, columns, turnFactor } = difficultyMapper(difficulty);
+
         return {
-            matrix: generateMatrix(rows, cols, turnFactor),
+            cellSize: 1200/columns,
+            matrix: generateGrid(rows, columns, turnFactor).matrix,
         };
-    }, [rows, cols, turnFactor]);
+    }, [difficulty]);
 
 
     return (
-        <Container sx={{ backgroundColor: "whitesmoke", textAlign: "center", padding: "3rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box sx={{ backgroundColor: "whitesmoke", textAlign: "center", padding: "3rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Box sx={{ width: "100%", textOverflow: "clip", wordBreak: "break-all" }}>
                 <Typography variant="h1">Test</Typography>
                 <Typography variant="h3">Dimensions</Typography>
             </Box>
             <Box sx={{ width: "100%" }}>
-                <Typography variant="h3">Rows</Typography>
-                <Slider min={4} max={25} step={1} value={rows} onChange={(e, v) => setRows(v as number)} />
-                <Slider min={4} max={25} step={1} value={cols} onChange={(e, v) => setCols(v as number)} />
-                <Slider min={0} max={1} step={0.01} value={turnFactor} onChange={(e, v) => setTurnFactor(v as number)} />
+
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-helper-label">Difficulty</InputLabel>
+                    <Select
+                        value={difficulty}
+                        label="Difficulty"
+                        onChange={(e) => setDifficulty(e.target.value as Difficulty)}
+                    >
+                        <MenuItem value={"ROOKIE"} selected>Rookie</MenuItem>
+                        <MenuItem value={"CASUAL"}>Casual</MenuItem>
+                        <MenuItem value={"MASTER"}>Master</MenuItem>
+                        <MenuItem value={"VETERAN"}>Veteran</MenuItem>
+                        <MenuItem value={"INSANE"}>Insane</MenuItem>
+                    </Select>
+                </FormControl>
             </Box>
-            <Box sx={{ position: "relative" }}>
+            <Box sx={{ position: "relative", width: matrix[0].length * cellSize + 20, height: matrix.length * cellSize + 20 }}>
                 {matrix.map((row, i) => (
                     <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
                         {row.map((type, j) => (
-                            <CellComponent key={j} cell={new Cell(translateCellIndexToPosition(i, j, 40).x, translateCellIndexToPosition(i, j, 40).y, cellSize, type as CellType)} />
+                            <CellComponent key={j} cell={new Cell(i, j, cellSize, type as CellType)} />
                         ))}
                     </Box>
                 ))}
                 {/* {turret && <TurretComponent turret={turret} />}
                 {invader && <InvaderComponent invader={invader} />} */}
             </Box>
-        </Container>
+        </Box>
     )
 };
-
-function translateCellIndexToPosition(row: number, col: number, size: number) {
-    return {
-        x: col * size,
-        y: row * size
-    }
-}
