@@ -37,7 +37,6 @@ export abstract class Unit {
         this.width = cellSize;
         this.height = cellSize;
     }
-    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
     abstract update(state: BoardState): void;
 
     getState(): ScalarInterface {

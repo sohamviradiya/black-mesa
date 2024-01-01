@@ -1,4 +1,4 @@
-import { ScalarInterface } from "./unit";
+
 import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
@@ -21,7 +21,6 @@ export abstract class Turret extends Building {
     constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
         super(x, y, cellSize, "TURRET", cost);
     };
-    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
     abstract findTarget(enemies: Invader[]): Invader | null;
 
     isFireReady(): boolean {
@@ -44,14 +43,11 @@ export abstract class Turret extends Building {
 
 export class ScalarTurret extends Turret {
     public alignment: AlignmentType;
-    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, public scope: number, projectileTemplate: ProjectileTemplate) {
+    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, projectileTemplate: ProjectileTemplate) {
         super(x, y, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'black';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
+
     findTarget(enemies: Invader[]) {
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].dead)
@@ -70,10 +66,7 @@ export class VectorTurret extends Turret {
         super(x, y, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'black';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
+   
     findTarget(enemies: Invader[]) {
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].dead)
@@ -91,10 +84,7 @@ export class Explosive extends Building {
     constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
         super(x, y, cellSize, "EXPLOSIVE", cost);
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'red';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    }
+    
     update(state: BoardState): void {
         if (this.triggered) {
             state.collections.invaders.forEach((invader: Invader) => {

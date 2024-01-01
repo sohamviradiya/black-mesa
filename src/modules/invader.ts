@@ -13,10 +13,7 @@ export class Invader extends VectorUnit {
     constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number, public period: number) {
         super(x, y, width, height, 0);
     };
-    draw(context: CanvasRenderingContext2D): void {
-        context.fillStyle = 'red';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
+    
 
     isFireReady(): boolean {
         return this.timer % this.period === 0;
@@ -37,10 +34,10 @@ export class Invader extends VectorUnit {
             const target = this.path[0];
             const dx = target.x - this.x;
             const dy = target.y - this.y;
-            
+
             const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            this.angle = Math.atan2(dy , dx);
+
+            this.angle = Math.atan2(dy, dx);
 
             if (distance < this.speed) {
                 this.path.shift();

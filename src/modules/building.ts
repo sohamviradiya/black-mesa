@@ -1,5 +1,5 @@
 import { BoardState, CollectionType } from "./state";
-import { ScalarInterface, Unit } from "./unit";
+import { Unit } from "./unit";
 
 
 export enum BuildingTypes {
@@ -62,10 +62,6 @@ export class Base extends Installation {
         super(x, y, cellSize, health, rate, "BASE", 0, period);
     };
 
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'blue';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    }
     addSelf(state: BoardState): void {
         state.collections.base = this;
     }
@@ -82,20 +78,12 @@ export class Generator extends Installation {
     constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
         super(x, y, cellSize, health, rate, "GENERATOR", cost, period);
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'green';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    }
 };
 
 export class Barricade extends Installation {
     constructor(x: number, y: number, cellSize: number, cost: number, health: number) {
         super(x, y, cellSize, health, 0, "BARRICADE", cost, 1);
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'brown';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    }
     update(state: BoardState): void {
         
     }

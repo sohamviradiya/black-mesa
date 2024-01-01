@@ -1,6 +1,6 @@
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
-import { ScalarInterface, Unit } from "./unit";
+import {  Unit } from "./unit";
 
 export enum CellTypes {
     "PATH",
@@ -21,7 +21,6 @@ export abstract class Cell extends Unit {
         this.width = cellSize;
         this.height = cellSize;
     }
-    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
 
     update(state: BoardState): void {
         if (collision(state.mouse, this)) {
@@ -48,30 +47,18 @@ export class WallCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "WALL", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
-        context.fillStyle = 'grey';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
 }
 
 export class PathCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "PATH", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
-        context.fillStyle = 'whitesmoke';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
 }
 
 export class EmptyCell extends Cell {
     constructor(x: number, y: number, cellSize: number, public timer: number) {
         super(x, y, cellSize, "EMPTY", timer);
     }
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
-        context.fillStyle = 'black';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
 }
 
 export class SlotCell extends Cell {
@@ -87,17 +74,4 @@ export class SlotCell extends Cell {
         this.isOccupied = true;
         return this.getState();
     }
-
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface) {
-        if (collision(mouse, this))
-            context.strokeStyle = 'lightgreen';
-        else if (this.isOccupied)
-            context.fillStyle = 'red';
-        else if (this.isLocked)
-            context.fillStyle = 'yellow';
-        else
-            context.fillStyle = 'green';
-
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
 }
