@@ -16,6 +16,7 @@ export class Invader extends VectorUnit {
     
     update(state: BoardState): void {
         if (this.dead) {
+            state.energy += this.bounty;
             this.removeSelf(state);
             return;
         }
