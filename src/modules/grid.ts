@@ -11,7 +11,10 @@ export function generateMatrix(rows: number, cols: number, turnFactor: number): 
         currentPoint.y = nextPoint.y;
     }
     matrix[currentPoint.y][currentPoint.x] = "PATH";
-
+    if(isValidPoint(currentPoint.x - 1, currentPoint.y -1, rows, cols))
+        matrix[currentPoint.y - 1][currentPoint.x - 1] = "SLOT";
+    if (isValidPoint(currentPoint.x - 1, currentPoint.y + 1, rows, cols))
+        matrix[currentPoint.y + 1][currentPoint.x - 1] = "SLOT";
 
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
