@@ -1,4 +1,4 @@
-import { Explosive } from "./defenses";
+import { Explosive } from "./explosive";
 import { Turret, VectorTurret } from "./defenses";
 import { AlignmentType, ScalarInterface, VectorInterface } from "./unit";
 
@@ -38,14 +38,14 @@ export function angleToAlignment(defense: VectorInterface, invader: ScalarInterf
 }
 
 export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
-    return distance(bomb, invader) <= bomb.radius;
+    return distance(bomb, invader) <= bomb.template.radius;
 };
 
 export function isInRange(defense: Turret, invader: ScalarInterface) {
-    return distance(defense, invader) <= defense.range;
+    return distance(defense, invader) <= defense.template.range;
 };
 
 export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
     let angle = angleToAlignment(defense, invader, defense.alignment);
-    return distance(defense, invader) <= defense.range && Math.abs(angle - defense.angle) <= defense.scope;
+    return distance(defense, invader) <= defense.template.range && Math.abs(angle - defense.angle) <= defense.template.scope;
 };
