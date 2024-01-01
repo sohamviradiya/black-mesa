@@ -42,7 +42,7 @@ export default function Test() {
                 {matrix.map((row, i) => (
                     <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
                         {row.map((type, j) => (
-                            <CellComponent key={j} cell={new Cell(cellSize * i, cellSize * j, cellSize, type as CellType)} />
+                            <CellComponent key={j} cell={new Cell(translateCellIndexToPosition(i, j, 40).x, translateCellIndexToPosition(i, j, 40).y, cellSize, type as CellType)} />
                         ))}
                     </Box>
                 ))}
@@ -52,3 +52,10 @@ export default function Test() {
         </Container>
     )
 };
+
+function translateCellIndexToPosition(row: number, col: number, size: number) {
+    return {
+        x: col * size,
+        y: row * size
+    }
+}
