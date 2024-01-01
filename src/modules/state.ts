@@ -15,6 +15,7 @@ export type InvaderSpawn = {
 export class BoardState {
     static nextFrame: number = 0;
     public frame: number = BoardState.nextFrame++;
+    static lastInvaderSpawn: number = 0;
     constructor(public collections: { projectiles: Projectile[], invaders: Invader[], base: Base, buildings: Building[], cells: Cell[] }, public energy: number, public score: number, public gameOver: boolean, public gameWon: boolean, public mouse: ScalarInterface, public invaderSpawns: InvaderSpawn[],public path: PositionInterface[]) {
         // TODO: set up invader spawning
     };
@@ -39,9 +40,10 @@ export class BoardState {
 
     launchInvader() {
         const { timeout, template } = this.invaderSpawns[0];
-        if (timeout === this.frame) {
+        if (timeout === this.frame - BoardState.lastInvaderSpawn) {
             this.collections.invaders.push(new Invader(this.path, template));
             this.invaderSpawns.shift();
+            BoardState.lastInvaderSpawn = this.frame;
         }
     }
 
