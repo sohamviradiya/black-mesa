@@ -1,4 +1,6 @@
 
+import { Installation } from "./building";
+import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 
@@ -20,8 +22,15 @@ export class Invader extends VectorUnit {
             this.removeSelf(state);
             return;
         }
+        for(let i = 0; i < state.collections.buildings.length; i++) {
+            const building = state.collections.buildings[i];
+            if(!(building instanceof Installation)) continue;
+            if (collision(building, this)) {
+                building.takeDamage(this.damage);
+                this.dead = true;
+            }
+        }
 
-        // TODO: Check for collisions with the buildings
 
         if (this.path.length > 0) {
             const target = this.path[0];

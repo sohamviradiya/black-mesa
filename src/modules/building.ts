@@ -29,7 +29,7 @@ export abstract class Building extends Unit {
     }
 }
 
-abstract class Installation extends Building {
+export abstract class Installation extends Building {
     active: boolean = true;
     timer: number = 0;
     constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number, public period: number) {
