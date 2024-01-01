@@ -1,0 +1,7 @@
+{
+    "initial-energy" : 500,
+    "mouse" : {
+        "width" : 20,
+        "height" : 20
+    }
+}
