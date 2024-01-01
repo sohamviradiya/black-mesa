@@ -6,10 +6,16 @@
         "health": 1000
     },
     "GENERATOR": {
-        "cost": 100,
+        "cost": 150,
         "name": "Generator",
         "description": "Generates fixed energy per turn.",
         "health": 100
+    },
+    "BARRICADE": {
+        "cost": 50,
+        "name": "Barricade",
+        "description": "Blocks enemy movement.",
+        "health": 300
     },
     "TURRET": {
         "cost": 200,
@@ -20,7 +26,6 @@
         "cost": 100,
         "name": "Explosive",
         "description": "Explodes when destroyed.",
-        "health": 100,
         "damage" : 100,
         "range" : 1
     }

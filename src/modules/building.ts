@@ -7,6 +7,7 @@ export enum BuildingTypes {
     "TURRET",
     "EXPLOSIVE",
     "GENERATOR",
+    "BARRICADE",
 };
 
 export type BuildingType = keyof typeof BuildingTypes;
@@ -57,8 +58,8 @@ abstract class Installation extends Building {
 };
 
 export class Base extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(x, y, cellSize, health, rate, "BASE", cost, period);
+    constructor(x: number, y: number, cellSize: number, health: number, rate: number, period: number) {
+        super(x, y, cellSize, health, rate, "BASE", 0, period);
     };
 
     draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
@@ -70,10 +71,9 @@ export class Base extends Installation {
     }
 
     update(state: BoardState): void {
-        super.update(state);
-        if (!this.active) {
+        if (!this.active)
             state.gameOver = true;
-        }
+        super.update(state);
     }
 
 };
@@ -85,6 +85,19 @@ export class Generator extends Installation {
     draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
         context.fillStyle = 'green';
         context.fillRect(this.x, this.y, this.width, this.height);
+    }
+};
+
+export class Barricade extends Installation {
+    constructor(x: number, y: number, cellSize: number, cost: number, health: number) {
+        super(x, y, cellSize, health, 0, "BARRICADE", cost, 1);
+    };
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
+        context.fillStyle = 'brown';
+        context.fillRect(this.x, this.y, this.width, this.height);
+    }
+    update(state: BoardState): void {
+        
     }
 };
 
