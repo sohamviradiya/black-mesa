@@ -98,7 +98,7 @@ function pickNextPoint(matrix: CellType[][], x: number, y: number, rows: number,
         return choices[0];
     else {
         const random = Math.random();
-        return choices[Math.floor(1 + Math.pow(random, 0.5) * (choices.length - 1))]; 
+        return choices[Math.floor(1 + Math.pow(random, 0.5) * (choices.length - 1))];
     }
 };
 

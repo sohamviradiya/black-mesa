@@ -1,3 +1,6 @@
+import BarricadeComponent from "../components/units/barricade";
+import BaseComponent from "../components/units/base";
+import GeneratorComponent from "../components/units/generator";
 import { BoardState, CollectionType } from "./state";
 import { Unit } from "./unit";
 
@@ -43,6 +46,11 @@ export abstract class Installation extends Building {
         if (this.health <= 0)
             this.active = false;
     };
+    isReady(): boolean {
+        if (this.timer % this.period === 0)
+            return true;
+        return false;
+    };
 
     update(state: BoardState): void {
         if (!this.active) {
@@ -50,10 +58,8 @@ export abstract class Installation extends Building {
             return;
         }
         this.timer++;
-        if (this.timer >= this.period) {
+        if (this.isReady())
             state.energy += this.rate;
-            this.timer = 0;
-        };
     }
 };
 
@@ -72,20 +78,31 @@ export class Base extends Installation {
         super.update(state);
     }
 
+    component(): JSX.Element {
+        return BaseComponent({ base: this });
+    };
+
 };
 
 export class Generator extends Installation {
     constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
         super(x, y, cellSize, health, rate, "GENERATOR", cost, period);
     };
+    component(): JSX.Element {
+        return GeneratorComponent({ generator: this });
+    }
 };
 
 export class Barricade extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number) {
-        super(x, y, cellSize, health, 0, "BARRICADE", cost, 1);
+    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
+        super(x, y, cellSize, health, rate, "BARRICADE", cost, period);
     };
     update(state: BoardState): void {
-        
+        if (this.isReady())
+            this.health += this.rate; // Regenerate
+    }
+    component(): JSX.Element {
+        return BarricadeComponent({ barricade: this });
     }
 };
 

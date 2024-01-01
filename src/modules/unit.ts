@@ -38,6 +38,7 @@ export abstract class Unit {
         this.height = cellSize;
     }
     abstract update(state: BoardState): void;
+    abstract component(): JSX.Element;
 
     getState(): ScalarInterface {
         return this;

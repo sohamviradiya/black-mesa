@@ -2,9 +2,12 @@
 import { Building } from "./building";
 import { AlignmentType } from "./unit";
 import { Invader } from "./invader";
-import { getAngle, isInRadius, isInRange, isInScope } from "./geometry";
+import { collision, getAngle, isInRadius, isInRange, isInScope } from "./geometry";
 import { Projectile } from "./projectiles";
 import { BoardState } from "./state";
+import ScalarTurretComponent from "../components/units/scalar-turret";
+import VectorTurretComponent from "../components/units/vector-turret";
+import ExplosiveComponent from "../components/units/explosive";
 
 interface ProjectileTemplate {
     width: number;
@@ -58,6 +61,9 @@ export class ScalarTurret extends Turret {
         }
         return null;
     };
+    component(): JSX.Element {
+        return ScalarTurretComponent({ turret: this });
+    }
 }
 
 export class VectorTurret extends Turret {
@@ -66,7 +72,7 @@ export class VectorTurret extends Turret {
         super(x, y, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
-   
+
     findTarget(enemies: Invader[]) {
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].dead)
@@ -77,6 +83,9 @@ export class VectorTurret extends Turret {
         }
         return null;
     };
+    component(): JSX.Element {
+        return VectorTurretComponent({ turret: this });
+    }
 }
 
 export class Explosive extends Building {
@@ -84,20 +93,29 @@ export class Explosive extends Building {
     constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
         super(x, y, cellSize, "EXPLOSIVE", cost);
     };
-    
+
     update(state: BoardState): void {
         if (this.triggered) {
-            state.collections.invaders.forEach((invader: Invader) => {
-                if (isInRadius(this, invader)) {
-                    invader.takeDamage(this.damage);
-                }
-            });
+            this.explode(state.collections.invaders);
             this.removeSelf(state);
         }
 
         state.collections.invaders.forEach((invader: Invader) => {
-            if (isInRadius(this, invader)) {
+            if (collision(this, invader)) {
                 this.triggered = true;
+                return;
+            }
+        });
+    }
+
+    component(): JSX.Element {
+        return ExplosiveComponent({ explosive: this });
+    }
+
+    private explode(invaders: Invader[]) {
+        invaders.forEach((invader: Invader) => {
+            if (isInRadius(this, invader)) {
+                invader.takeDamage(this.damage);
             }
         });
     }

@@ -1,4 +1,5 @@
 
+import InvaderComponent from "../components/invader";
 import { Building, Installation } from "./building";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
@@ -13,7 +14,7 @@ export class Invader extends VectorUnit {
     constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number, public period: number) {
         super(x, y, width, height, 0);
     };
-    
+
 
     isFireReady(): boolean {
         return this.timer % this.period === 0;
@@ -80,5 +81,9 @@ export class Invader extends VectorUnit {
 
     removeSelf(state: BoardState): void {
         state.collections.invaders = state.collections.invaders.filter((invader: Invader) => invader.id !== this.id);
+    }
+
+    component(): JSX.Element {
+        return InvaderComponent({ invader: this });
     }
 };

@@ -1,3 +1,4 @@
+import ProjectileComponent from "../components/units/projectile";
 import { collision } from "./geometry";
 import { Invader } from "./invader";
 import { BoardState, CollectionType } from "./state";
@@ -9,7 +10,7 @@ export class Projectile extends VectorUnit {
     constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
         super(x, y, width, height, angle);
     }
-    
+
     update(state: BoardState): void {
         if (!this.active) {
             this.removeSelf(state);
@@ -46,5 +47,9 @@ export class Projectile extends VectorUnit {
     }
     removeSelf(state: BoardState): void {
         state.collections.projectiles = state.collections.projectiles.filter((projectile: Projectile) => projectile.id !== this.id);
+    }
+
+    component(): JSX.Element {
+        return ProjectileComponent({ projectile: this });
     }
 }

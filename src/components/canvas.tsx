@@ -10,7 +10,7 @@ export default function Canvas() {
         animate(ref);
     }, []);
     return (
-        <Container maxWidth="lg" sx={{ background: "black", padding: "5rem", textAlign: "center" }}>
+        <Container maxWidth="lg" sx={{ backgroundColor: "black", padding: "5rem", textAlign: "center" }}>
             <Typography variant="h2" sx={{ color: "yellow" }}> Canvas </Typography>
             <canvas id="canvas" ref={ref} width={1000} height={500} />
         </Container>
