@@ -23,9 +23,8 @@ export interface VectorTurretTemplate extends TurretTemplate {
 export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
-
     constructor(row_index: number, column_index: number, cellSize: number, public template: TurretTemplate) {
-        super(row_index, column_index, cellSize, "TURRET", template.cost);
+        super(row_index, column_index, cellSize, "DEFENSE", template.cost);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 

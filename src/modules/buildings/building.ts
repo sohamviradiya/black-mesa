@@ -4,7 +4,7 @@ import { ScalarUnit } from "../unit";
 
 export enum BuildingTypes {
     "BASE",
-    "TURRET",
+    "DEFENSE",
     "EXPLOSIVE",
     "GENERATOR",
     "BARRICADE",
