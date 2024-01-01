@@ -4,8 +4,6 @@
 
 ### React
 
-### Redux
-
 ### Material UI
 
 ### Tanstack React Router
