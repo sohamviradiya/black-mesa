@@ -1,5 +1,5 @@
 import { Box, Container, Slider, Typography } from "@mui/material"
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { generateMatrix } from "../modules/grid";
 import { CellType } from "../modules/cell";
 import { ScalarTurret } from "../modules/defenses";
@@ -15,13 +15,10 @@ export default function Test() {
     const [rows, setRows] = useState<number>(4);
     const [cols, setCols] = useState<number>(4);
     const [turnFactor, setTurnFactor] = useState<number>(0);
-    const ref = useRef<HTMLDivElement>(null);
 
-    const { matrix, turret, invader } = useMemo(() => {
+    const { matrix } = useMemo(() => {
         return {
             matrix: generateMatrix(rows, cols, turnFactor),
-            turret: new ScalarTurret(20, 20, 20, 100, 1, 1, { width: 100, height: 100, speed: 100, damage: 10 }),
-            invader: new Invader(100, 100, 30, 30, [], 1, 100, 100, 20, 100)
         };
     }, [rows, cols, turnFactor]);
 
@@ -46,8 +43,8 @@ export default function Test() {
                         ))}
                     </Box>
                 ))}
-                {turret && <TurretComponent turret={turret} />}
-                {invader && <InvaderComponent invader={invader} />}
+                {/* {turret && <TurretComponent turret={turret} />}
+                {invader && <InvaderComponent invader={invader} />} */}
             </Box>
         </Container>
     )
