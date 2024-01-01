@@ -43,7 +43,7 @@ abstract class Unit {
     abstract removeSelf(state: BoardState): void;
 }
 
-export abstract class ScalarUnit extends Unit{
+export abstract class ScalarUnit extends Unit {
     constructor(row_index: number, column_index: number, cellSize: number) {
         const x = column_index * cellSize + cellSize / 2;
         const y = row_index * cellSize + cellSize / 2;
