@@ -1,10 +1,18 @@
 import GeneratorComponent from "../components/units/generator";
-import { Installation } from "./building";
+import { BuildingType } from "./building";
+import { Installation } from "./installation";
 
+const GENERATOR_TEMPLATE = {
+    maxHealth: 100,
+    rate: 0,
+    period: 0,
+    cost: 0,
+    type: "BASE" as BuildingType,
+};
 
 export class Generator extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(row_index, column_index, cellSize, health, rate, "GENERATOR", cost, period);
+    constructor(row_index: number, column_index: number, cellSize: number) {
+        super(row_index, column_index, cellSize, GENERATOR_TEMPLATE);
     };
     component(): JSX.Element {
         return GeneratorComponent({ generator: this });

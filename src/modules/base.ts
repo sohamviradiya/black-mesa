@@ -1,11 +1,19 @@
 import BaseComponent from "../components/units/base";
 import { BoardState } from "./state";
-import { Installation } from "./building";
+import { BuildingType } from "./building";
+import { Installation } from "./installation";
 
+const BASE_TEMPLATE = {
+    maxHealth: 100,
+    rate: 0,
+    period: 0,
+    cost: 0,
+    type: "BASE" as BuildingType,
+};
 
 export class Base extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number, health: number, rate: number, period: number) {
-        super(row_index, column_index, cellSize, health, rate, "BASE", 0, period);
+    constructor(row_index: number, column_index: number, cellSize: number) {
+        super(row_index, column_index, cellSize, BASE_TEMPLATE);
     };
 
     addSelf(state: BoardState): void {
@@ -22,5 +30,4 @@ export class Base extends Installation {
         return BaseComponent({ base: this });
     };
 
-}
-;
+};
