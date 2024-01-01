@@ -14,27 +14,15 @@ interface ProjectileTemplate {
 };
 
 
-export class Turret extends Building {
+export abstract class Turret extends Building {
     public angle = 0;
     public timer = 0;
 
     constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
         super(x, y, cellSize, "TURRET", cost);
     };
-    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
-        context.fillStyle = 'black';
-        context.fillRect(this.x, this.y, this.width, this.height);
-    };
-    findTarget(enemies: Invader[]) {
-        for (let i = 0; i < enemies.length; i++) {
-            if (enemies[i].dead)
-                continue;
-            if (isInRange(this, enemies[i])) {
-                return enemies[i];
-            }
-        }
-        return null;
-    };
+    abstract draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void;
+    abstract findTarget(enemies: Invader[]): Invader | null;
 
     isFireReady(): boolean {
         return this.timer % this.period === 0;
@@ -52,6 +40,28 @@ export class Turret extends Building {
             }
         }
     }
+}
+
+export class ScalarTurret extends Turret {
+    public alignment: AlignmentType;
+    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, public scope: number, projectileTemplate: ProjectileTemplate) {
+        super(x, y, cellSize, cost, period, range, projectileTemplate);
+        this.alignment = "NORTH";
+    };
+    draw(context: CanvasRenderingContext2D, mouse: ScalarInterface): void {
+        context.fillStyle = 'black';
+        context.fillRect(this.x, this.y, this.width, this.height);
+    };
+    findTarget(enemies: Invader[]) {
+        for (let i = 0; i < enemies.length; i++) {
+            if (enemies[i].dead)
+                continue;
+            if (isInRange(this, enemies[i])) {
+                return enemies[i];
+            }
+        }
+        return null;
+    };
 }
 
 export class VectorTurret extends Turret {
@@ -101,5 +111,4 @@ export class Explosive extends Building {
             }
         });
     }
-}
-;
+};
