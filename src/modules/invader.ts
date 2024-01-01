@@ -6,31 +6,42 @@ import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 
 
+interface InvaderTemplate {
+    speed: number;
+    maxHealth: number;
+    bounty: number;
+    damage: number;
+    period: number;
+};
+
 export class Invader extends VectorUnit {
     dead: boolean = false;
     collection: CollectionType = "invaders";
     timer: number = 0;
     move: boolean = true;
-    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number, public period: number) {
-        super(x, y, width, height, 0);
+    health: number;
+    constructor(row_index: number, column_index: number, width: number, height: number, public path: PositionInterface[], public template: InvaderTemplate) {
+        super(row_index, column_index, width, height, 0);
+        this.health = template.maxHealth;
     };
 
     isFireReady(): boolean {
-        return this.timer % this.period === 0;
+        return this.timer % this.template.period === 0;
     };
 
     update(state: BoardState): void {
         this.timer++;
 
         if (this.dead) {
-            state.energy += this.bounty;
+            state.energy += this.template.bounty;
             this.removeSelf(state);
             return;
         }
         if (this.isFireReady())
             this.hit(state.collections.buildings);
+        if (!this.move) return;
 
-        if (this.move && this.path.length > 0) {
+        if (this.path.length > 0) {
             const target = this.path[0];
             const dx = target.x - this.x;
             const dy = target.y - this.y;
@@ -39,13 +50,13 @@ export class Invader extends VectorUnit {
 
             this.angle = Math.atan2(dy, dx);
 
-            if (distance < this.speed) {
+            if (distance < this.template.speed) {
                 this.path.shift();
                 this.x = target.x;
                 this.y = target.y;
             } else {
-                this.x += dx / distance * this.speed;
-                this.y += dy / distance * this.speed;
+                this.x += dx / distance * this.template.speed;
+                this.y += dy / distance * this.template.speed;
             }
         }
         else
@@ -59,7 +70,7 @@ export class Invader extends VectorUnit {
             if (!building.active) continue;
             if (collision(building, this)) {
                 this.move = false;
-                building.takeDamage(this.damage);
+                building.takeDamage(this.template.damage);
                 return;
             }
         }
