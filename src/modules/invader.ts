@@ -31,7 +31,6 @@ export class Invader extends VectorUnit {
             }
         }
 
-
         if (this.path.length > 0) {
             const target = this.path[0];
             const dx = target.x - this.x;
@@ -47,6 +46,8 @@ export class Invader extends VectorUnit {
                 this.y += dy / distance * this.speed;
             }
         }
+        else
+            state.gameOver = true;
     };
 
     takeDamage(damage: number): void {
