@@ -14,8 +14,8 @@ export interface ProjectileTemplate {
 export class Projectile extends VectorUnit {
     public active: boolean = true;
     collection: CollectionType = "projectiles";
-    constructor(row_index: number, column_index: number, angle: number,  public target: Invader,public template: ProjectileTemplate) {
-        super(row_index, column_index, template.width, template.height, angle);
+    constructor(x: number, y: number, angle: number,  public target: Invader,public template: ProjectileTemplate) {
+        super(x, y, template.width, template.height, angle);
     }
 
     update(state: BoardState): void {

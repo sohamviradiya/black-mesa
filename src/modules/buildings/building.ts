@@ -1,5 +1,5 @@
 import { BoardState, CollectionType } from "../state";
-import { Unit } from "../unit";
+import { ScalarUnit } from "../unit";
 
 
 export enum BuildingTypes {
@@ -12,7 +12,7 @@ export enum BuildingTypes {
 
 export type BuildingType = keyof typeof BuildingTypes;
 
-export abstract class Building extends Unit {
+export abstract class Building extends ScalarUnit {
     public width: number;
     public height: number;
     collection: CollectionType = "buildings";

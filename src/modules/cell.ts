@@ -1,7 +1,7 @@
 import CellComponent from "../components/units/cell";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
-import { Unit } from "./unit";
+import { ScalarUnit } from "./unit";
 
 export enum CellTypes {
     "PATH",
@@ -12,7 +12,7 @@ export enum CellTypes {
 
 export type CellType = keyof typeof CellTypes;
 
-export class Cell extends Unit {
+export class Cell extends ScalarUnit {
     public triggered: boolean = false;
     collection: CollectionType = "cells";
     timer: number = 0;
