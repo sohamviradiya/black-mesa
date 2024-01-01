@@ -11,9 +11,9 @@ export function generateMatrix(rows: number, cols: number, turnFactor: number): 
         currentPoint.y = nextPoint.y;
     }
     matrix[currentPoint.y][currentPoint.x] = "PATH";
-    if(isValidPoint(currentPoint.x - 1, currentPoint.y -1, rows, cols))
+    if (isValidPoint(currentPoint.x - 1, currentPoint.y - 1, rows, cols) && matrix[currentPoint.y - 1][currentPoint.x - 1] !== "PATH")
         matrix[currentPoint.y - 1][currentPoint.x - 1] = "SLOT";
-    if (isValidPoint(currentPoint.x - 1, currentPoint.y + 1, rows, cols))
+    if (isValidPoint(currentPoint.x - 1, currentPoint.y + 1, rows, cols) && matrix[currentPoint.y + 1][currentPoint.x - 1] !== "PATH")
         matrix[currentPoint.y + 1][currentPoint.x - 1] = "SLOT";
 
     for (let y = 0; y < rows; y++) {
@@ -53,7 +53,7 @@ function checkRadius(matrix: CellType[][], x: number, y: number, rows: number, c
         const nx = x + dx[i];
         const ny = y + dy[i];
         if (!isValidPoint(nx, ny, rows, cols)) continue;
-        if(matrix[ny][nx] === "PATH")
+        if (matrix[ny][nx] === "PATH")
             count++;
         if (matrix[ny][nx] === "SLOT")
             return -1;
@@ -96,8 +96,10 @@ function pickNextPoint(matrix: CellType[][], x: number, y: number, rows: number,
         return { x: -1, y: -1 };
     else if (choices.length === 1 || Math.random() > turnFactor)
         return choices[0];
-    else
-        return choices[1 + Math.floor(Math.random() * (choices.length - 1))];
+    else {
+        const random = Math.random();
+        return choices[Math.floor(1 + Math.pow(random, 0.5) * (choices.length - 1))]; 
+    }
 };
 
 function isPathPoint(matrix: CellType[][], x: number, y: number, rows: number, cols: number): boolean {
