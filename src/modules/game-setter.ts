@@ -13,28 +13,28 @@ export function difficultyMapper(difficulty: Difficulty) {
         return {
             rows: 10,
             columns: 15,
-            turnFactor: 0.75,
+            turnFactor: 0.8,
         }
     }
     else if (difficulty === "MASTER") {
         return {
             rows: 15,
             columns: 24,
-            turnFactor: 0.6,
+            turnFactor: 0.7,
         }
     }
     else if (difficulty === "VETERAN") {
         return {
             rows: 20,
             columns: 40,
-            turnFactor: 0.5,
+            turnFactor: 0.6,
         }
     }
     else if (difficulty === "INSANE") {
         return {
             rows: 30,
             columns: 50,
-            turnFactor: 0.25,
+            turnFactor: 0.5,
         }
     }
     else {
