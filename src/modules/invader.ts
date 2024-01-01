@@ -1,5 +1,5 @@
 
-import { Installation } from "./building";
+import { Building, Installation } from "./building";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
@@ -8,30 +8,32 @@ import { PositionInterface, VectorUnit } from "./unit";
 export class Invader extends VectorUnit {
     dead: boolean = false;
     collection: CollectionType = "invaders";
-    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number) {
+    timer: number = 0;
+    move: boolean = true;
+    constructor(x: number, y: number, width: number, height: number, public path: PositionInterface[], public speed: number, public health: number, public bounty: number, public damage: number, public period: number) {
         super(x, y, width, height, 0);
     };
     draw(context: CanvasRenderingContext2D): void {
         context.fillStyle = 'red';
         context.fillRect(this.x, this.y, this.width, this.height);
     };
-    
+
+    isFireReady(): boolean {
+        return this.timer % this.period === 0;
+    };
+
     update(state: BoardState): void {
+        this.timer++;
+
         if (this.dead) {
             state.energy += this.bounty;
             this.removeSelf(state);
             return;
         }
-        for(let i = 0; i < state.collections.buildings.length; i++) {
-            const building = state.collections.buildings[i];
-            if(!(building instanceof Installation)) continue;
-            if (collision(building, this)) {
-                building.takeDamage(this.damage);
-                this.dead = true;
-            }
-        }
+        if (this.isFireReady())
+            this.hit(state.collections.buildings);
 
-        if (this.path.length > 0) {
+        if (this.move && this.path.length > 0) {
             const target = this.path[0];
             const dx = target.x - this.x;
             const dy = target.y - this.y;
@@ -49,6 +51,20 @@ export class Invader extends VectorUnit {
         else
             state.gameOver = true;
     };
+
+    private hit(buildings: Building[]) {
+        for (let i = 0; i < buildings.length; i++) {
+            const building = buildings[i];
+            if (!(building instanceof Installation)) continue;
+            if (!building.active) continue;
+            if (collision(building, this)) {
+                this.move = false;
+                building.takeDamage(this.damage);
+                return;
+            }
+        }
+        this.move = true;
+    }
 
     takeDamage(damage: number): void {
         if (this.dead) return;
