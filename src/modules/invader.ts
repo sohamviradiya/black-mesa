@@ -12,6 +12,8 @@ interface InvaderTemplate {
     bounty: number;
     damage: number;
     period: number;
+    width: number;
+    height: number;
 };
 
 export class Invader extends VectorUnit {
@@ -20,8 +22,8 @@ export class Invader extends VectorUnit {
     timer: number = 0;
     move: boolean = true;
     health: number;
-    constructor(row_index: number, column_index: number, width: number, height: number, public path: PositionInterface[], public template: InvaderTemplate) {
-        super(row_index, column_index, width, height, 0);
+    constructor(row_index: number, column_index: number, public path: PositionInterface[], public template: InvaderTemplate) {
+        super(row_index, column_index, template.width, template.height, 0);
         this.health = template.maxHealth;
     };
 
