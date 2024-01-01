@@ -1,4 +1,5 @@
-import { Base, Building } from "./building";
+import { Building } from "./building";
+import { Base } from "./base";
 import { Cell } from "./cell";
 import { Invader } from "./invader";
 import { Projectile } from "./projectiles";

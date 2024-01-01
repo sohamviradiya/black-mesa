@@ -1,5 +1,5 @@
 import { Explosive } from "./explosive";
-import { Turret, VectorTurret } from "./defenses";
+import { Defense, VectorTurret } from "./defenses";
 import { AlignmentType, ScalarInterface, VectorInterface } from "./unit";
 
 export function collision(defense: ScalarInterface, invader: ScalarInterface) {
@@ -41,7 +41,7 @@ export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
     return distance(bomb, invader) <= bomb.template.radius;
 };
 
-export function isInRange(defense: Turret, invader: ScalarInterface) {
+export function isInRange(defense: Defense, invader: ScalarInterface) {
     return distance(defense, invader) <= defense.template.range;
 };
 

@@ -20,7 +20,7 @@ export interface VectorTurretTemplate extends TurretTemplate {
 };
 
 
-export abstract class Turret extends Building {
+export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
 
@@ -46,7 +46,7 @@ export abstract class Turret extends Building {
     }
 }
 
-export class ScalarTurret extends Turret {
+export class ScalarTurret extends Defense {
 
     findTarget(enemies: Invader[]) {
         for (let i = 0; i < enemies.length; i++) {
@@ -63,7 +63,7 @@ export class ScalarTurret extends Turret {
     }
 }
 
-export class VectorTurret extends Turret {
+export class VectorTurret extends Defense {
     public alignment: AlignmentType;
     constructor(row_index: number, column_index: number, cellSize: number, public template: VectorTurretTemplate) {
         super(row_index, column_index, cellSize, template);

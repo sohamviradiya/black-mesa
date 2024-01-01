@@ -1,6 +1,3 @@
-import BarricadeComponent from "../components/units/barricade";
-import BaseComponent from "../components/units/base";
-import GeneratorComponent from "../components/units/generator";
 import { BoardState, CollectionType } from "./state";
 import { Unit } from "./unit";
 
@@ -19,7 +16,7 @@ export abstract class Building extends Unit {
     public width: number;
     public height: number;
     collection: CollectionType = "buildings";
-    constructor(row_index: number, column_index: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
+    constructor(row_index: number, column_index: number, cellSize: number, public type: BuildingType, public cost: number) {
         super(row_index, column_index, cellSize);
         this.width = cellSize;
         this.height = cellSize;
@@ -62,49 +59,5 @@ export abstract class Installation extends Building {
             state.energy += this.rate;
     }
 };
-
-export class Base extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number, health: number, rate: number, period: number) {
-        super(row_index, column_index, cellSize, health, rate, "BASE", 0, period);
-    };
-
-    addSelf(state: BoardState): void {
-        state.collections.base = this;
-    }
-
-    update(state: BoardState): void {
-        if (!this.active)
-            state.gameOver = true;
-        super.update(state);
-    }
-
-    component(): JSX.Element {
-        return BaseComponent({ base: this });
-    };
-
-};
-
-export class Generator extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(row_index, column_index, cellSize, health, rate, "GENERATOR", cost, period);
-    };
-    component(): JSX.Element {
-        return GeneratorComponent({ generator: this });
-    }
-};
-
-export class Barricade extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(row_index, column_index, cellSize, health, rate, "BARRICADE", cost, period);
-    };
-    update(state: BoardState): void {
-        if (this.isReady())
-            this.health += this.rate; // Regenerate
-    }
-    component(): JSX.Element {
-        return BarricadeComponent({ barricade: this });
-    }
-};
-
 
 
