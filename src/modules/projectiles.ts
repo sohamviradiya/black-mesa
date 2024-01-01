@@ -7,8 +7,8 @@ import { VectorUnit } from "./unit";
 export class Projectile extends VectorUnit {
     public active: boolean = true;
     collection: CollectionType = "projectiles";
-    constructor(x: number, y: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
-        super(x, y, width, height, angle);
+    constructor(row_index: number, column_index: number, width: number, height: number, angle: number, public speed: number, public target: Invader, public damage: number) {
+        super(row_index, column_index, width, height, angle);
     }
 
     update(state: BoardState): void {

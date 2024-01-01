@@ -29,11 +29,15 @@ export abstract class Unit {
     static nextId = 0;
     public width: number;
     public height: number;
+    public x: number;
+    public y: number;
     public id: number;
     abstract collection: CollectionType;
-    constructor(public x: number, public y: number, cellSize: number) {
+    constructor(row_index: number, column_index: number, cellSize: number) {
         this.id = Unit.nextId;
         Unit.nextId++;
+        this.x = column_index * cellSize + cellSize / 2;
+        this.y = row_index * cellSize + cellSize / 2;
         this.width = cellSize;
         this.height = cellSize;
     }
@@ -48,10 +52,8 @@ export abstract class Unit {
 };
 
 export abstract class VectorUnit extends Unit implements VectorInterface {
-    constructor(public x: number, public y: number, public width: number, public height: number, public angle: number) {
-        super(x, y, width);
-        this.width = width;
-        this.height = height;
+    constructor(row_index: number, column_index: number, public width: number, public height: number, public angle: number) {
+        super(row_index, column_index, width);
     }
     getState(): VectorInterface {
         return this;

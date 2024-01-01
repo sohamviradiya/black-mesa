@@ -76,7 +76,7 @@ function checkNeighbors(matrix: CellType[][], x: number, y: number, rows: number
     return count;
 };
 
-function pickNextPoint(matrix: CellType[][], x: number, y: number, rows: number, cols: number, turnFactor: number): { x: number, y: number, } {
+function pickNextPoint(matrix: CellType[][], x: number, y: number, rows: number, cols: number, turnFactor: number){
     const choices: { x: number, y: number }[] = [];
 
 

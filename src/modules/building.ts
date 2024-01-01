@@ -19,8 +19,8 @@ export abstract class Building extends Unit {
     public width: number;
     public height: number;
     collection: CollectionType = "buildings";
-    constructor(public x: number, public y: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
-        super(x, y, cellSize);
+    constructor(row_index: number, column_index: number, cellSize: number, public type: BuildingType, public cost: number = 0) {
+        super(row_index, column_index, cellSize);
         this.width = cellSize;
         this.height = cellSize;
     }
@@ -35,8 +35,8 @@ export abstract class Building extends Unit {
 export abstract class Installation extends Building {
     active: boolean = true;
     timer: number = 0;
-    constructor(x: number, y: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number, public period: number) {
-        super(x, y, cellSize, type, cost);
+    constructor(row_index: number, column_index: number, cellSize: number, public health: number, public rate: number, public type: BuildingType, public cost: number, public period: number) {
+        super(row_index, column_index, cellSize, type, cost);
     };
 
     takeDamage(damage: number): void {
@@ -64,8 +64,8 @@ export abstract class Installation extends Building {
 };
 
 export class Base extends Installation {
-    constructor(x: number, y: number, cellSize: number, health: number, rate: number, period: number) {
-        super(x, y, cellSize, health, rate, "BASE", 0, period);
+    constructor(row_index: number, column_index: number, cellSize: number, health: number, rate: number, period: number) {
+        super(row_index, column_index, cellSize, health, rate, "BASE", 0, period);
     };
 
     addSelf(state: BoardState): void {
@@ -85,8 +85,8 @@ export class Base extends Installation {
 };
 
 export class Generator extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(x, y, cellSize, health, rate, "GENERATOR", cost, period);
+    constructor(row_index: number, column_index: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
+        super(row_index, column_index, cellSize, health, rate, "GENERATOR", cost, period);
     };
     component(): JSX.Element {
         return GeneratorComponent({ generator: this });
@@ -94,8 +94,8 @@ export class Generator extends Installation {
 };
 
 export class Barricade extends Installation {
-    constructor(x: number, y: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
-        super(x, y, cellSize, health, rate, "BARRICADE", cost, period);
+    constructor(row_index: number, column_index: number, cellSize: number, cost: number, health: number, rate: number, period: number) {
+        super(row_index, column_index, cellSize, health, rate, "BARRICADE", cost, period);
     };
     update(state: BoardState): void {
         if (this.isReady())

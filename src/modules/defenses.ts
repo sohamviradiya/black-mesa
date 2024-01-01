@@ -21,8 +21,8 @@ export abstract class Turret extends Building {
     public angle = 0;
     public timer = 0;
 
-    constructor(x: number, y: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
-        super(x, y, cellSize, "TURRET", cost);
+    constructor(row_index: number, column_index: number, cellSize: number, public cost: number, public period: number, public range: number, private projectileTemplate: ProjectileTemplate) {
+        super(row_index, column_index, cellSize, "TURRET", cost);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
@@ -46,8 +46,8 @@ export abstract class Turret extends Building {
 
 export class ScalarTurret extends Turret {
     public alignment: AlignmentType;
-    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, projectileTemplate: ProjectileTemplate) {
-        super(x, y, cellSize, cost, period, range, projectileTemplate);
+    constructor(row_index: number, column_index: number, cellSize: number, cost: number, period: number, range: number, projectileTemplate: ProjectileTemplate) {
+        super(row_index, column_index, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
 
@@ -68,8 +68,8 @@ export class ScalarTurret extends Turret {
 
 export class VectorTurret extends Turret {
     public alignment: AlignmentType;
-    constructor(x: number, y: number, cellSize: number, cost: number, period: number, range: number, public scope: number, projectileTemplate: ProjectileTemplate) {
-        super(x, y, cellSize, cost, period, range, projectileTemplate);
+    constructor(row_index: number, column_index: number, cellSize: number, cost: number, period: number, range: number, public scope: number, projectileTemplate: ProjectileTemplate) {
+        super(row_index, column_index, cellSize, cost, period, range, projectileTemplate);
         this.alignment = "NORTH";
     };
 
@@ -90,8 +90,8 @@ export class VectorTurret extends Turret {
 
 export class Explosive extends Building {
     public triggered: boolean = false;
-    constructor(x: number, y: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
-        super(x, y, cellSize, "EXPLOSIVE", cost);
+    constructor(row_index: number, column_index: number, cellSize: number, public cost: number, public damage: number, public radius: number) {
+        super(row_index, column_index, cellSize, "EXPLOSIVE", cost);
     };
 
     update(state: BoardState): void {
