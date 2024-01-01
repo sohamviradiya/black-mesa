@@ -92,6 +92,7 @@ export class Explosive extends Building {
                     invader.takeDamage(this.damage);
                 }
             });
+            this.removeSelf(state);
         }
 
         state.collections.invaders.forEach((invader: Invader) => {
