@@ -1,5 +1,5 @@
-import BaseComponent from "../components/units/base";
-import { BoardState } from "./state";
+import BaseComponent from "../../components/units/base";
+import { BoardState } from "../state";
 import { BuildingType } from "./building";
 import { Installation } from "./installation";
 

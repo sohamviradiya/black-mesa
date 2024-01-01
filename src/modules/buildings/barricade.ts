@@ -1,5 +1,5 @@
-import BarricadeComponent from "../components/units/barricade";
-import { BoardState } from "./state";
+import BarricadeComponent from "../../components/units/barricade";
+import { BoardState } from "../state";
 import { BuildingType } from "./building";
 import { Installation } from "./installation";
 

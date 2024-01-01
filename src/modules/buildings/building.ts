@@ -1,5 +1,5 @@
-import { BoardState, CollectionType } from "./state";
-import { Unit } from "./unit";
+import { BoardState, CollectionType } from "../state";
+import { Unit } from "../unit";
 
 
 export enum BuildingTypes {

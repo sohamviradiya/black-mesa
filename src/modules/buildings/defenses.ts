@@ -1,12 +1,12 @@
 
 import { Building } from "./building";
-import { AlignmentType } from "./unit";
-import { Invader } from "./invader";
-import { getAngle, isInRange, isInScope } from "./geometry";
-import { Projectile, ProjectileTemplate } from "./projectiles";
-import { BoardState } from "./state";
-import ScalarTurretComponent from "../components/units/scalar-turret";
-import VectorTurretComponent from "../components/units/vector-turret";
+import { AlignmentType } from "../unit";
+import { Invader } from "../invader";
+import { getAngle, isInRange, isInScope } from "../geometry";
+import { Projectile, ProjectileTemplate } from "../projectiles";
+import { BoardState } from "../state";
+import ScalarTurretComponent from "../../components/units/scalar-turret";
+import VectorTurretComponent from "../../components/units/vector-turret";
 
 export interface TurretTemplate {
     cost: number;

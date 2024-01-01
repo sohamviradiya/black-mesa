@@ -1,8 +1,8 @@
 import { Building } from "./building";
-import { Invader } from "./invader";
-import { collision, isInRadius } from "./geometry";
-import { BoardState } from "./state";
-import ExplosiveComponent from "../components/units/explosive";
+import { Invader } from "../invader";
+import { collision, isInRadius } from "../geometry";
+import { BoardState } from "../state";
+import ExplosiveComponent from "../../components/units/explosive";
 
 
 export interface ExplosiveTemplate {

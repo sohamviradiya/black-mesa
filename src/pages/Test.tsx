@@ -2,7 +2,7 @@ import { Box, Container, Slider, Typography } from "@mui/material"
 import { useMemo, useState } from "react";
 import { generateMatrix } from "../modules/grid";
 import { CellType } from "../modules/cell";
-import { ScalarTurret } from "../modules/defenses";
+import { ScalarTurret } from "../modules/buildings/defenses";
 import TurretComponent from "../components/turret";
 import { Invader } from "../modules/invader";
 import InvaderComponent from "../components/invader";

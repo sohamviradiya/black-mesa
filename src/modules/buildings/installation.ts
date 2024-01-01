@@ -1,4 +1,4 @@
-import { BoardState } from "./state";
+import { BoardState } from "../state";
 import { BuildingType, Building } from "./building";
 
 

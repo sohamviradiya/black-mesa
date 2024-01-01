@@ -1,6 +1,6 @@
 import GeneratorComponent from "../components/units/generator";
-import { BuildingType } from "./building";
-import { Installation } from "./installation";
+import { BuildingType } from "./buildings/building";
+import { Installation } from "./buildings/installation";
 
 const GENERATOR_TEMPLATE = {
     maxHealth: 100,
