@@ -15,7 +15,6 @@ export class Invader extends VectorUnit {
         super(x, y, width, height, 0);
     };
 
-
     isFireReady(): boolean {
         return this.timer % this.period === 0;
     };
