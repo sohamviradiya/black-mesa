@@ -15,7 +15,7 @@
         "cost": 50,
         "name": "Barricade",
         "description": "Blocks enemy movement.",
-        "health": 300
+        "health": 500
     },
     "TURRET": {
         "cost": 200,
