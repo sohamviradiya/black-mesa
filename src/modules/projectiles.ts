@@ -41,7 +41,7 @@ export class Projectile extends VectorUnit {
 
         this.x += dx / distance * this.speed;
         this.y += dy / distance * this.speed;
-        this.angle = Math.atan2(dy + 0.001, dx + 0.001);
+        this.angle = Math.atan2(dy, dx);
     };
 
     addSelf(state: BoardState): void {
