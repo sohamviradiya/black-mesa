@@ -1,4 +1,9 @@
 import CellComponent from "../components/units/cell";
+import { Barricade } from "./buildings/barricade";
+import { Base } from "./buildings/base";
+import { Building } from "./buildings/building";
+import { Explosive } from "./buildings/explosive";
+import { Generator } from "./generator";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
@@ -16,7 +21,7 @@ export class Cell extends ScalarUnit {
     public triggered: boolean = false;
     collection: CollectionType = "cells";
     timer: number = 0;
-    constructor(row_index: number, column_index: number, cellSize: number, public type: CellType) {
+    constructor(public row_index: number, public column_index: number, cellSize: number, public type: CellType) {
         super(row_index, column_index, cellSize);
     }
 
@@ -51,11 +56,6 @@ export class WallCell extends Cell {
     }
 }
 
-export class PathCell extends Cell {
-    constructor(row_index: number, column_index: number, cellSize: number) {
-        super(row_index, column_index, cellSize, "PATH");
-    }
-}
 
 export class EmptyCell extends Cell {
     constructor(row_index: number, column_index: number, cellSize: number) {
@@ -63,18 +63,52 @@ export class EmptyCell extends Cell {
     }
 }
 
-export class SlotCell extends Cell {
-    constructor(row_index: number, column_index: number, cellSize: number, public isOccupied: boolean = false, public isLocked: boolean = false, public unlockCost: number = 0) {
-        super(row_index, column_index, cellSize, "SLOT");
+abstract class OccupiableCell extends Cell {
+    public occupier: Building | null = null;
+    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0, public isLocked: boolean = true, public type: CellType) {
+        super(row_index, column_index, cellSize, type);
     }
 
     unlock() {
         this.isLocked = false;
     }
 
-    occupy() {
-        this.isOccupied = true;
-        return this.getState();
+    canOccupy(building: Building): boolean {
+        if(this.occupier || this.isLocked || this.unlockCost > building.cost)
+            return false;
+        return true;
     }
 
+    occupy(building: Building): boolean {
+        if(!this.canOccupy(building))
+            return false;
+        this.occupier = building;
+        return true;
+    }
+}
+
+export class PathCell extends OccupiableCell {
+    constructor(row_index: number, column_index: number, cellSize: number) {
+        super(row_index, column_index, cellSize, 0, false, "PATH");
+    }
+    canOccupy(building: Building): boolean {
+        if(!super.canOccupy(building))
+            return false;
+        if (building instanceof Explosive || building instanceof Barricade || building instanceof Base)
+            return true;
+        return false;
+    }
+}
+
+export class SlotCell extends OccupiableCell {
+    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0, public isLocked: boolean = true) {
+        super(row_index, column_index, cellSize, unlockCost, isLocked, "SLOT");
+    }
+    canOccupy(building: Building): boolean {
+        if(!super.canOccupy(building))
+            return false;
+        if (building instanceof Generator || building instanceof Barricade)
+            return true;
+        return false;
+    }
 }
