@@ -1,4 +1,4 @@
-import { Building, BuildingTemplate } from "./building";
+import { Building, BuildingTemplate } from "../building";
 import { Invader } from "../invader";
 import { collision, isInRadius } from "../geometry";
 import { BoardState } from "../state";
@@ -12,8 +12,8 @@ export interface ExplosiveTemplate extends BuildingTemplate {
 
 export class Explosive extends Building {
     public triggered: boolean = false;
-    constructor(row_index: number, column_index: number, cellSize: number, public template: ExplosiveTemplate) {
-        super(row_index, column_index, cellSize, template);
+    constructor(row_index: number, column_index: number, public template: ExplosiveTemplate) {
+        super(row_index, column_index, template);
     };
 
     update(state: BoardState): void {

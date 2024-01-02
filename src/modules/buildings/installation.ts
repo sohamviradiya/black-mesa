@@ -1,5 +1,5 @@
 import { BoardState } from "../state";
-import { Building, BuildingTemplate } from "./building";
+import { Building, BuildingTemplate } from "../building";
 
 
 export interface InstallationTemplate extends BuildingTemplate {
@@ -13,8 +13,8 @@ export abstract class Installation extends Building {
     active: boolean = true;
     timer: number = 0;
     health: number;
-    constructor(row_index: number, column_index: number, cellSize: number, public template: InstallationTemplate) {
-        super(row_index, column_index, cellSize, template);
+    constructor(row_index: number, column_index: number, public template: InstallationTemplate) {
+        super(row_index, column_index,  template);
         this.health = template.maxHealth;
     };
 

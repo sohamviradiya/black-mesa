@@ -1,5 +1,5 @@
 
-import { Building, BuildingTemplate } from "./building";
+import { Building, BuildingTemplate } from "../building";
 import { AlignmentType } from "../unit";
 import { Invader } from "../invader";
 import { getAngle, isInRange, isInScope } from "../geometry";
@@ -23,8 +23,8 @@ export interface VectorTurretTemplate extends TurretTemplate {
 export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
-    constructor(row_index: number, column_index: number, cellSize: number, public template: TurretTemplate) {
-        super(row_index, column_index, cellSize, template);
+    constructor(row_index: number, column_index: number, public template: TurretTemplate) {
+        super(row_index, column_index, template);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
@@ -64,8 +64,8 @@ export class ScalarTurret extends Defense {
 
 export class VectorTurret extends Defense {
     public alignment: AlignmentType;
-    constructor(row_index: number, column_index: number, cellSize: number, public template: VectorTurretTemplate) {
-        super(row_index, column_index, cellSize, template);
+    constructor(row_index: number, column_index: number, public template: VectorTurretTemplate) {
+        super(row_index, column_index, template);
         this.alignment = "NORTH";
     };
 

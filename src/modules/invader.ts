@@ -1,6 +1,6 @@
 
 import InvaderComponent from "../components/invader";
-import { Building } from "./buildings/building";
+import { Building } from "./building";
 import { Installation } from "./buildings/installation";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
