@@ -1,6 +1,6 @@
-import { BoardState, CollectionType } from "../state";
-import { ScalarUnit } from "../unit";
-import variables from "../../data/game-variables.json";
+import { BoardState, CollectionType } from "./state";
+import { ScalarUnit } from "./unit";
+import variables from "../data/game-variables.json";
 
 export enum BuildingTypes {
     "BASE",
@@ -16,6 +16,7 @@ export interface BuildingTemplate {
     cost: number;
     type: BuildingType;
     description: string;
+    cellSize: number;
 }
 
 export abstract class Building extends ScalarUnit {
@@ -24,10 +25,10 @@ export abstract class Building extends ScalarUnit {
     public type: BuildingType;
     public cost: number;
     collection: CollectionType = "buildings";
-    constructor(row_index: number, column_index: number, cellSize: number, template: BuildingTemplate) {
-        super(row_index, column_index, cellSize);
-        this.width = cellSize;
-        this.height = cellSize;
+    constructor(row_index: number, column_index: number, template: BuildingTemplate) {
+        super(row_index, column_index, template.cellSize);
+        this.width = template.cellSize;
+        this.height = template.cellSize;
         this.type = template.type;
         this.cost = template.cost;
     }
@@ -38,7 +39,7 @@ export abstract class Building extends ScalarUnit {
         state.collections.buildings = state.collections.buildings.filter((building: Building) => building.id !== this.id);
     }
     dismantle(state: BoardState): void {
-        state.energy += variables["dismantle-factor"]*this.cost;
+        state.energy += variables["dismantle-factor"] * this.cost;
         this.removeSelf(state);
     }
 }

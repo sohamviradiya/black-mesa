@@ -1,5 +1,5 @@
 import CellComponent from "../components/units/cell";
-import { Building } from "./buildings/building";
+import { Building } from "./building";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
