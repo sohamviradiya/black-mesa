@@ -96,7 +96,7 @@ export class PathCell extends OccupiableCell {
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
             return false;
-        if (building.type in ["BARRICADE", "EXPLOSIVE", "GENERATOR"])
+        if (building.type in ["BASE", "BARRICADE", "EXPLOSIVE", "GENERATOR"])
             return true;
         return false;
     }
@@ -109,7 +109,7 @@ export class SlotCell extends OccupiableCell {
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
             return false;
-        if (building.type in ["DEFENSE", "GENERATOR"])
+        if (building.type in ["DEFENSE"])
             return true;
         return false;
     }
