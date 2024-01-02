@@ -8,14 +8,14 @@ import { BoardState } from "../state";
 import ScalarTurretComponent from "../../components/units/scalar-turret";
 import VectorTurretComponent from "../../components/units/vector-turret";
 
-export interface TurretTemplate extends BuildingTemplate {
+export interface DefenseTemplate extends BuildingTemplate {
     type: "DEFENSE";
     period: number;
     range: number;
     projectileTemplate: ProjectileTemplate;
 };
 
-export interface VectorTurretTemplate extends TurretTemplate {
+export interface VectorTurretTemplate extends DefenseTemplate {
     scope: number;
 };
 
@@ -23,7 +23,7 @@ export interface VectorTurretTemplate extends TurretTemplate {
 export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
-    constructor(row_index: number, column_index: number, public template: TurretTemplate) {
+    constructor(row_index: number, column_index: number, public template: DefenseTemplate) {
         super(row_index, column_index, template);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
