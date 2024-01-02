@@ -1,26 +1,38 @@
 {
     "Alpha" : {
-        "health" : 100,
-        "damage" : 10,
-        "speed" : 20,
-        "bounty" : 25
+        "speed": 15,
+        "maxHealth": 100,
+        "bounty": 30,
+        "damage": 20,
+        "period": 100,
+        "width": 20,
+        "height": 20
     },
     "Gamma" : {
-        "health" : 50,
-        "damage" : 10,
-        "speed" : 30,
-        "bounty" : 50
+        "speed": 25,
+        "maxHealth": 50,
+        "bounty": 40,
+        "damage": 10,
+        "period": 60,
+        "width": 20,
+        "height": 20
     },
     "Sigma" : {
-        "health" : 250,
-        "damage" : 30,
-        "speed" : 10,
-        "bounty" : 75
+        "speed": 10,
+        "maxHealth": 200,
+        "bounty": 60,
+        "damage": 40,
+        "period": 100,
+        "width": 30,
+        "height": 30
     },
     "Omega" : {
-        "health" : 400,
-        "damage" : 40,
-        "speed" : 5,
-        "bounty" : 100
+        "speed": 5,
+        "maxHealth": 500,
+        "bounty": 100,
+        "damage": 100,
+        "period": 150,
+        "width": 40,
+        "height": 40
     }
 }

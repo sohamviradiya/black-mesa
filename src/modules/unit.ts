@@ -52,7 +52,6 @@ export abstract class ScalarUnit extends Unit {
 };
 
 
-
 export abstract class VectorUnit extends Unit implements VectorInterface {
     constructor(x: number, y: number, width: number, height: number, public angle: number) {
         super(x, y, width, height);
