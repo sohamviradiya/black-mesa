@@ -12,14 +12,24 @@ export enum BuildingTypes {
 
 export type BuildingType = keyof typeof BuildingTypes;
 
+export interface BuildingTemplate {
+    cost: number;
+    type: BuildingType;
+    description: string;
+}
+
 export abstract class Building extends ScalarUnit {
     public width: number;
     public height: number;
+    public type: BuildingType;
+    public cost: number;
     collection: CollectionType = "buildings";
-    constructor(row_index: number, column_index: number, cellSize: number, public type: BuildingType, public cost: number) {
+    constructor(row_index: number, column_index: number, cellSize: number, template: BuildingTemplate) {
         super(row_index, column_index, cellSize);
         this.width = cellSize;
         this.height = cellSize;
+        this.type = template.type;
+        this.cost = template.cost;
     }
     addSelf(state: BoardState): void {
         state.collections.buildings.push(this);

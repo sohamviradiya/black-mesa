@@ -1,19 +1,14 @@
 import BarricadeComponent from "../../components/units/barricade";
 import { BoardState } from "../state";
-import { BuildingType } from "./building";
-import { Installation } from "./installation";
+import { Installation, InstallationTemplate } from "./installation";
 
-const BARRICADE_TEMPLATE = {
-    maxHealth: 500,
-    rate: 1,
-    period: 10,
-    cost: 10,
-    type: "BARRICADE" as BuildingType,
+export interface BarricadeTemplate extends InstallationTemplate {
+    type: "BARRICADE",
 };
 
 export class Barricade extends Installation {
-    constructor(row_index: number, column_index: number, cellSize: number) {
-        super(row_index, column_index, cellSize, BARRICADE_TEMPLATE);
+    constructor(row_index: number, column_index: number, cellSize: number, public template: BarricadeTemplate) {
+        super(row_index, column_index, cellSize, template);
     };
     update(state: BoardState): void {
         if (this.isReady())

@@ -1,12 +1,11 @@
-import { Building } from "./building";
+import { Building, BuildingTemplate } from "./building";
 import { Invader } from "../invader";
 import { collision, isInRadius } from "../geometry";
 import { BoardState } from "../state";
 import ExplosiveComponent from "../../components/units/explosive";
 
-
-export interface ExplosiveTemplate {
-    cost: number;
+export interface ExplosiveTemplate extends BuildingTemplate {
+    type: "EXPLOSIVE";
     damage: number;
     radius: number;
 };
@@ -14,7 +13,7 @@ export interface ExplosiveTemplate {
 export class Explosive extends Building {
     public triggered: boolean = false;
     constructor(row_index: number, column_index: number, cellSize: number, public template: ExplosiveTemplate) {
-        super(row_index, column_index, cellSize, "EXPLOSIVE", template.cost);
+        super(row_index, column_index, cellSize, template);
     };
 
     update(state: BoardState): void {
@@ -37,9 +36,8 @@ export class Explosive extends Building {
 
     private explode(invaders: Invader[]) {
         invaders.forEach((invader: Invader) => {
-            if (isInRadius(this, invader)) {
+            if (isInRadius(this, invader))
                 invader.takeDamage(this.template.damage);
-            }
         });
     }
 }

@@ -1,5 +1,5 @@
 
-import { Building } from "./building";
+import { Building, BuildingTemplate } from "./building";
 import { AlignmentType } from "../unit";
 import { Invader } from "../invader";
 import { getAngle, isInRange, isInScope } from "../geometry";
@@ -8,8 +8,8 @@ import { BoardState } from "../state";
 import ScalarTurretComponent from "../../components/units/scalar-turret";
 import VectorTurretComponent from "../../components/units/vector-turret";
 
-export interface TurretTemplate {
-    cost: number;
+export interface TurretTemplate extends BuildingTemplate {
+    type: "DEFENSE";
     period: number;
     range: number;
     projectileTemplate: ProjectileTemplate;
@@ -24,7 +24,7 @@ export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
     constructor(row_index: number, column_index: number, cellSize: number, public template: TurretTemplate) {
-        super(row_index, column_index, cellSize, "DEFENSE", template.cost);
+        super(row_index, column_index, cellSize, template);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
