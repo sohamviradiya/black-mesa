@@ -3,7 +3,7 @@ import { Barricade } from "./buildings/barricade";
 import { Base } from "./buildings/base";
 import { Building } from "./buildings/building";
 import { Explosive } from "./buildings/explosive";
-import { Generator } from "./generator";
+import { Generator } from "./buildings/generator";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
@@ -74,13 +74,13 @@ abstract class OccupiableCell extends Cell {
     }
 
     canOccupy(building: Building): boolean {
-        if(this.occupier || this.isLocked || this.unlockCost > building.cost)
+        if (this.occupier || this.isLocked || this.unlockCost > building.cost)
             return false;
         return true;
     }
 
     occupy(building: Building): boolean {
-        if(!this.canOccupy(building))
+        if (!this.canOccupy(building))
             return false;
         this.occupier = building;
         return true;
@@ -92,7 +92,7 @@ export class PathCell extends OccupiableCell {
         super(row_index, column_index, cellSize, 0, false, "PATH");
     }
     canOccupy(building: Building): boolean {
-        if(!super.canOccupy(building))
+        if (!super.canOccupy(building))
             return false;
         if (building instanceof Explosive || building instanceof Barricade || building instanceof Base)
             return true;
@@ -105,7 +105,7 @@ export class SlotCell extends OccupiableCell {
         super(row_index, column_index, cellSize, unlockCost, isLocked, "SLOT");
     }
     canOccupy(building: Building): boolean {
-        if(!super.canOccupy(building))
+        if (!super.canOccupy(building))
             return false;
         if (building instanceof Generator || building instanceof Barricade)
             return true;
