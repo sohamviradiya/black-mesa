@@ -1,9 +1,5 @@
 import CellComponent from "../components/units/cell";
-import { Barricade } from "./buildings/barricade";
-import { Base } from "./buildings/base";
 import { Building } from "./buildings/building";
-import { Explosive } from "./buildings/explosive";
-import { Generator } from "./buildings/generator";
 import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
@@ -85,6 +81,12 @@ abstract class OccupiableCell extends Cell {
         this.occupier = building;
         return true;
     }
+    dismantle(state: BoardState): void {
+        if (!this.occupier)
+            return;
+        this.occupier.dismantle(state);
+        this.occupier = null;
+    }
 }
 
 export class PathCell extends OccupiableCell {
@@ -94,7 +96,7 @@ export class PathCell extends OccupiableCell {
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
             return false;
-        if (building instanceof Explosive || building instanceof Barricade || building instanceof Base)
+        if (building.type in ["BARRICADE", "EXPLOSIVE", "GENERATOR"])
             return true;
         return false;
     }
@@ -107,7 +109,7 @@ export class SlotCell extends OccupiableCell {
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
             return false;
-        if (building instanceof Generator || building instanceof Barricade)
+        if (building.type in ["DEFENSE", "GENERATOR"])
             return true;
         return false;
     }

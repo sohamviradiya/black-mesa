@@ -1,6 +1,6 @@
 import { BoardState, CollectionType } from "../state";
 import { ScalarUnit } from "../unit";
-
+import variables from "../../data/game-variables.json";
 
 export enum BuildingTypes {
     "BASE",
@@ -36,6 +36,10 @@ export abstract class Building extends ScalarUnit {
     }
     removeSelf(state: BoardState): void {
         state.collections.buildings = state.collections.buildings.filter((building: Building) => building.id !== this.id);
+    }
+    dismantle(state: BoardState): void {
+        state.energy += variables["dismantle-factor"]*this.cost;
+        this.removeSelf(state);
     }
 }
 

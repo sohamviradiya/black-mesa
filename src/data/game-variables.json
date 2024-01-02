@@ -3,5 +3,6 @@
     "mouse" : {
         "width" : 20,
         "height" : 20
-    }
+    },
+    "dismantle-factor" : 0.75
 }
