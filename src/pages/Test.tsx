@@ -4,14 +4,14 @@ import { generateGrid } from "../modules/grid";
 import { CellType } from "../modules/cell";
 import CellComponent from "../components/units/cell";
 import { Cell } from "../modules/cell";
-import { Difficulty, difficultyMapper } from "../modules/game-setter";
-
+import { Difficulty } from "../modules/state";
+import difficultyVariables from "../data/difficulty-mappers.json";
 
 export default function Test() {
     const [difficulty, setDifficulty] = useState<Difficulty>("ROOKIE");
 
     const { matrix, cellSize } = useMemo(() => {
-        const { rows, columns, turnFactor } = difficultyMapper(difficulty);
+        const { rows, columns, turnFactor } = difficultyVariables[difficulty];
 
         return {
             cellSize: 1200/columns,

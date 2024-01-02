@@ -6,10 +6,12 @@ import { Projectile } from "./projectiles";
 import { PositionInterface, ScalarInterface } from "./unit";
 import { generateGrid } from "./grid";
 import variables from "../data/game-variables.json";
-import { Difficulty, difficultyMapper } from "./game-setter";
 import buildings from "../data/buildings.json";
+import difficultyVariables from "../data/difficulty-mappers.json";
 
 export type CollectionType = "projectiles" | "invaders" | "buildings" | "cells";
+
+export type Difficulty = "ROOKIE" | "CASUAL" | "MASTER" | "VETERAN" | "INSANE";
 
 export type InvaderSpawn = {
     template: InvaderTemplate,
@@ -28,7 +30,7 @@ export class BoardState {
     public invaderSpawns: InvaderSpawn[];
     public path: PositionInterface[];
     constructor(cellSize: number, difficulty: Difficulty) {
-        const { rows, columns, turnFactor } = difficultyMapper(difficulty);
+        const { rows, columns, turnFactor } = difficultyVariables[difficulty];
         this.invaderSpawns = [];
 
         const { matrix, path } = generateGrid(rows, columns, turnFactor);

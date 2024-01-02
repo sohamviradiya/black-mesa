@@ -1,0 +1,27 @@
+{
+    "ROOKIE": {
+        "rows": 6,
+        "columns": 12,
+        "turnFactor": 0.9
+    },
+    "CASUAL": {
+        "rows": 10,
+        "columns": 15,
+        "turnFactor": 0.8
+    },
+    "MASTER": {
+        "rows": 15,
+        "columns": 24,
+        "turnFactor": 0.7
+    },
+    "VETERAN": {
+        "rows": 20,
+        "columns": 40,
+        "turnFactor": 0.6
+    },
+    "INSANE": {
+        "rows": 30,
+        "columns": 50,
+        "turnFactor": 0.5
+    }
+}
