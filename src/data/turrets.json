@@ -1,33 +1,73 @@
 {
-    "Sniper" : {
-        "range" : 500,
-        "damage" : 300,
-        "angle" : 0.2,
-        "rate" : 0.3,
-        "cost" : 300
+    "SNIPER": {
+        "cost": 200,
+        "type": "DEFENSE",
+        "description": "Long range tower that shoots at enemy units if they are in scope.",
+        "cellSize": 40,
+        "period": 200,
+        "range": 500,
+        "scope": 0.5, 
+        "projectileTemplate": {
+            "speed" : 10,
+            "damage" : 100,
+            "width" : 5,
+            "height" : 5
+        }
     },
-    "Bazooka" : {
-        "range" : 200,
-        "damage" : 400,
-        "rate" : 0.2,
-        "cost" : 400
+    "BAZOOKA": {
+        "cost": 200,
+        "type": "DEFENSE",
+        "description": "Shoots a rocket that explodes on impact.",
+        "cellSize": 40,
+        "period": 200,
+        "range": 250,
+        "projectileTemplate": {
+            "speed" : 8,
+            "damage" : 150,
+            "width" : 20,
+            "height" : 20
+        }
     },
-    "MachineGun" : {
-        "range" : 200,
-        "damage" : 50,
-        "rate" : 3,
-        "cost" : 200
+    "MACHINE_GUN": {
+        "cost": 150,
+        "type": "DEFENSE",
+        "description": "Shoots a bullet at a high rate of fire.",
+        "cellSize": 40,
+        "period": 50,
+        "range": 200,
+        "projectileTemplate": {
+            "speed" : 10,
+            "damage" : 20,
+            "width" : 5,
+            "height" : 5
+        }
     },
-    "Shotgun" : {
-        "range" : 100,
-        "damage" : 200,
-        "rate" : 0.5,
-        "cost" : 200
+    "RIFLE": {
+        "cost": 100,
+        "type": "DEFENSE",
+        "description": "Short range tower that shoots at enemy units if they are in range.",
+        "cellSize": 40,
+        "period": 100,
+        "range": 200,
+        "projectileTemplate": {
+            "speed" : 10,
+            "damage" : 40,
+            "width" : 5,
+            "height" : 5
+        }
     },
-    "Rifle" : {
-        "range" : 200,
-        "damage" : 100,
-        "rate" : 1,
-        "cost" : 100
+    "SHOTGUN": {
+        "cost": 100,
+        "type": "DEFENSE",
+        "description": "High damage, short range tower that shoots at enemy units if they are in range.",
+        "cellSize": 40,
+        "period": 150,
+        "range": 100,
+        "projectileTemplate": {
+            "speed" : 10,
+            "damage" : 150,
+            "width" : 10,
+            "height" : 10
+        }
     }
 }
