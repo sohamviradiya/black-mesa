@@ -5,6 +5,7 @@ import { Installation, InstallationTemplate } from "./installation";
 export interface BaseTemplate extends InstallationTemplate {
     type: "BASE";
 };
+
 export class Base extends Installation {
     constructor(row_index: number, column_index: number, public template: BaseTemplate) {
         super(row_index, column_index, template);

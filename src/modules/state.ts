@@ -1,5 +1,5 @@
-import { Building } from "./buildings/building";
-import { Base } from "./buildings/base";
+import { Building } from "./building";
+import { Base, BaseTemplate } from "./buildings/base";
 import { Cell, CellType, EmptyCell, PathCell, SlotCell, WallCell } from "./cell";
 import { Invader, InvaderTemplate } from "./invader";
 import { Projectile } from "./projectiles";
@@ -7,6 +7,7 @@ import { PositionInterface, ScalarInterface } from "./unit";
 import { generateGrid } from "./grid";
 import variables from "../data/game-variables.json";
 import { Difficulty, difficultyMapper } from "./game-setter";
+import buildings from "../data/buildings.json";
 
 export type CollectionType = "projectiles" | "invaders" | "buildings" | "cells";
 
@@ -32,12 +33,14 @@ export class BoardState {
 
         const { matrix, path } = generateGrid(rows, columns, turnFactor);
         this.mouse = { x: 0, y: 0, width: variables["mouse"]["width"], height: variables["mouse"]["height"] };
+        const last_point = path[path.length - 1];
+
         this.collections = {
             projectiles: [],
             invaders: [],
             cells: matrixToCells(matrix, cellSize),
             buildings: [],
-            base: new Base(path[0].row_index, path[0].column_index, cellSize),
+            base: new Base(last_point.row_index, last_point.column_index, buildings["BASE"] as BaseTemplate),
         };
         this.path = pathToPositions(path, cellSize);
 
@@ -56,7 +59,6 @@ export class BoardState {
         this.collections.invaders.forEach((invader: Invader) => invader.update(this));
         this.collections.buildings.forEach((building: Building) => building.update(this));
         this.collections.cells.forEach((cell: Cell) => cell.update(this));
-
     }
 
     isGameWon(): boolean {
@@ -70,6 +72,21 @@ export class BoardState {
             this.invaderSpawns.shift();
             BoardState.lastInvaderSpawn = this.frame;
         }
+    }
+
+    addBuilding(slot: SlotCell, building: Building): void {
+        if (this.energy < building.cost)
+            return;
+        if (slot.occupy(building))
+            this.energy -= building.cost;
+
+    }
+
+    addPathBuilding(cell: PathCell, building: Building): void {
+        if (this.energy < building.cost)
+            return;
+        if (cell.occupy(building))
+            this.energy -= building.cost;
     }
 
     components(): JSX.Element[] {
@@ -102,5 +119,8 @@ function matrixToCells(matrix: CellType[][], cellSize: number): Cell[] {
 };
 
 function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
-    return path.map((position) => ({ x: position.column_index * cellSize, y: position.row_index * cellSize }));
+    return path.map((position) => ({
+        x: position.column_index * cellSize + cellSize / 2,
+        y: position.row_index * cellSize + cellSize / 2
+    }));
 }
