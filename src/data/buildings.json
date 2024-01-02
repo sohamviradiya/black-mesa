@@ -3,33 +3,36 @@
         "cost": 0,
         "type": "BASE",
         "description": "If you lose this, you lose the game.",
+        "cellSize": 40,
         "maxHealth": 1000,
-         "rate": 1,
-         "period": 100,
-         "cellSize": 40
+        "rate": 1,
+        "period": 100
     },
     "GENERATOR": {
         "cost": 150,
-        "type": "Generator",
+        "type": "GENERATOR",
         "description": "Generates fixed energy per turn.",
-        "health": 100
+        "cellSize": 40,
+        "maxHealth": 200,
+        "rate": 2,
+        "period": 50
     },
     "BARRICADE": {
         "cost": 50,
-        "type": "Barricade",
+        "type": "BARRICADE",
         "description": "Blocks enemy movement.",
-        "health": 500
-    },
-    "SCALAR_TURRET": {
-        "cost": 200,
-        "type": "Turret",
-        "description": "Shoots at enemy units."
+        "cellSize": 40,
+        "health": 500,
+        "maxHealth": 500,
+        "rate": 1,
+        "period": 100
     },
     "EXPLOSIVE": {
         "cost": 100,
-        "type": "Explosive",
-        "description": "Explodes when destroyed.",
-        "damage" : 100,
-        "range" : 1
+        "type": "EXPLOSIVE",
+        "description": "Explodes when triggered.",
+        "cellSize": 40,
+        "damage": 100,
+        "radius": 100
     }
 }
