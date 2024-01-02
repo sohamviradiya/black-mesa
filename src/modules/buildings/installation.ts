@@ -6,7 +6,7 @@ export interface InstallationTemplate extends BuildingTemplate {
     maxHealth: number;
     rate: number;
     period: number;
-    type: "GENERATOR" | "BARRICADE" | "BASE" | "EXPLOSIVE";
+    type: "GENERATOR" | "BASE" | "BARRICADE";
 };
 
 export abstract class Installation extends Building {
