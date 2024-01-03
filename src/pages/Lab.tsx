@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { BoardState } from "../modules/state";
-import { Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import MessageComponent from "../components/message";
+
+const newState = new BoardState(1000, "ROOKIE");
 
 export default function Lab() {
     const [tick, setTick] = useState(0);
-    const [boardState, setBoardState] = useState<BoardState>(new BoardState(1000, "ROOKIE"));
+    const [boardState, setBoardState] = useState<BoardState>(newState);
 
     useEffect(() => {
         let animationFrameId: number;
@@ -23,12 +26,17 @@ export default function Lab() {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ height: "100vh", width: "100vw", backgroundColor: "whitesmoke", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Typography variant="h6" sx={{ position: "absolute", top: 0, left: 0, margin: 2 }}>
-                {boardState.frame}
-            </Typography>
-
-            {boardState.components()}
+        <Container maxWidth="xl" sx={{ height: "100vh", width: "100vw", backgroundColor: "whitesmoke", padding: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <Box sx={{ position: "relative" }} >
+                {boardState.components()}
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%" }}>
+                {boardState.messages.map((message, index) => (
+                    <Box key={index} sx={{ padding: "1rem" }} >
+                        <MessageComponent message={message} />
+                    </Box>
+                ))}
+            </Box>
         </Container>
     );
 }
