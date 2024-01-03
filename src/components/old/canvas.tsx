@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-import setupBoard from "../utilities/animations";
+import setupBoard from "../../utilities/animations";
 import { Container, Typography } from "@mui/material";
 
 export default function Canvas() {

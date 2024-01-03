@@ -1,4 +1,4 @@
-import Canvas from "../components/canvas";
+import Canvas from "../components/old/canvas";
 
 export default function Main() {
     return (

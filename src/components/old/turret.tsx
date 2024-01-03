@@ -1,4 +1,4 @@
-import { ScalarTurret } from "../modules/buildings/defenses";
+import { ScalarTurret } from "../../modules/buildings/defenses";
 
 export default function TurretComponent({ turret }: { turret: ScalarTurret }) {
     return (

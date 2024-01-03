@@ -1,4 +1,4 @@
-import { Invader } from "../modules/invader";
+import { Invader } from "../../modules/invader";
 
 export default function InvaderComponent({ invader }: { invader: Invader }) {
     return (
