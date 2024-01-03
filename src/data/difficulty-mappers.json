@@ -2,26 +2,31 @@
     "ROOKIE": {
         "rows": 6,
         "columns": 12,
-        "turnFactor": 0.9
+        "turnFactor": 0.9,
+        "energy": 400
     },
     "CASUAL": {
         "rows": 10,
         "columns": 15,
-        "turnFactor": 0.8
+        "turnFactor": 0.8,
+        "energy": 600
     },
     "MASTER": {
         "rows": 15,
         "columns": 24,
-        "turnFactor": 0.7
+        "turnFactor": 0.7,
+        "energy": 800
     },
     "VETERAN": {
         "rows": 20,
         "columns": 40,
-        "turnFactor": 0.6
+        "turnFactor": 0.6,
+        "energy": 1000
     },
     "INSANE": {
-        "rows": 30,
-        "columns": 50,
-        "turnFactor": 0.5
+        "rows": 40,
+        "columns": 75,
+        "turnFactor": 0.5,
+        "energy": 2000
     }
 }
