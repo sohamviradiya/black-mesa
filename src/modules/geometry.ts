@@ -55,7 +55,7 @@ export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
 };
 export function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
     return path.map((position) => ({
-        x: position.column_index * cellSize + cellSize / 2,
-        y: position.row_index * cellSize + cellSize / 2
+        x: position.column_index * cellSize + cellSize,
+        y: position.row_index * cellSize + cellSize,
     }));
 }
