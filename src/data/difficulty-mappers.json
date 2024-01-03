@@ -8,7 +8,7 @@
             "ALPHA": 10,
             "GAMMA": 2
         },
-        "frames": 6000
+        "invader-period": 1000
     },
     "CASUAL": {
         "rows": 10,
@@ -19,7 +19,7 @@
             "ALPHA": 30,
             "GAMMA": 10
         },
-        "frames": 10000
+        "invader-period": 800
     },
     "MASTER": {
         "rows": 15,
@@ -31,7 +31,7 @@
             "GAMMA": 25,
             "SIGMA": 5
         },
-        "frames": 20000
+        "invader-period": 600
     },
     "VETERAN": {
         "rows": 20,
@@ -44,7 +44,7 @@
             "SIGMA": 16,
             "OMEGA": 3
         },
-        "frames": 50000
+        "invader-period": 400
     },
     "INSANE": {
         "rows": 40,
@@ -54,9 +54,9 @@
         "invaderSpawns": {
             "ALPHA": 300,
             "GAMMA": 120,
-            "SIGMA": 27,
+            "SIGMA": 30,
             "OMEGA": 10
         },
-        "frames": 120000
+        "invader-period": 250
     }
 }
