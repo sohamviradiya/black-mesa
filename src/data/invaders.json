@@ -1,6 +1,6 @@
 {
-    "Alpha" : {
-        "type": "Alpha",
+    "ALPHA" : {
+        "type": "ALPHA",
         "speed": 15,
         "maxHealth": 100,
         "bounty": 30,
@@ -9,8 +9,8 @@
         "width": 20,
         "height": 20
     },
-    "Gamma" : {
-        "type" : "Gamma",
+    "GAMMA" : {
+        "type" : "GAMMA",
         "speed": 25,
         "maxHealth": 50,
         "bounty": 50,
@@ -19,8 +19,8 @@
         "width": 20,
         "height": 20
     },
-    "Lambda": {
-        "type": "Lambda",
+    "LAMBDA": {
+        "type": "LAMBDA",
         "speed": 20,
         "maxHealth": 100,
         "bounty": 75,
@@ -29,8 +29,8 @@
         "width": 30,
         "height": 30
     },
-    "Sigma" : {
-        "type" : "Sigma",
+    "SIGMA" : {
+        "type" : "SIGMA",
         "speed": 10,
         "maxHealth": 200,
         "bounty": 100,
@@ -39,8 +39,8 @@
         "width": 30,
         "height": 30
     },
-    "Omega" : {
-        "type" : "Omega",
+    "OMEGA" : {
+        "type" : "OMEGA",
         "speed": 5,
         "maxHealth": 500,
         "bounty": 200,
