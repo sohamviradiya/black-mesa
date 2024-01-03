@@ -11,10 +11,6 @@ export class Base extends Installation {
         super(row_index, column_index, template);
     };
 
-    addSelf(state: BoardState): void {
-        state.collections.base = this;
-    }
-
     update(state: BoardState): void {
         if (!this.active)
             state.gameOver = true;

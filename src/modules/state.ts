@@ -21,7 +21,7 @@ export type InvaderSpawn = {
 export class BoardState {
     public frame: number = 0;
     static lastInvaderSpawn: number = 0;
-    public collections: { projectiles: Projectile[], invaders: Invader[], base: Base, buildings: Building[], cells: Cell[] };
+    public collections: { projectiles: Projectile[], invaders: Invader[], buildings: Building[], cells: Cell[] };
     public energy: number = variables["initial-energy"];
     public score: number = 0;
     public gameOver: boolean = false;
@@ -41,8 +41,7 @@ export class BoardState {
             projectiles: [],
             invaders: [],
             cells: matrixToCells(matrix, cellSize),
-            buildings: [],
-            base: new Base(last_point.row_index, last_point.column_index, buildings["BASE"] as BaseTemplate),
+            buildings: [new Base(last_point.row_index, last_point.column_index, buildings["BASE"] as BaseTemplate)],
         };
         this.path = pathToPositions(path, cellSize);
 
@@ -81,7 +80,6 @@ export class BoardState {
             return;
         if (slot.occupy(building))
             this.energy -= building.cost;
-
     }
 
     addPathBuilding(cell: PathCell, building: Building): void {
@@ -93,9 +91,8 @@ export class BoardState {
 
     components(): JSX.Element[] {
         return [
-            this.collections.base.component(),
-            ...this.collections.buildings.map((building: Building) => building.component()),
             ...this.collections.cells.map((cell: Cell) => cell.component()),
+            ...this.collections.buildings.map((building: Building) => building.component()),
             ...this.collections.invaders.map((invader: Invader) => invader.component()),
             ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
         ];
