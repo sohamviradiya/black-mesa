@@ -11,7 +11,7 @@ import { Barricade, BarricadeTemplate } from "./buildings/barricade";
 import { Explosive, ExplosiveTemplate } from "./buildings/explosive";
 import { matrixToCells } from "./cell";
 import { pathToPositions } from "./geometry";
-import { Defense, DefenseTemplate, DefenseType, ScalarTurret, VectorTurret, VectorDefenseTemplate } from "./buildings/defenses";
+import { Defense, DefenseTemplate, WeaponType, ScalarTurret, VectorTurret, VectorDefenseTemplate } from "./buildings/defenses";
 
 import difficultyVariables from "../data/difficulty-mappers.json";
 import variables from "../data/game-variables.json";
@@ -50,6 +50,11 @@ export class BoardState {
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
+        if (base_row_index > 0 && this.collections.cells[base_row_index - 1][base_column_index].type === "SLOT")
+            this.addDefense(this.collections.cells[base_row_index - 1][base_column_index] as SlotCell, "MACHINE_GUN");
+        if (base_row_index < rows - 1 && this.collections.cells[base_row_index + 1][base_column_index].type === "SLOT")
+            this.addDefense(this.collections.cells[base_row_index + 1][base_column_index] as SlotCell, "MACHINE_GUN");
+
         this.messages.push("You have " + this.energy + " energy");
         this.messages.push("Let the invasion begin!");
     }
@@ -84,10 +89,11 @@ export class BoardState {
         this.messages.push(message);
     }
 
-    addDefense(cell: SlotCell, type: DefenseType): void {
+    addDefense(cell: SlotCell, type: WeaponType): void {
         const template = defenses[type];
         if (!this.checkCost(template as BuildingTemplate))
             return;
+
         const { row_index, column_index } = cell;
         let defense: Defense;
         if (type === "SNIPER")
@@ -95,8 +101,10 @@ export class BoardState {
         else
             defense = new ScalarTurret(row_index, column_index, template as DefenseTemplate, this.cellSize);
 
-        if (cell.occupy(defense))
-            this.energy -= template.cost;
+        if (cell.occupy(defense)) {
+            console.log("Building ", JSON.stringify(defense));
+            this.addBuilding(defense);
+        }
     }
 
     addExplosive(cell: PathCell) {
@@ -106,8 +114,9 @@ export class BoardState {
         const { row_index, column_index } = cell;
         const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
         this.collections.buildings.push(explosive);
-        if (cell.occupy(explosive))
-            this.energy -= template.cost;
+        if (cell.occupy(explosive)) {
+            this.addBuilding(explosive);
+        }
     }
 
     addBarricade(cell: PathCell) {
@@ -133,9 +142,13 @@ export class BoardState {
         else
             return;
 
-        this.collections.buildings.push(installation);
         if (cell.occupy(installation))
-            this.energy -= template.cost;
+            this.addBuilding(installation);
+    }
+
+    private addBuilding(building: Building) {
+        this.energy -= building.cost;
+        this.collections.buildings.push(building);
     }
 
     private checkCost(template: BuildingTemplate) {

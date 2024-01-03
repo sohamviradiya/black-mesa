@@ -2,6 +2,7 @@
     "SNIPER": {
         "cost": 200,
         "type": "DEFENSE",
+        "weapon": "SNIPER",
         "description": "Long range tower that shoots at enemy units if they are in scope.",
         "period": 200,
         "range": 500,
@@ -16,6 +17,7 @@
     "MISSILE_LAUNCHER": {
         "cost": 200,
         "type": "DEFENSE",
+        "weapon": "MISSILE_LAUNCHER",
         "description": "Shoots a missile at a high rate of fire.",
         "period": 200,
         "range": 250,
@@ -29,6 +31,7 @@
     "MACHINE_GUN": {
         "cost": 150,
         "type": "DEFENSE",
+        "weapon": "MACHINE_GUN",
         "description": "Shoots a bullet at a high rate of fire.",
         "period": 50,
         "range": 200,
@@ -42,6 +45,7 @@
     "LASER": {
         "cost": 100,
         "type": "DEFENSE",
+        "weapon": "LASER",
         "description": "Short range tower that shoots at enemy units if they are in range.",
         "period": 100,
         "range": 200,
@@ -55,6 +59,7 @@
     "SHOTGUN": {
         "cost": 100,
         "type": "DEFENSE",
+        "weapon": "SHOTGUN",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
         "period": 150,
         "range": 100,
