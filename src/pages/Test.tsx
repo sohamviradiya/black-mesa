@@ -1,50 +1,54 @@
-import { Box,  FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import { useMemo, useState } from "react";
 import CellComponent from "../components/units/cell";
 import { BoardState, Difficulty } from "../modules/state";
 
 export default function Test() {
     const [difficulty, setDifficulty] = useState<Difficulty>("ROOKIE");
-
+    const [finalDifficulty, setFinalDifficulty] = useState<Difficulty | "NOT-SET">("NOT-SET");
     const state = useMemo(() => {
-        return new BoardState(800, difficulty);
+        return new BoardState(1200, difficulty);
     }, [difficulty]);
 
 
     return (
-        <Box sx={{ backgroundColor: "whitesmoke", textAlign: "center", padding: "3rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box sx={{ backgroundColor: "whitesmoke", textAlign: "center", padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Box sx={{ width: "100%", textOverflow: "clip", wordBreak: "break-all" }}>
                 <Typography variant="h1">Test</Typography>
                 <Typography variant="h3">Dimensions</Typography>
             </Box>
             <Box sx={{ width: "100%" }}>
-
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-helper-label">Difficulty</InputLabel>
-                    <Select
-                        value={difficulty}
-                        label="Difficulty"
-                        onChange={(e) => setDifficulty(e.target.value as Difficulty)}
-                    >
-                        <MenuItem value={"ROOKIE"} selected>Rookie</MenuItem>
-                        <MenuItem value={"CASUAL"}>Casual</MenuItem>
-                        <MenuItem value={"MASTER"}>Master</MenuItem>
-                        <MenuItem value={"VETERAN"}>Veteran</MenuItem>
-                        <MenuItem value={"INSANE"}>Insane</MenuItem>
-                    </Select>
-                </FormControl>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel>Difficulty</InputLabel>
+                        <Select
+                            value={difficulty}
+                            label="Difficulty"
+                            onChange={(e) => setDifficulty(e.target.value as Difficulty)}
+                            disabled={finalDifficulty !== "NOT-SET"}
+                        >
+                            <MenuItem value={"ROOKIE"} selected>Rookie</MenuItem>
+                            <MenuItem value={"CASUAL"}>Casual</MenuItem>
+                            <MenuItem value={"MASTER"}>Master</MenuItem>
+                            <MenuItem value={"VETERAN"}>Veteran</MenuItem>
+                            <MenuItem value={"INSANE"}>Insane</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Button variant="outlined" onClick={() => setFinalDifficulty(difficulty)} disabled={finalDifficulty !== "NOT-SET"}>Set</Button>
             </Box>
-            <Box sx={{ position: "relative", width: "80vw", height: "" }}>
-                {state.collections.cells.map((row, i) => (
-                    <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
-                        {row.map((cell, j) => (
-                            <CellComponent key={j} cell={cell} />
-                        ))}
-                    </Box>
-                ))}
-                {/* {turret && <TurretComponent turret={turret} />}
-                {invader && <InvaderComponent invader={invader} />} */}
-            </Box>
+            {finalDifficulty !== "NOT-SET" && <>
+                <Typography variant="h3">{finalDifficulty}</Typography>
+                <Box sx={{ position: "relative", width: state.cellSize * (state.collections.cells[0].length + 2), height: state.cellSize * (state.collections.cells.length + 2) }}>
+                    {state.collections.cells.map((row, i) => (
+                        <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
+                            {row.map((cell, j) => (
+                                <CellComponent key={j} cell={cell} />
+                            ))}
+                        </Box>
+                    ))}
+                </Box>
+            </>}
         </Box>
     )
 };
