@@ -3,30 +3,60 @@
         "rows": 6,
         "columns": 12,
         "turnFactor": 0.9,
-        "energy": 400
+        "energy": 400,
+        "invaderSpawns": {
+            "ALPHA": 10,
+            "GAMMA": 2
+        },
+        "frames": 6000
     },
     "CASUAL": {
         "rows": 10,
         "columns": 15,
         "turnFactor": 0.8,
-        "energy": 600
+        "energy": 600,
+        "invaderSpawns": {
+            "ALPHA": 30,
+            "GAMMA": 10
+        },
+        "frames": 10000
     },
     "MASTER": {
         "rows": 15,
         "columns": 24,
         "turnFactor": 0.7,
-        "energy": 800
+        "energy": 800,
+        "invaderSpawns": {
+            "ALPHA": 50,
+            "GAMMA": 25,
+            "SIGMA": 5
+        },
+        "frames": 20000
     },
     "VETERAN": {
         "rows": 20,
         "columns": 40,
         "turnFactor": 0.6,
-        "energy": 1000
+        "energy": 1000,
+        "invaderSpawns": {
+            "ALPHA": 100,
+            "GAMMA": 60,
+            "SIGMA": 16,
+            "OMEGA": 3
+        },
+        "frames": 50000
     },
     "INSANE": {
         "rows": 40,
         "columns": 75,
         "turnFactor": 0.5,
-        "energy": 2000
+        "energy": 2000,
+        "invaderSpawns": {
+            "ALPHA": 300,
+            "GAMMA": 120,
+            "SIGMA": 27,
+            "OMEGA": 10
+        },
+        "frames": 120000
     }
 }
