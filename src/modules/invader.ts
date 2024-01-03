@@ -1,4 +1,4 @@
-import InvaderComponent from "../components/invader";
+import InvaderComponent from "../components/units/invader";
 import { Building } from "./building";
 import { Installation } from "./buildings/installation";
 import { collision } from "./geometry";
@@ -25,7 +25,7 @@ export class Invader extends VectorUnit {
     moving: boolean = true;
     health: number;
     constructor(public path: PositionInterface[], public template: InvaderTemplate, cellSize: number) {
-        super(path[0].x, path[0].y, template.widthFactor* cellSize, template.heightFactor* cellSize, 0);
+        super(path[0].x, path[0].y, template.widthFactor * cellSize, template.heightFactor * cellSize, 0);
         this.health = template.maxHealth;
     };
 
@@ -105,6 +105,6 @@ export class Invader extends VectorUnit {
     }
 
     component(): JSX.Element {
-        return InvaderComponent({ invader: this });
+        return super.component({ children: InvaderComponent({ invader: this }) });
     }
 };

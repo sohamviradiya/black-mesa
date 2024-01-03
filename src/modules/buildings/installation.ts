@@ -1,5 +1,8 @@
 import { BoardState } from "../state";
 import { Building, BuildingTemplate } from "../building";
+import { ReactNode } from "react";
+import { JSX } from "react/jsx-runtime";
+import InstallationComponent from "../../components/units/buildings/installation";
 
 
 export interface InstallationTemplate extends BuildingTemplate {
@@ -42,6 +45,10 @@ export abstract class Installation extends Building {
         this.timer++;
         if (this.isReady())
             state.energy += this.template.rate;
+    }
+
+    component({ children }: { children: ReactNode; }): JSX.Element {
+        return super.component({ children: InstallationComponent({ installation: this, children }) });
     }
 }
 ;

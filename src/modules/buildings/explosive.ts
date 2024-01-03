@@ -2,7 +2,7 @@ import { Building, BuildingTemplate } from "../building";
 import { Invader } from "../invader";
 import { collision, isInRadius } from "../geometry";
 import { BoardState } from "../state";
-import ExplosiveComponent from "../../components/units/explosive";
+import ExplosiveComponent from "../../components/units/buildings/defenses/explosive";
 
 export interface ExplosiveTemplate extends BuildingTemplate {
     type: "EXPLOSIVE";
@@ -31,7 +31,7 @@ export class Explosive extends Building {
     }
 
     component(): JSX.Element {
-        return ExplosiveComponent({ explosive: this });
+        return super.component({ children: ExplosiveComponent({ explosive: this }) });
     }
 
     private explode(invaders: Invader[]) {

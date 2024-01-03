@@ -1,6 +1,9 @@
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
 import variables from "../data/game-variables.json";
+import { ReactNode } from "react";
+import { JSX } from "react/jsx-runtime";
+import BuildingComponent from "../components/units/building";
 
 export enum BuildingTypes {
     "BASE",
@@ -31,6 +34,7 @@ export abstract class Building extends ScalarUnit {
         this.type = template.type;
         this.cost = template.cost;
     }
+
     addSelf(state: BoardState): void {
         state.addMessage("You built a " + this.type + " for " + this.cost + " energy");
         state.collections.buildings.push(this);
@@ -42,6 +46,10 @@ export abstract class Building extends ScalarUnit {
         state.addMessage("You dismantled a " + this.type + " for " + variables["dismantle-factor"] * this.cost + " energy");
         state.energy += variables["dismantle-factor"] * this.cost;
         this.removeSelf(state);
+    }
+    
+    component({ children }: { children: ReactNode; }): JSX.Element {
+        return super.component({ children: BuildingComponent({ building: this, children }) });
     }
 }
 

@@ -1,4 +1,4 @@
-import BaseComponent from "../../components/units/base";
+import BaseComponent from "../../components/units/buildings/base";
 import { BoardState } from "../state";
 import { Installation, InstallationTemplate } from "./installation";
 
@@ -18,7 +18,7 @@ export class Base extends Installation {
     }
 
     component(): JSX.Element {
-        return BaseComponent({ base: this });
+        return super.component({ children: BaseComponent({ base: this }) });
     };
 
 };

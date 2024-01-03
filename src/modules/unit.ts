@@ -1,4 +1,7 @@
+import React from "react";
 import { BoardState, CollectionType } from "./state";
+import UnitComponent from "../components/units/unit";
+import VectorComponent from "../components/units/vector";
 
 
 export interface PositionInterface {
@@ -25,7 +28,7 @@ export enum AlignmentTypes {
 
 export type AlignmentType = keyof typeof AlignmentTypes;
 
-abstract class Unit {
+export abstract class Unit {
     static nextId = 0;
     public id: number;
     abstract collection: CollectionType;
@@ -34,11 +37,14 @@ abstract class Unit {
         Unit.nextId++;
     }
     abstract update(state: BoardState): void;
-    abstract component(): JSX.Element;
 
     getState(): ScalarInterface {
         return this;
     }
+    
+    component({ children }: { children: React.ReactNode }) {
+        return UnitComponent({ unit: this, children });
+    };
     abstract addSelf(state: BoardState): void;
     abstract removeSelf(state: BoardState): void;
 }
@@ -59,5 +65,9 @@ export abstract class VectorUnit extends Unit implements VectorInterface {
     getState(): VectorInterface {
         return this;
     }
+
+    component({ children }: { children: React.ReactNode }) {
+        return super.component({ children: VectorComponent({ unit: this, children }) });
+    };
 }
 

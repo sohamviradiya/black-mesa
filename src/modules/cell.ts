@@ -35,8 +35,9 @@ export class Cell extends ScalarUnit {
         }
     }
     component() {
-        return CellComponent({ cell: this });
+        return super.component({ children: CellComponent({ cell: this }) });
     }
+    
     addSelf(state: BoardState): void {
         state.collections.cells[this.row_index][this.column_index] = this;
     }

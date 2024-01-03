@@ -2,7 +2,7 @@ import { Building, BuildingTemplate } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
 import { Cell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate, InvaderType } from "./invader";
-import { Projectile } from "./projectiles";
+import { Projectile } from "./projectile";
 import { PositionInterface, ScalarInterface } from "./unit";
 import { generateGrid } from "./grid";
 import { InstallationType } from "./buildings/installation";

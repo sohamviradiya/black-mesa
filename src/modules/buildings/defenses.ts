@@ -3,10 +3,11 @@ import { Building, BuildingTemplate } from "../building";
 import { AlignmentType } from "../unit";
 import { Invader } from "../invader";
 import { getAngle, isInRange, isInScope } from "../geometry";
-import { Projectile, ProjectileTemplate } from "../projectiles";
+import { Projectile, ProjectileTemplate } from "../projectile";
 import { BoardState } from "../state";
-import ScalarTurretComponent from "../../components/units/scalar-turret";
-import VectorTurretComponent from "../../components/units/vector-turret";
+import ScalarTurretComponent from "../../components/units/buildings/defenses/scalar-turret";
+import VectorTurretComponent from "../../components/units/buildings/defenses/vector-turret";
+import DefenseComponent from "../../components/units/buildings/defense";
 
 export type DefenseType = "LASER" | "SNIPER" | "MISSILE_LAUNCHER" | "MACHINE_GUN" | "SHOTGUN";
 
@@ -45,6 +46,9 @@ export abstract class Defense extends Building {
             }
         }
     }
+    component({ children }: { children: React.ReactNode }): JSX.Element {
+        return super.component({ children: DefenseComponent({ defense: this, children }) });
+    }
 }
 
 export class ScalarTurret extends Defense {
@@ -60,7 +64,7 @@ export class ScalarTurret extends Defense {
         return null;
     };
     component(): JSX.Element {
-        return ScalarTurretComponent({ turret: this });
+        return super.component({ children: ScalarTurretComponent({ turret: this }) });
     }
 }
 
@@ -82,7 +86,7 @@ export class VectorTurret extends Defense {
         return null;
     };
     component(): JSX.Element {
-        return VectorTurretComponent({ turret: this });
+        return super.component({ children: VectorTurretComponent({ turret: this }) });
     }
 }
 

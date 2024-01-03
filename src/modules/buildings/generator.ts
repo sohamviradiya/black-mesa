@@ -1,4 +1,4 @@
-import GeneratorComponent from "../../components/units/generator";
+import GeneratorComponent from "../../components/units/buildings/generator";
 import { Installation, InstallationTemplate } from "./installation";
 
 export interface GeneratorTemplate extends InstallationTemplate {

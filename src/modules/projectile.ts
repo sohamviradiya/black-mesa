@@ -57,6 +57,6 @@ export class Projectile extends VectorUnit {
     }
 
     component(): JSX.Element {
-        return ProjectileComponent({ projectile: this });
+        return super.component({ children: ProjectileComponent({ projectile: this }) });
     }
 }
