@@ -37,6 +37,10 @@ export function angleToAlignment(defense: VectorInterface, invader: ScalarInterf
     }
 }
 
+export function radiansToDegrees(radians: number) {
+    return radians * 180 / Math.PI;
+}
+
 export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
     return distance(bomb, invader) <= bomb.template.radius;
 };
