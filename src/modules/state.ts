@@ -20,7 +20,7 @@ export type InvaderSpawn = {
 
 export class BoardState {
     public frame: number = 0;
-    static lastInvaderSpawn: number = 0;
+    lastInvaderSpawn: number = 0;
     public collections: { projectiles: Projectile[], invaders: Invader[], buildings: Building[], cells: Cell[] };
     public energy: number = variables["initial-energy"];
     public score: number = 0;
@@ -68,10 +68,10 @@ export class BoardState {
 
     updateInvaders() {
         const { timeout, template } = this.invaderSpawns[0];
-        if (timeout === this.frame - BoardState.lastInvaderSpawn) {
+        if (timeout === this.frame - this.lastInvaderSpawn) {
             this.collections.invaders.push(new Invader(this.path, template));
             this.invaderSpawns.shift();
-            BoardState.lastInvaderSpawn = this.frame;
+            this.lastInvaderSpawn = this.frame;
         }
     }
 
