@@ -8,7 +8,7 @@
         "range": 500,
         "scope": 0.5,
         "projectileTemplate": {
-            "speed": 70,
+            "speed": 7,
             "damage": 100,
             "widthFactor": 0.4,
             "heightFactor": 0.1
@@ -22,7 +22,7 @@
         "period": 200,
         "range": 250,
         "projectileTemplate": {
-            "speed": 40,
+            "speed": 4,
             "damage": 150,
             "widthFactor": 0.6,
             "heightFactor": 0.2
@@ -36,7 +36,7 @@
         "period": 50,
         "range": 200,
         "projectileTemplate": {
-            "speed": 50,
+            "speed": 5,
             "damage": 20,
             "widthFactor": 0.2,
             "heightFactor": 0.05
@@ -50,7 +50,7 @@
         "period": 100,
         "range": 200,
         "projectileTemplate": {
-            "speed": 50,
+            "speed": 5,
             "damage": 40,
             "widthFactor": 0.2,
             "heightFactor": 0.05
@@ -64,7 +64,7 @@
         "period": 150,
         "range": 100,
         "projectileTemplate": {
-            "speed": 50,
+            "speed": 5,
             "damage": 150,
             "widthFactor": 0.2,
             "heightFactor": 0.05
