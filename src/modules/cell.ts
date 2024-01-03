@@ -61,16 +61,12 @@ export class EmptyCell extends Cell {
 
 abstract class OccupiableCell extends Cell {
     public occupier: Building | null = null;
-    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0, public isLocked: boolean = true, public type: CellType) {
+    constructor(row_index: number, column_index: number, cellSize: number,  public type: CellType) {
         super(row_index, column_index, cellSize, type);
     }
 
-    unlock() {
-        this.isLocked = false;
-    }
-
     canOccupy(building: Building): boolean {
-        if (this.occupier || this.isLocked || this.unlockCost > building.cost)
+        if (this.occupier)
             return false;
         return true;
     }
@@ -81,6 +77,7 @@ abstract class OccupiableCell extends Cell {
         this.occupier = building;
         return true;
     }
+
     dismantle(state: BoardState): void {
         if (!this.occupier)
             return;
@@ -91,7 +88,7 @@ abstract class OccupiableCell extends Cell {
 
 export class PathCell extends OccupiableCell {
     constructor(row_index: number, column_index: number, cellSize: number) {
-        super(row_index, column_index, cellSize, 0, false, "PATH");
+        super(row_index, column_index, cellSize, "PATH");
     }
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
@@ -103,10 +100,16 @@ export class PathCell extends OccupiableCell {
 }
 
 export class SlotCell extends OccupiableCell {
-    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0, public isLocked: boolean = true) {
-        super(row_index, column_index, cellSize, unlockCost, isLocked, "SLOT");
+    isLocked = true;
+    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0) {
+        super(row_index, column_index, cellSize, "SLOT");
+    }
+    unlock(): void {
+        this.isLocked = false;
     }
     canOccupy(building: Building): boolean {
+        if (this.isLocked)
+            return false;
         if (!super.canOccupy(building))
             return false;
         if (building.type in ["DEFENSE"])
