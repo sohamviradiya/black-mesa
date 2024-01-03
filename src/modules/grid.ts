@@ -6,15 +6,15 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     const path = [];
     while (currentPoint.column_index < cols - 1) {
         matrix[currentPoint.row_index][currentPoint.column_index] = "PATH";
-        path.push(currentPoint);
+        path.push({ column_index: currentPoint.column_index, row_index: currentPoint.row_index });
         const nextPoint = pickNextPoint(matrix, currentPoint.column_index, currentPoint.row_index, rows, cols, turnFactor);
         if (nextPoint.column_index === -1) break;
         currentPoint.column_index = nextPoint.column_index;
         currentPoint.row_index = nextPoint.row_index;
     }
     matrix[currentPoint.row_index][currentPoint.column_index] = "PATH";
-    path.push(currentPoint);
-
+    path.push({ column_index: currentPoint.column_index, row_index: currentPoint.row_index });
+    
     // add 2 slots beside the base
     if (isValidPoint(currentPoint.column_index - 1, currentPoint.row_index - 1, rows, cols) && matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] !== "PATH")
         matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] = "SLOT";
