@@ -6,7 +6,10 @@
         "energy": 400,
         "invaderSpawns": {
             "ALPHA": 10,
-            "GAMMA": 2
+            "GAMMA": 2,
+            "LAMBDA": 0,
+            "SIGMA": 0,
+            "OMEGA": 0
         },
         "invader-period": 1000
     },
@@ -17,7 +20,10 @@
         "energy": 600,
         "invaderSpawns": {
             "ALPHA": 30,
-            "GAMMA": 10
+            "GAMMA": 10,
+            "LAMBDA": 2,
+            "SIGMA": 0,
+            "OMEGA": 0
         },
         "invader-period": 800
     },
@@ -29,7 +35,9 @@
         "invaderSpawns": {
             "ALPHA": 50,
             "GAMMA": 25,
-            "SIGMA": 5
+            "LAMBDA": 5,
+            "SIGMA": 2,
+            "OMEGA": 0
         },
         "invader-period": 600
     },
@@ -41,6 +49,7 @@
         "invaderSpawns": {
             "ALPHA": 100,
             "GAMMA": 60,
+            "LAMBDA": 10,
             "SIGMA": 16,
             "OMEGA": 3
         },
@@ -54,6 +63,7 @@
         "invaderSpawns": {
             "ALPHA": 300,
             "GAMMA": 120,
+            "LAMBDA": 30,
             "SIGMA": 30,
             "OMEGA": 10
         },
