@@ -43,7 +43,6 @@ export class BoardState {
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
         this.cellSize = width / columns;
         const { matrix, path } = generateGrid(rows, columns, turnFactor);
-
         this.collections.cells = matrixToCells(matrix, this.cellSize);
 
         this.path = pathToPositions(path, this.cellSize);
@@ -55,18 +54,19 @@ export class BoardState {
         this.messages.push("Let the invasion begin!");
     }
 
-    update(): void {
-        this.frame++;
+    update(): this {
         if (this.gameOver || this.gameWon) {
-            return;
+            return this;
         }
+        this.frame++;
         if (this.isGameWon()) {
             this.messages.push("You won with a score of " + this.score);
             this.gameWon = true;
-            return;
+            return this;
         }
         this.spawnInvaders();
         this.updateCollections();
+        return this;
     }
 
     components(): JSX.Element[] {
@@ -153,8 +153,9 @@ export class BoardState {
     private spawnInvaders() {
         if (this.frame % this.invaderPeriod !== 0 || this.invaderQueue.length === 0)
             return;
+        console.log(this.frame, this.invaderPeriod, this.invaderQueue.length);
         const invaderType: InvaderType = this.invaderQueue.shift() as InvaderType;
-        const invader = new Invader(this.path, invaders[invaderType] as InvaderTemplate, this.cellSize);
+        const invader = new Invader(new Array(...this.path), invaders[invaderType] as InvaderTemplate, this.cellSize);
         this.collections.invaders.push(invader);
     }
 
