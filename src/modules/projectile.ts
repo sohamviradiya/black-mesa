@@ -15,7 +15,7 @@ export class Projectile extends VectorUnit {
     public active: boolean = true;
     collection: CollectionType = "projectiles";
     constructor(x: number, y: number, angle: number, public target: Invader, public template: ProjectileTemplate, cellSize: number) {
-        super(x, y, template.widthFactor, template.heightFactor, angle);
+        super(x, y, template.widthFactor * cellSize, template.heightFactor * cellSize, angle);
     }
 
     update(state: BoardState): void {
