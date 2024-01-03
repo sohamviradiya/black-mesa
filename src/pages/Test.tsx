@@ -40,13 +40,7 @@ export default function Test() {
             {finalDifficulty !== "NOT-SET" && <>
                 <Typography variant="h3">{finalDifficulty}</Typography>
                 <Box sx={{ position: "relative", width: state.cellSize * (state.collections.cells[0].length + 2), height: state.cellSize * (state.collections.cells.length + 2) }}>
-                    {state.collections.cells.map((row, i) => (
-                        <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
-                            {row.map((cell, j) => (
-                                <CellComponent key={j} cell={cell} />
-                            ))}
-                        </Box>
-                    ))}
+                    {state.components()}
                 </Box>
             </>}
         </Box>
