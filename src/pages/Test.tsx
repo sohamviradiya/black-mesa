@@ -8,7 +8,7 @@ export default function Test() {
     const [finalDifficulty, setFinalDifficulty] = useState<Difficulty | "NOT-SET">("NOT-SET");
     const state = useMemo(() => {
         return new BoardState(1200, difficulty);
-    }, [difficulty]);
+    }, [difficulty, finalDifficulty]);
 
 
     return (
@@ -35,15 +35,28 @@ export default function Test() {
                         </Select>
                     </FormControl>
                 </Box>
-                <Button variant="outlined" onClick={() => setFinalDifficulty(difficulty)} disabled={finalDifficulty !== "NOT-SET"}>Set</Button>
-            </Box>
-            {<>
-                <Typography variant="h3">{finalDifficulty}</Typography>
-                <Box sx={{ position: "relative", width: state.cellSize * (state.collections.cells[0].length + 2), height: state.cellSize * (state.collections.cells.length + 2) }}>
-                    {state.components()}
+                <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", gap: "1rem" }}>
+                    <Button variant="outlined" onClick={() =>
+                        setFinalDifficulty(difficulty)}
+                        disabled={finalDifficulty !== "NOT-SET"}>
+                        Set
+                    </Button>
+                    <Button variant="outlined" onClick={() => {
+                        setFinalDifficulty("NOT-SET");
+                    }} >
+                        Refresh
+                    </Button>
                 </Box>
-                {state.messages.map((message) => <MessageComponent message={message} />)}
-            </>}
-        </Box>
+            </Box>
+            {
+                <>
+                    <Typography variant="h3">{finalDifficulty}</Typography>
+                    <Box sx={{ position: "relative", width: state.cellSize * (state.collections.cells[0].length + 2), height: state.cellSize * (state.collections.cells.length + 2) }}>
+                        {state.components()}
+                    </Box>
+                    {state.messages.map((message) => <MessageComponent message={message} />)}
+                </>
+            }
+        </Box >
     )
 };
