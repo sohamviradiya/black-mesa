@@ -27,7 +27,8 @@ export class BoardState {
     public gameOver: boolean = false;
     public gameWon: boolean = false;
     public mouse: ScalarInterface;
-    public invaderSpawns: InvaderSpawn[];
+    public messages: string[] = [];
+    invaderSpawns: InvaderSpawn[];
     public path: PositionInterface[];
     constructor(cellSize: number, difficulty: Difficulty) {
         const { rows, columns, turnFactor } = difficultyVariables[difficulty];
@@ -52,6 +53,7 @@ export class BoardState {
             return;
         }
         if (this.isGameWon()) {
+            this.messages.push("You won with a score of " + this.score);
             this.gameWon = true;
             return;
         }
@@ -60,6 +62,12 @@ export class BoardState {
         this.collections.invaders.forEach((invader: Invader) => invader.update(this));
         this.collections.buildings.forEach((building: Building) => building.update(this));
         this.collections.cells.forEach((cell: Cell) => cell.update(this));
+    }
+
+    addMessage(message: string): void {
+        if (this.messages.length > 5)
+            this.messages.shift();
+        this.messages.push(message);
     }
 
     isGameWon(): boolean {

@@ -104,7 +104,10 @@ export class SlotCell extends OccupiableCell {
     constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0) {
         super(row_index, column_index, cellSize, "SLOT");
     }
-    unlock(): void {
+    unlock(state: BoardState): void {
+        if (state.energy < this.unlockCost)
+            return;
+        state.energy -= this.unlockCost;
         this.isLocked = false;
     }
     canOccupy(building: Building): boolean {

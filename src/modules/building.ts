@@ -33,12 +33,14 @@ export abstract class Building extends ScalarUnit {
         this.cost = template.cost;
     }
     addSelf(state: BoardState): void {
+        state.addMessage("You built a " + this.type + " for " + this.cost + " energy");
         state.collections.buildings.push(this);
     }
     removeSelf(state: BoardState): void {
         state.collections.buildings = state.collections.buildings.filter((building: Building) => building.id !== this.id);
     }
     dismantle(state: BoardState): void {
+        state.addMessage("You dismantled a " + this.type + " for " + variables["dismantle-factor"] * this.cost + " energy");
         state.energy += variables["dismantle-factor"] * this.cost;
         this.removeSelf(state);
     }

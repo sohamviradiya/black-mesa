@@ -14,7 +14,7 @@ export abstract class Installation extends Building {
     timer: number = 0;
     health: number;
     constructor(row_index: number, column_index: number, public template: InstallationTemplate) {
-        super(row_index, column_index,  template);
+        super(row_index, column_index, template);
         this.health = template.maxHealth;
     };
 
@@ -33,6 +33,7 @@ export abstract class Installation extends Building {
 
     update(state: BoardState): void {
         if (!this.active) {
+            state.addMessage("Your " + this.type + " building was destroyed");
             this.removeSelf(state);
             return;
         }

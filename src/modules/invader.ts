@@ -8,6 +8,7 @@ import { PositionInterface, VectorUnit } from "./unit";
 
 
 export interface InvaderTemplate {
+    type: string;
     speed: number;
     maxHealth: number;
     bounty: number;
@@ -67,6 +68,7 @@ export class Invader extends VectorUnit {
     private die(state: BoardState) {
         state.energy += this.template.bounty;
         state.score += this.template.bounty;
+        state.addMessage("You killed an invader of type " + this.template.type + " for " + this.template.bounty + " energy");
         this.removeSelf(state);
         return;
     }
