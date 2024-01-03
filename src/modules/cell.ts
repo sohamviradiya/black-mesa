@@ -124,13 +124,13 @@ export function matrixToCells(matrix: CellType[][], cellSize: number): Cell[][] 
     return matrix.map((row: CellType[], y: number) => {
         return row.map((cellType: CellType, x: number) => {
             if (cellType === "EMPTY")
-                return new EmptyCell(x, y, cellSize);
+                return new EmptyCell(y, x, cellSize);
             else if (cellType === "PATH")
-                return new PathCell(x, y, cellSize);
+                return new PathCell(y, x, cellSize);
             else if (cellType === "SLOT")
-                return new SlotCell(x, y, cellSize);
+                return new SlotCell(y, x, cellSize);
             else if (cellType === "WALL")
-                return new WallCell(x, y, cellSize);
+                return new WallCell(y, x, cellSize);
             else
                 throw new Error("Invalid cell type " + cellType);
         });
