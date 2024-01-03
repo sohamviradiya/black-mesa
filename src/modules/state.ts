@@ -42,7 +42,7 @@ export class BoardState {
         this.setInvaderQueue(difficulty);
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
         this.cellSize = width / columns;
-        const { matrix, path } = generateGrid(rows, columns, turnFactor);
+        const { matrix, path, slots } = generateGrid(rows, columns, turnFactor);
         this.collections.cells = matrixToCells(matrix, this.cellSize);
 
         this.path = pathToPositions(path, this.cellSize);
@@ -50,10 +50,11 @@ export class BoardState {
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
-        if (base_row_index > 0 && this.collections.cells[base_row_index - 1][base_column_index].type === "SLOT")
-            this.addDefense(this.collections.cells[base_row_index - 1][base_column_index] as SlotCell, "MACHINE_GUN");
-        if (base_row_index < rows - 1 && this.collections.cells[base_row_index + 1][base_column_index].type === "SLOT")
-            this.addDefense(this.collections.cells[base_row_index + 1][base_column_index] as SlotCell, "MACHINE_GUN");
+        // slots.forEach((position) => {
+        //     const { row_index, column_index } = position;
+        //     this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "LASER");
+        // });
+
 
         this.messages.push("You have " + this.energy + " energy");
         this.messages.push("Let the invasion begin!");
@@ -102,7 +103,6 @@ export class BoardState {
             defense = new ScalarTurret(row_index, column_index, template as DefenseTemplate, this.cellSize);
 
         if (cell.occupy(defense)) {
-            console.log("Building ", JSON.stringify(defense));
             this.addBuilding(defense);
         }
     }
@@ -166,7 +166,6 @@ export class BoardState {
     private spawnInvaders() {
         if (this.frame % this.invaderPeriod !== 0 || this.invaderQueue.length === 0)
             return;
-        console.log(this.frame, this.invaderPeriod, this.invaderQueue.length);
         const invaderType: InvaderType = this.invaderQueue.shift() as InvaderType;
         const invader = new Invader(new Array(...this.path), invaders[invaderType] as InvaderTemplate, this.cellSize);
         this.collections.invaders.push(invader);
@@ -197,5 +196,4 @@ export class BoardState {
         this.collections.buildings.forEach((building: Building) => building.update(this));
         this.collections.cells.forEach((row: Cell[]) => row.forEach((cell: Cell) => cell.update(this)));
     }
-
 }
