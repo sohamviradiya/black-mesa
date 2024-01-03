@@ -40,7 +40,7 @@ export abstract class Defense extends Building {
             const target = this.findTarget(state.collections.invaders);
             if (target) {
                 this.angle = getAngle(this, target);
-                const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate);
+                const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate, state.cellSize);
                 projectile.addSelf(state);
             }
         }

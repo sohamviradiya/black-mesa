@@ -1,7 +1,7 @@
 import { Building, BuildingTemplate } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
 import { Cell, PathCell, SlotCell } from "./cell";
-import { Invader, InvaderType } from "./invader";
+import { Invader, InvaderTemplate, InvaderType } from "./invader";
 import { Projectile } from "./projectiles";
 import { PositionInterface, ScalarInterface } from "./unit";
 import { generateGrid } from "./grid";
@@ -33,19 +33,20 @@ export class BoardState {
     public mouse: ScalarInterface = { x: 0, y: 0, width: variables["mouse"]["width"], height: variables["mouse"]["height"] };
     public messages: string[] = [];
     public path: PositionInterface[];
+    public cellSize: number = 0;
     private invaderQueue: InvaderType[] = [];
     private invaderPeriod: number = 0;
 
-    constructor(cellSize: number, difficulty: Difficulty) {
+    constructor(width: number, difficulty: Difficulty) {
         const { rows, columns, turnFactor } = difficultyVariables[difficulty];
         this.setInvaderQueue(difficulty);
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
-
+        this.cellSize = width / columns;
         const { matrix, path } = generateGrid(rows, columns, turnFactor);
 
-        this.collections.cells = matrixToCells(matrix, cellSize);
+        this.collections.cells = matrixToCells(matrix, this.cellSize);
 
-        this.path = pathToPositions(path, cellSize);
+        this.path = pathToPositions(path, this.cellSize);
 
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
@@ -87,9 +88,9 @@ export class BoardState {
         const { row_index, column_index } = cell;
         let defense: Defense;
         if (type === "SNIPER")
-            defense = new VectorTurret(row_index, column_index, template as VectorDefenseTemplate);
+            defense = new VectorTurret(row_index, column_index, template as VectorDefenseTemplate, this.cellSize);
         else
-            defense = new ScalarTurret(row_index, column_index, template as DefenseTemplate);
+            defense = new ScalarTurret(row_index, column_index, template as DefenseTemplate, this.cellSize);
 
         if (cell.occupy(defense))
             this.energy -= template.cost;
@@ -100,7 +101,7 @@ export class BoardState {
         if (!this.checkCost(template as BuildingTemplate))
             return;
         const { row_index, column_index } = cell;
-        const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate);
+        const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
         this.collections.buildings.push(explosive);
         if (cell.occupy(explosive))
             this.energy -= template.cost;
@@ -121,11 +122,11 @@ export class BoardState {
         const { row_index, column_index } = cell;
         let installation;
         if (template.type === "GENERATOR")
-            installation = new Generator(row_index, column_index, template as GeneratorTemplate);
+            installation = new Generator(row_index, column_index, template as GeneratorTemplate, this.cellSize);
         else if (template.type === "BARRICADE")
-            installation = new Barricade(row_index, column_index, template as BarricadeTemplate);
+            installation = new Barricade(row_index, column_index, template as BarricadeTemplate, this.cellSize);
         else if (template.type === "BASE")
-            installation = new Base(row_index, column_index, template as BaseTemplate);
+            installation = new Base(row_index, column_index, template as BaseTemplate, this.cellSize);
         else
             return;
 
@@ -150,7 +151,7 @@ export class BoardState {
         if (this.frame % this.invaderPeriod !== 0 || this.invaderQueue.length === 0)
             return;
         const invaderType: InvaderType = this.invaderQueue.shift() as InvaderType;
-        const invader = new Invader(this.path, invaders[invaderType]);
+        const invader = new Invader(this.path, invaders[invaderType] as InvaderTemplate, this.cellSize);
         this.collections.invaders.push(invader);
     }
 
@@ -158,9 +159,9 @@ export class BoardState {
         const count = difficultyVariables[difficulty].invaderSpawns;
         const invaderQueue: InvaderType[] = [];
 
-        Object.keys(count).forEach((key) => {
+        Object.keys(count).forEach((key: string) => {
             const invaderType: InvaderType = key as InvaderType;
-            const invaderCount: number = count[key];
+            const invaderCount: number = count[key as InvaderType];
             for (let i = 0; i < invaderCount; i++)
                 invaderQueue.push(invaderType);
         });
