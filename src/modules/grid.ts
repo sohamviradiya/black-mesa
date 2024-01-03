@@ -4,6 +4,7 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     const matrix: CellType[][] = Array<CellType[]>(rows).fill([]).map(() => Array<CellType>(cols).fill("EMPTY"));
     const currentPoint = { column_index: 0, row_index: 0 };
     const path = [];
+    const slots = [];
 
     while (currentPoint.column_index < cols - 1) {
         matrix[currentPoint.row_index][currentPoint.column_index] = "PATH";
@@ -17,18 +18,29 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     path.push({ column_index: currentPoint.column_index, row_index: currentPoint.row_index });
 
     // add 2 slots beside the base
-    if (isValidPoint(currentPoint.column_index, currentPoint.row_index - 1, rows, cols) && matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] !== "PATH")
-        matrix[currentPoint.row_index - 1][currentPoint.column_index] = "SLOT";
-    if (isValidPoint(currentPoint.column_index - 1, currentPoint.row_index + 1, rows, cols) && matrix[currentPoint.row_index + 1][currentPoint.column_index - 1] !== "PATH")
-        matrix[currentPoint.row_index + 1][currentPoint.column_index] = "SLOT";
+    const upperPoint = { column_index: currentPoint.column_index, row_index: currentPoint.row_index - 1 };
+    
+    if (isValidPoint(upperPoint.column_index, upperPoint.row_index, rows, cols) && matrix[upperPoint.row_index][upperPoint.column_index] !== "PATH") {
+        matrix[upperPoint.row_index][upperPoint.column_index] = "SLOT";
+        slots.push(upperPoint);
+    }
+
+    const lowerPoint = { column_index: currentPoint.column_index, row_index: currentPoint.row_index + 1 };
+
+    if (isValidPoint(lowerPoint.column_index, lowerPoint.row_index, rows, cols) && matrix[lowerPoint.row_index][lowerPoint.column_index] !== "PATH") {
+        matrix[lowerPoint.row_index][lowerPoint.column_index] = "SLOT";
+        slots.push(lowerPoint);
+    }
 
 
     for (let row_index = 0; row_index < rows; row_index++) {
         for (let column_index = 0; column_index < cols; column_index++) {
             if (matrix[row_index][column_index] === "EMPTY") {
                 const neighbors = checkRadius(matrix, column_index, row_index, rows, cols);
-                if (neighbors > 3)
+                if (neighbors > 3) {
                     matrix[row_index][column_index] = "SLOT";
+                    slots.push({ column_index, row_index });
+                }
             }
         }
     }
@@ -51,6 +63,7 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     return {
         matrix,
         path,
+        slots
     };
 };
 
