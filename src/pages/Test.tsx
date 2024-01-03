@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import { useMemo, useState } from "react";
-import CellComponent from "../components/units/cell";
 import { BoardState, Difficulty } from "../modules/state";
+import MessageComponent from "../components/message";
 
 export default function Test() {
     const [difficulty, setDifficulty] = useState<Difficulty>("ROOKIE");
@@ -37,11 +37,12 @@ export default function Test() {
                 </Box>
                 <Button variant="outlined" onClick={() => setFinalDifficulty(difficulty)} disabled={finalDifficulty !== "NOT-SET"}>Set</Button>
             </Box>
-            {finalDifficulty !== "NOT-SET" && <>
+            {<>
                 <Typography variant="h3">{finalDifficulty}</Typography>
                 <Box sx={{ position: "relative", width: state.cellSize * (state.collections.cells[0].length + 2), height: state.cellSize * (state.collections.cells.length + 2) }}>
                     {state.components()}
                 </Box>
+                {state.messages.map((message) => <MessageComponent message={message} />)}
             </>}
         </Box>
     )

@@ -50,6 +50,9 @@ export class BoardState {
 
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
+
+        this.messages.push("You have " + this.energy + " energy");
+        this.messages.push("Let the invasion begin!");
     }
 
     update(): void {
