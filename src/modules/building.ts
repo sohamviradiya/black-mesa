@@ -16,7 +16,6 @@ export interface BuildingTemplate {
     cost: number;
     type: BuildingType;
     description: string;
-    cellSize: number;
 }
 
 export abstract class Building extends ScalarUnit {
@@ -25,10 +24,10 @@ export abstract class Building extends ScalarUnit {
     public type: BuildingType;
     public cost: number;
     collection: CollectionType = "buildings";
-    constructor(row_index: number, column_index: number, template: BuildingTemplate) {
-        super(row_index, column_index, template.cellSize);
-        this.width = template.cellSize;
-        this.height = template.cellSize;
+    constructor(row_index: number, column_index: number, template: BuildingTemplate, cellSize: number) {
+        super(row_index, column_index, cellSize);
+        this.width = cellSize;
+        this.height = cellSize;
         this.type = template.type;
         this.cost = template.cost;
     }

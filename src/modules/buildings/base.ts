@@ -7,8 +7,8 @@ export interface BaseTemplate extends InstallationTemplate {
 };
 
 export class Base extends Installation {
-    constructor(row_index: number, column_index: number, public template: BaseTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: BaseTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
     };
 
     update(state: BoardState): void {

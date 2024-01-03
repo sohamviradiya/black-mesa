@@ -7,8 +7,8 @@ export interface BarricadeTemplate extends InstallationTemplate {
 };
 
 export class Barricade extends Installation {
-    constructor(row_index: number, column_index: number, public template: BarricadeTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: BarricadeTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
     };
     isReady(): boolean {
         return this.health < this.template.maxHealth && this.health > 0;

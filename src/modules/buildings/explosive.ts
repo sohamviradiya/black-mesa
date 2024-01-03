@@ -12,8 +12,8 @@ export interface ExplosiveTemplate extends BuildingTemplate {
 
 export class Explosive extends Building {
     public triggered: boolean = false;
-    constructor(row_index: number, column_index: number, public template: ExplosiveTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: ExplosiveTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
     };
 
     update(state: BoardState): void {

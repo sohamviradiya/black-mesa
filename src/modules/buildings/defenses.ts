@@ -25,8 +25,8 @@ export interface VectorDefenseTemplate extends DefenseTemplate {
 export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
-    constructor(row_index: number, column_index: number, public template: DefenseTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: DefenseTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
@@ -66,8 +66,8 @@ export class ScalarTurret extends Defense {
 
 export class VectorTurret extends Defense {
     public alignment: AlignmentType;
-    constructor(row_index: number, column_index: number, public template: VectorDefenseTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: VectorDefenseTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
         this.alignment = "NORTH";
     };
 

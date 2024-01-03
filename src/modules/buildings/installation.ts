@@ -15,8 +15,8 @@ export abstract class Installation extends Building {
     active: boolean = true;
     timer: number = 0;
     health: number;
-    constructor(row_index: number, column_index: number, public template: InstallationTemplate) {
-        super(row_index, column_index, template);
+    constructor(row_index: number, column_index: number, public template: InstallationTemplate, cellSize: number) {
+        super(row_index, column_index, template, cellSize);
         this.health = template.maxHealth;
     };
 
