@@ -4,6 +4,7 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     const matrix: CellType[][] = Array<CellType[]>(rows).fill([]).map(() => Array<CellType>(cols).fill("EMPTY"));
     const currentPoint = { column_index: 0, row_index: 0 };
     const path = [];
+
     while (currentPoint.column_index < cols - 1) {
         matrix[currentPoint.row_index][currentPoint.column_index] = "PATH";
         path.push({ column_index: currentPoint.column_index, row_index: currentPoint.row_index });
@@ -14,14 +15,14 @@ export function generateGrid(rows: number, cols: number, turnFactor: number) {
     }
     matrix[currentPoint.row_index][currentPoint.column_index] = "PATH";
     path.push({ column_index: currentPoint.column_index, row_index: currentPoint.row_index });
-    
+
     // add 2 slots beside the base
-    if (isValidPoint(currentPoint.column_index - 1, currentPoint.row_index - 1, rows, cols) && matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] !== "PATH")
-        matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] = "SLOT";
+    if (isValidPoint(currentPoint.column_index, currentPoint.row_index - 1, rows, cols) && matrix[currentPoint.row_index - 1][currentPoint.column_index - 1] !== "PATH")
+        matrix[currentPoint.row_index - 1][currentPoint.column_index] = "SLOT";
     if (isValidPoint(currentPoint.column_index - 1, currentPoint.row_index + 1, rows, cols) && matrix[currentPoint.row_index + 1][currentPoint.column_index - 1] !== "PATH")
-        matrix[currentPoint.row_index + 1][currentPoint.column_index - 1] = "SLOT";
-    
-    
+        matrix[currentPoint.row_index + 1][currentPoint.column_index] = "SLOT";
+
+
     for (let row_index = 0; row_index < rows; row_index++) {
         for (let column_index = 0; column_index < cols; column_index++) {
             if (matrix[row_index][column_index] === "EMPTY") {
@@ -72,7 +73,7 @@ function checkRadius(matrix: CellType[][], column_index: number, row_index: numb
 
 
 function checkNeighbors(matrix: CellType[][], column_index: number, row_index: number, rows: number, cols: number): number {
-    if (!isValidPoint(column_index, row_index, rows, cols)) return -1;
+    if (!isValidPoint(column_index, row_index, rows, cols) || isPathPoint(matrix, column_index, row_index, rows, cols)) return -1;
     const dx = [0, 1, 0, -1];
     const dy = [-1, 0, 1, 0];
     let count = 0;
@@ -87,7 +88,6 @@ function checkNeighbors(matrix: CellType[][], column_index: number, row_index: n
 
 function pickNextPoint(matrix: CellType[][], column_index: number, row_index: number, rows: number, cols: number, turnFactor: number) {
     const choices: { column_index: number, row_index: number }[] = [];
-
 
     const right_point = { column_index: column_index + 1, row_index: row_index };
     if (checkNeighbors(matrix, right_point.column_index, right_point.row_index, rows, cols) === 1)
@@ -112,7 +112,7 @@ function pickNextPoint(matrix: CellType[][], column_index: number, row_index: nu
 };
 
 function isPathPoint(matrix: CellType[][], column_index: number, row_index: number, rows: number, cols: number): boolean {
-    if (isValidPoint(column_index, row_index , rows, cols) && matrix[row_index][column_index] === "PATH")
+    if (isValidPoint(column_index, row_index, rows, cols) && matrix[row_index][column_index] === "PATH")
         return true;
     return false;
 };

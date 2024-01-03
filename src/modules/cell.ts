@@ -37,7 +37,7 @@ export class Cell extends ScalarUnit {
     component() {
         return super.component({ children: CellComponent({ cell: this }) });
     }
-    
+
     addSelf(state: BoardState): void {
         state.collections.cells[this.row_index][this.column_index] = this;
     }
@@ -93,15 +93,14 @@ export class PathCell extends OccupiableCell {
     canOccupy(building: Building): boolean {
         if (!super.canOccupy(building))
             return false;
-        if (building.type in ["BASE", "BARRICADE", "EXPLOSIVE", "GENERATOR"])
+        if (["BASE", "BARRICADE", "EXPLOSIVE", "GENERATOR"].includes(building.type))
             return true;
         return false;
     }
 }
 
 export class SlotCell extends OccupiableCell {
-    isLocked = true;
-    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0) {
+    constructor(row_index: number, column_index: number, cellSize: number, public unlockCost: number = 0, public isLocked: boolean = false) {
         super(row_index, column_index, cellSize, "SLOT");
     }
     unlock(state: BoardState): void {
@@ -115,7 +114,7 @@ export class SlotCell extends OccupiableCell {
             return false;
         if (!super.canOccupy(building))
             return false;
-        if (building.type in ["DEFENSE"])
+        if (building.type === "DEFENSE")
             return true;
         return false;
     }
