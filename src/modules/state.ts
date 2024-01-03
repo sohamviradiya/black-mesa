@@ -69,7 +69,7 @@ export class BoardState {
     components(): JSX.Element[] {
         return [
             ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component())).flat(),
-            ...this.collections.buildings.map((building: Building) => building.component()),
+            ...this.collections.buildings.map((building: Building) => building.component({} as { children: JSX.Element })),
             ...this.collections.invaders.map((invader: Invader) => invader.component()),
             ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
         ];

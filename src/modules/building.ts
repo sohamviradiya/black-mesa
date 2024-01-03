@@ -47,7 +47,7 @@ export abstract class Building extends ScalarUnit {
         state.energy += variables["dismantle-factor"] * this.cost;
         this.removeSelf(state);
     }
-    
+
     component({ children }: { children: ReactNode; }): JSX.Element {
         return super.component({ children: BuildingComponent({ building: this, children }) });
     }
