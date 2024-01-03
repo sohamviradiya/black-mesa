@@ -22,7 +22,7 @@ export class Invader extends VectorUnit {
     dead: boolean = false;
     collection: CollectionType = "invaders";
     timer: number = 0;
-    move: boolean = true;
+    moving: boolean = true;
     health: number;
     constructor(public path: PositionInterface[], public template: InvaderTemplate) {
         super(path[0].x, path[0].y, template.width, template.height, 0);
@@ -37,11 +37,14 @@ export class Invader extends VectorUnit {
         this.timer++;
 
         if (this.dead) {
-            return this.die(state);
+            this.die(state);
+            return;
         }
         if (this.isFireReady())
             this.hit(state.collections.buildings);
-        if (!this.move) return;
+
+        if (!this.moving)
+            return;
 
         if (this.path.length > 0) {
             const target = this.path[0];
@@ -61,8 +64,6 @@ export class Invader extends VectorUnit {
                 this.y += dy / distance * this.template.speed;
             }
         }
-        else
-            state.gameOver = true;
     };
 
     private die(state: BoardState) {
@@ -79,12 +80,12 @@ export class Invader extends VectorUnit {
             if (!(building instanceof Installation)) continue;
             if (!building.active) continue;
             if (collision(building, this)) {
-                this.move = false;
+                this.moving = false;
                 building.takeDamage(this.template.damage);
                 return;
             }
         }
-        this.move = true;
+        this.moving = true;
     }
 
     takeDamage(damage: number): void {
