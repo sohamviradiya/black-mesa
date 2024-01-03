@@ -37,12 +37,11 @@ export class Cell extends ScalarUnit {
     component() {
         return CellComponent({ cell: this });
     }
-
     addSelf(state: BoardState): void {
-        state.collections.cells.push(this);
+        state.collections.cells[this.row_index][this.column_index] = this;
     }
     removeSelf(state: BoardState): void {
-        state.collections.cells = state.collections.cells.filter((cell: Cell) => cell.id !== this.id);
+        state.collections.cells[this.row_index][this.column_index] = new EmptyCell(this.row_index, this.column_index, this.width);
     }
 }
 
@@ -61,7 +60,7 @@ export class EmptyCell extends Cell {
 
 abstract class OccupiableCell extends Cell {
     public occupier: Building | null = null;
-    constructor(row_index: number, column_index: number, cellSize: number,  public type: CellType) {
+    constructor(row_index: number, column_index: number, cellSize: number, public type: CellType) {
         super(row_index, column_index, cellSize, type);
     }
 
@@ -120,3 +119,21 @@ export class SlotCell extends OccupiableCell {
         return false;
     }
 }
+
+export function matrixToCells(matrix: CellType[][], cellSize: number): Cell[][] {
+    return matrix.map((row: CellType[], y: number) => {
+        return row.map((cellType: CellType, x: number) => {
+            if (cellType === "EMPTY")
+                return new EmptyCell(x, y, cellSize);
+            else if (cellType === "PATH")
+                return new PathCell(x, y, cellSize);
+            else if (cellType === "SLOT")
+                return new SlotCell(x, y, cellSize);
+            else if (cellType === "WALL")
+                return new WallCell(x, y, cellSize);
+            else
+                throw new Error("Invalid cell type " + cellType);
+        });
+    });
+}
+;

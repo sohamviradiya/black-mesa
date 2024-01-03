@@ -1,6 +1,6 @@
 import { Explosive } from "./buildings/explosive";
 import { Defense, VectorTurret } from "./buildings/defenses";
-import { AlignmentType, ScalarInterface, VectorInterface } from "./unit";
+import { AlignmentType, PositionInterface, ScalarInterface, VectorInterface } from "./unit";
 
 export function collision(defense: ScalarInterface, invader: ScalarInterface) {
     if (defense.x + defense.width < invader.x + 1 || invader.x + invader.width < defense.x + 1 || defense.y + defense.height < invader.y + 1 || invader.y + invader.height < defense.y + 1)
@@ -53,3 +53,9 @@ export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
     let angle = angleToAlignment(defense, invader, defense.alignment);
     return distance(defense, invader) <= defense.template.range && Math.abs(angle - defense.angle) <= defense.template.scope;
 };
+export function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
+    return path.map((position) => ({
+        x: position.column_index * cellSize + cellSize / 2,
+        y: position.row_index * cellSize + cellSize / 2
+    }));
+}

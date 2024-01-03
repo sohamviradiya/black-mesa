@@ -1,6 +1,6 @@
 import { Building } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
-import { Cell, CellType, EmptyCell, PathCell, SlotCell, WallCell } from "./cell";
+import { Cell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate } from "./invader";
 import { Projectile } from "./projectiles";
 import { PositionInterface, ScalarInterface } from "./unit";
@@ -8,6 +8,12 @@ import { generateGrid } from "./grid";
 import variables from "../data/game-variables.json";
 import buildings from "../data/buildings.json";
 import difficultyVariables from "../data/difficulty-mappers.json";
+import { InstallationType } from "./buildings/installation";
+import { Generator, GeneratorTemplate } from "./buildings/generator";
+import { Barricade, BarricadeTemplate } from "./buildings/barricade";
+import { Explosive, ExplosiveTemplate } from "./buildings/explosive";
+import { matrixToCells } from "./cell";
+import { pathToPositions } from "./geometry";
 
 export type CollectionType = "projectiles" | "invaders" | "buildings" | "cells";
 
@@ -21,7 +27,7 @@ export type InvaderSpawn = {
 export class BoardState {
     public frame: number = 0;
     lastInvaderSpawn: number = 0;
-    public collections: { projectiles: Projectile[], invaders: Invader[], buildings: Building[], cells: Cell[] };
+    public collections: { projectiles: Projectile[], invaders: Invader[], buildings: Building[], cells: Cell[][] };
     public energy: number = variables["initial-energy"];
     public score: number = 0;
     public gameOver: boolean = false;
@@ -36,17 +42,19 @@ export class BoardState {
 
         const { matrix, path } = generateGrid(rows, columns, turnFactor);
         this.mouse = { x: 0, y: 0, width: variables["mouse"]["width"], height: variables["mouse"]["height"] };
-        const last_point = path[path.length - 1];
 
         this.collections = {
             projectiles: [],
             invaders: [],
             cells: matrixToCells(matrix, cellSize),
-            buildings: [new Base(last_point.row_index, last_point.column_index, buildings["BASE"] as BaseTemplate)],
+            buildings: [],
         };
-        this.path = pathToPositions(path, cellSize);
 
+        this.path = pathToPositions(path, cellSize);
+        const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
+        this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
     }
+
     update(): void {
         this.frame++;
         if (this.gameOver || this.gameWon) {
@@ -58,10 +66,16 @@ export class BoardState {
             return;
         }
         this.updateInvaders();
-        this.collections.projectiles.forEach((projectile: Projectile) => projectile.update(this));
-        this.collections.invaders.forEach((invader: Invader) => invader.update(this));
-        this.collections.buildings.forEach((building: Building) => building.update(this));
-        this.collections.cells.forEach((cell: Cell) => cell.update(this));
+        this.updateCollections();
+    }
+
+    components(): JSX.Element[] {
+        return [
+            ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component())).flat(),
+            ...this.collections.buildings.map((building: Building) => building.component()),
+            ...this.collections.invaders.map((invader: Invader) => invader.component()),
+            ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
+        ];
     }
 
     addMessage(message: string): void {
@@ -83,51 +97,56 @@ export class BoardState {
         }
     }
 
-    addBuilding(slot: SlotCell, building: Building): void {
-        if (this.energy < building.cost)
+    addBuilding(slot: SlotCell, type: InstallationType): void {
+
+    }
+
+    addExplosive(cell: PathCell) {
+        const template = buildings["EXPLOSIVE"];
+        if (this.energy < template.cost)
             return;
-        if (slot.occupy(building))
-            this.energy -= building.cost;
+        const { row_index, column_index } = cell;
+        const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate);
+        this.collections.buildings.push(explosive);
+        if (cell.occupy(explosive))
+            this.energy -= template.cost;
     }
 
-    addPathBuilding(cell: PathCell, building: Building): void {
-        if (this.energy < building.cost)
+    addBarricade(cell: PathCell) {
+        this.addInstallation(cell, "BARRICADE");
+    }
+
+    private addBase(cell: PathCell) {
+        this.addInstallation(cell, "BASE");
+    }
+
+    private addInstallation(cell: PathCell, type: InstallationType): void {
+        const template = buildings[type];
+        if (this.energy < template.cost) {
+            this.addMessage("Not enough energy to build " + type);
             return;
-        if (cell.occupy(building))
-            this.energy -= building.cost;
+        }
+        const { row_index, column_index } = cell;
+        let installation;
+        if (template.type === "GENERATOR")
+            installation = new Generator(row_index, column_index, template as GeneratorTemplate);
+        else if (template.type === "BARRICADE")
+            installation = new Barricade(row_index, column_index, template as BarricadeTemplate);
+        else if (template.type === "BASE")
+            installation = new Base(row_index, column_index, template as BaseTemplate);
+        else
+            return;
+
+        this.collections.buildings.push(installation);
+        if (cell.occupy(installation))
+            this.energy -= template.cost;
     }
 
-    components(): JSX.Element[] {
-        return [
-            ...this.collections.cells.map((cell: Cell) => cell.component()),
-            ...this.collections.buildings.map((building: Building) => building.component()),
-            ...this.collections.invaders.map((invader: Invader) => invader.component()),
-            ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
-        ];
+    private updateCollections() {
+        this.collections.projectiles.forEach((projectile: Projectile) => projectile.update(this));
+        this.collections.invaders.forEach((invader: Invader) => invader.update(this));
+        this.collections.buildings.forEach((building: Building) => building.update(this));
+        this.collections.cells.forEach((row: Cell[]) => row.forEach((cell: Cell) => cell.update(this)));
     }
-}
 
-
-function matrixToCells(matrix: CellType[][], cellSize: number): Cell[] {
-    const cells: Cell[] = [];
-    matrix.forEach((row: CellType[], y: number) => {
-        row.forEach((cellType: CellType, x: number) => {
-            if (cellType === "EMPTY")
-                cells.push(new EmptyCell(x, y, cellSize));
-            else if (cellType === "PATH")
-                cells.push(new PathCell(x, y, cellSize));
-            else if (cellType === "SLOT")
-                cells.push(new SlotCell(x, y, cellSize));
-            else if (cellType === "WALL")
-                cells.push(new WallCell(x, y, cellSize));
-        });
-    });
-    return cells;
-};
-
-function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
-    return path.map((position) => ({
-        x: position.column_index * cellSize + cellSize / 2,
-        y: position.row_index * cellSize + cellSize / 2
-    }));
 }
