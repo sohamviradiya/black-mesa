@@ -8,6 +8,8 @@ import { BoardState } from "../state";
 import ScalarTurretComponent from "../../components/units/scalar-turret";
 import VectorTurretComponent from "../../components/units/vector-turret";
 
+export type DefenseType = "LASER" | "SNIPER" | "MISSILE_LAUNCHER" | "MACHINE_GUN" | "SHOTGUN";
+
 export interface DefenseTemplate extends BuildingTemplate {
     type: "DEFENSE";
     period: number;
@@ -15,7 +17,7 @@ export interface DefenseTemplate extends BuildingTemplate {
     projectileTemplate: ProjectileTemplate;
 };
 
-export interface VectorTurretTemplate extends DefenseTemplate {
+export interface VectorDefenseTemplate extends DefenseTemplate {
     scope: number;
 };
 
@@ -64,7 +66,7 @@ export class ScalarTurret extends Defense {
 
 export class VectorTurret extends Defense {
     public alignment: AlignmentType;
-    constructor(row_index: number, column_index: number, public template: VectorTurretTemplate) {
+    constructor(row_index: number, column_index: number, public template: VectorDefenseTemplate) {
         super(row_index, column_index, template);
         this.alignment = "NORTH";
     };
