@@ -1,4 +1,3 @@
-
 import InvaderComponent from "../components/invader";
 import { Building } from "./building";
 import { Installation } from "./buildings/installation";
@@ -6,9 +5,10 @@ import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 
+export type InvaderType = "ALPHA" | "GAMMA" | "LAMBDA" | "SIGMA" | "OMEGA";
 
 export interface InvaderTemplate {
-    type: string;
+    type: InvaderType;
     speed: number;
     maxHealth: number;
     bounty: number;
