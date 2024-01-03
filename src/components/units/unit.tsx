@@ -15,6 +15,7 @@ export default function UnitComponent({ unit, children }: { unit: Unit, children
                 zIndex: 0,
                 textAlign: "center",
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
             }}
