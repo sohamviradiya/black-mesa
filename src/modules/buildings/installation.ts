@@ -9,6 +9,8 @@ export interface InstallationTemplate extends BuildingTemplate {
     type: "GENERATOR" | "BASE" | "BARRICADE";
 };
 
+export type InstallationType = InstallationTemplate["type"];
+
 export abstract class Installation extends Building {
     active: boolean = true;
     timer: number = 0;
