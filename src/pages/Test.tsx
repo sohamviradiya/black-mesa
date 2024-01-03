@@ -1,22 +1,13 @@
 import { Box,  FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import { useMemo, useState } from "react";
-import { generateGrid } from "../modules/grid";
-import { CellType } from "../modules/cell";
 import CellComponent from "../components/units/cell";
-import { Cell } from "../modules/cell";
-import { Difficulty } from "../modules/state";
-import difficultyVariables from "../data/difficulty-mappers.json";
+import { BoardState, Difficulty } from "../modules/state";
 
 export default function Test() {
     const [difficulty, setDifficulty] = useState<Difficulty>("ROOKIE");
 
-    const { matrix, cellSize } = useMemo(() => {
-        const { rows, columns, turnFactor } = difficultyVariables[difficulty];
-
-        return {
-            cellSize: 1200/columns,
-            matrix: generateGrid(rows, columns, turnFactor).matrix,
-        };
+    const state = useMemo(() => {
+        return new BoardState(800, difficulty);
     }, [difficulty]);
 
 
@@ -43,11 +34,11 @@ export default function Test() {
                     </Select>
                 </FormControl>
             </Box>
-            <Box sx={{ position: "relative", width: matrix[0].length * cellSize + 20, height: matrix.length * cellSize + 20 }}>
-                {matrix.map((row, i) => (
+            <Box sx={{ position: "relative", width: "80vw", height: "" }}>
+                {state.collections.cells.map((row, i) => (
                     <Box key={i} sx={{ display: "flex", flexDirection: "row", zIndex: 0 }}>
-                        {row.map((type, j) => (
-                            <CellComponent key={j} cell={new Cell(i, j, cellSize, type as CellType)} />
+                        {row.map((cell, j) => (
+                            <CellComponent key={j} cell={cell} />
                         ))}
                     </Box>
                 ))}
