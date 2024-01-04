@@ -16,7 +16,8 @@ export default function VectorComponent({ unit, children }: { unit: VectorUnit, 
             justifyContent: "center",
             alignItems: "center",
             zIndex: 2,
-            transform: `rotate(${unit.angle}rad)`
+            transform: `rotate(${unit.angle}rad)`,
+            fontSize: 0.5 * unit.height,
         }}>
         {children}
     </Box>

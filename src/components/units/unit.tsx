@@ -18,6 +18,7 @@ export default function UnitComponent({ unit, children }: { unit: Unit, children
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
+                fontSize: 0.5*unit.height,
             }}
         >
             {children}
