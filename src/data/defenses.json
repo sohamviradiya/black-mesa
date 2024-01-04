@@ -57,11 +57,11 @@
         }
     },
     "SHOTGUN": {
-        "cost": 100,
+        "cost": 120,
         "type": "DEFENSE",
         "weapon": "SHOTGUN",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
-        "period": 150,
+        "period": 100,
         "rangeFactor": 2,
         "projectileTemplate": {
             "speedFactor": 0.5,
