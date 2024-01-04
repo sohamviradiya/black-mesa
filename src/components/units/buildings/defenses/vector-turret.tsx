@@ -1,7 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { VectorTurret } from "../../../../modules/buildings/defenses";
 
 export default function VectorTurretComponent({ turret }: { turret: VectorTurret }) {
-    return <Box sx={{ width: "100%", height: "100%", backgroundColor: "darkcyan", border: "1px solid black" }} />;
+    return <Box sx={{ width: "100%", height: "100%", backgroundColor: "darkcyan", border: "1px solid black" }} onClick={() => turret.setAlignment()}>
+        <Typography variant="h6" sx={{ textAlign: "center" }}> {turret.angle} </Typography>
+        <Typography variant="h6" sx={{ textAlign: "center" }}> {turret.alignment} </Typography>
+    </Box>;
 };
 
