@@ -8,20 +8,33 @@ export interface ExplosiveTemplate extends BuildingTemplate {
     type: "EXPLOSIVE";
     damage: number;
     radiusFactor: number;
+    duration: number;
 };
 
 export class Explosive extends Building {
     public triggered: boolean = false;
     public radius: number;
+    public timer: number = 0;
+    public dead: boolean = false;
     constructor(row_index: number, column_index: number, public template: ExplosiveTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
+        this.timer = template.duration;
         this.radius = template.radiusFactor * cellSize;
     };
-
     update(state: BoardState): void {
-        if (this.triggered) {
-            this.explode(state.collections.invaders);
+        if (this.dead) {
             this.removeSelf(state);
+            return;
+        }
+
+        if (this.timer === 0) {
+            this.dead = true;
+            return;
+        }
+
+        if (this.triggered) {
+            this.timer--;
+            this.explode(state.collections.invaders);
             return;
         }
 

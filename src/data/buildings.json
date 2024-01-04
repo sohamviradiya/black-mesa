@@ -29,6 +29,7 @@
         "type": "EXPLOSIVE",
         "description": "Explodes when triggered.",
         "damage": 100,
-        "radiusFactor": 1.5
+        "radiusFactor": 1.5,
+        "duration": 1000
     }
 }
