@@ -45,7 +45,7 @@ export class BoardState {
         this.energy = difficultyVariables[difficulty]["energy"];
 
         this.cellSize = width / columns;
-        const { matrix, path, slots } = generateGrid(rows, columns, turnFactor);
+        const { matrix, path } = generateGrid(rows, columns, turnFactor);
         this.collections.cells = matrixToCells(matrix, this.cellSize);
 
         this.path = pathToPositions(path, this.cellSize);
@@ -54,7 +54,12 @@ export class BoardState {
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
         const { column_index, row_index } = path.toReversed()[2];
-        this.addExplosive(row_index, column_index);
+        this.addBarricade(row_index, column_index);
+
+        if (base_row_index > 0)
+            this.addDefense(base_row_index - 1, base_column_index, "LASER");
+        else 
+            this.addDefense(base_row_index + 1, base_column_index, "LASER");
 
         this.messages.push("You have " + this.energy + " energy");
         this.messages.push("Let the invasion begin!");
