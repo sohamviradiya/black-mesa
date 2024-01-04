@@ -25,13 +25,13 @@ export function angleToAlignment(defense: VectorInterface, invader: ScalarInterf
     let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
     switch (alignment) {
         case "NORTH":
-            return angle;
+            return Math.abs(angle - Math.PI / 2);
         case "SOUTH":
-            return angle + Math.PI;
+            return Math.abs(angle + Math.PI / 2);
         case "EAST":
-            return angle + Math.PI / 2;
+            return Math.abs(angle);
         case "WEST":
-            return angle - Math.PI / 2;
+            return Math.min(Math.abs(angle + Math.PI), Math.abs(angle - Math.PI));
         default:
             return 0;
     }
@@ -51,8 +51,9 @@ export function isInRange(defense: Defense, invader: ScalarInterface) {
 
 export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
     let angle = angleToAlignment(defense, invader, defense.alignment);
-    return distance(defense, invader) <= defense.template.range && Math.abs(angle - defense.angle) <= defense.template.scope;
+    return distance(defense, invader) <= defense.template.range && Math.abs(angle) <= defense.template.scope;
 };
+
 export function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
     return path.map((position) => ({
         x: position.column_index * cellSize + cellSize,
