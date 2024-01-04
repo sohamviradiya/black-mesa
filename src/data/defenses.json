@@ -33,7 +33,7 @@
         "type": "DEFENSE",
         "weapon": "MACHINE_GUN",
         "description": "Shoots a bullet at a high rate of fire.",
-        "period": 50,
+        "period": 25,
         "range": 200,
         "projectileTemplate": {
             "speed": 5,
@@ -47,7 +47,7 @@
         "type": "DEFENSE",
         "weapon": "LASER",
         "description": "Short range tower that shoots at enemy units if they are in range.",
-        "period": 100,
+        "period": 70,
         "range": 200,
         "projectileTemplate": {
             "speed": 5,
