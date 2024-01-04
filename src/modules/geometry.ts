@@ -12,30 +12,22 @@ export function collision(unitA: ScalarInterface, unitB: ScalarInterface) {
 
 
 export function distance(defense: ScalarInterface, invader: ScalarInterface) {
-    if (!defense?.x || !invader?.x) return 0;
     return Math.sqrt(Math.pow(defense.x - invader.x, 2) + Math.pow(defense.y - invader.y, 2));
 };
 
 export function getAngle(defense: ScalarInterface, invader: ScalarInterface) {
-    if (!defense?.x || !invader?.x) return 0;
     return Math.atan2(invader.y - defense.y, invader.x - defense.x);
 };
 
 export function angleToAlignment(defense: VectorInterface, invader: ScalarInterface, alignment: AlignmentType) {
-    if (!defense?.x || !invader?.x) return 0;
     let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
-    switch (alignment) {
-        case "NORTH":
-            return Math.abs(angle - Math.PI / 2);
-        case "SOUTH":
-            return Math.abs(angle + Math.PI / 2);
-        case "EAST":
-            return Math.abs(angle);
-        case "WEST":
-            return Math.min(Math.abs(angle + Math.PI), Math.abs(angle - Math.PI));
-        default:
-            return 0;
-    }
+    if (alignment === "NORTH")
+        angle -= Math.PI / 2;
+    else if (alignment === "WEST")
+        angle -= Math.PI;
+    else if (alignment === "SOUTH")
+        angle += Math.PI / 2;
+    return Math.min(Math.abs(angle), Math.abs(angle - 2 * Math.PI), Math.abs(angle + 2 * Math.PI));
 }
 
 export function radiansToDegrees(radians: number) {
@@ -47,12 +39,12 @@ export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
 };
 
 export function isInRange(defense: Defense, invader: ScalarInterface) {
-    return distance(defense, invader) <= defense.template.range;
+    return distance(defense, invader) <= defense.range;
 };
 
 export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
     let angle = angleToAlignment(defense, invader, defense.alignment);
-    return distance(defense, invader) <= defense.template.range && Math.abs(angle) <= defense.template.scope;
+    return isInRange(defense, invader) && Math.abs(angle) <= defense.template.scope;
 };
 
 export function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
