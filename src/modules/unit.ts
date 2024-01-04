@@ -67,7 +67,7 @@ export abstract class VectorUnit extends Unit implements VectorInterface {
     }
 
     component({ children }: { children: React.ReactNode }) {
-        return super.component({ children: VectorComponent({ unit: this, children }) });
+        return VectorComponent({ unit: this, children });
     };
 }
 
