@@ -9,7 +9,9 @@ import ScalarTurretComponent from "../../components/units/buildings/defenses/sca
 import VectorTurretComponent from "../../components/units/buildings/defenses/vector-turret";
 import DefenseComponent from "../../components/units/buildings/defense";
 
-export type WeaponType = "LASER" | "SNIPER" | "MISSILE_LAUNCHER" | "MACHINE_GUN" | "SHOTGUN";
+export const WeaponTypes = ["LASER", "SNIPER", "MISSILE_LAUNCHER", "MACHINE_GUN", "SHOTGUN"] as const;
+
+export type WeaponType = typeof WeaponTypes[number];
 
 export interface DefenseTemplate extends BuildingTemplate {
     type: "DEFENSE";

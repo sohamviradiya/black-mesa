@@ -6,8 +6,9 @@ import { CollectionType, BoardState, Difficulty  } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 import difficultyVariables from "../data/difficulty-mappers.json";
 
+export const InvaderTypes = ["ALPHA", "GAMMA", "LAMBDA", "SIGMA", "OMEGA"] as const;
 
-export type InvaderType = "ALPHA" | "GAMMA" | "LAMBDA" | "SIGMA" | "OMEGA";
+export type InvaderType = typeof InvaderTypes[number];
 
 export interface InvaderTemplate {
     type: InvaderType;

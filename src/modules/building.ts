@@ -5,15 +5,9 @@ import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";
 import BuildingComponent from "../components/units/building";
 
-export enum BuildingTypes {
-    "BASE",
-    "DEFENSE",
-    "EXPLOSIVE",
-    "GENERATOR",
-    "BARRICADE",
-};
+export const BuildingTypes = ["BASE", "DEFENSE", "EXPLOSIVE", "GENERATOR", "BARRICADE",] as const;
 
-export type BuildingType = keyof typeof BuildingTypes;
+export type BuildingType = typeof BuildingTypes[number];
 
 export interface BuildingTemplate {
     cost: number;
