@@ -22,8 +22,7 @@ export enum AlignmentTypes {
     "NORTH",
     "SOUTH",
     "EAST",
-    "WEST",
-    "SCALAR",
+    "WEST"
 };
 
 export type AlignmentType = keyof typeof AlignmentTypes;

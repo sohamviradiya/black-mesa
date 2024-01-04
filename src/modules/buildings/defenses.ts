@@ -74,7 +74,26 @@ export class VectorTurret extends Defense {
     constructor(row_index: number, column_index: number, public template: VectorDefenseTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
         this.alignment = "WEST";
-        this.angle = -Math.PI / 2;
+        this.angle = -Math.PI;
+    };
+
+    setAlignment() {
+        if (this.alignment === "WEST") {
+            this.alignment = "NORTH";
+            this.angle = Math.PI / 2;
+        }
+        else if (this.alignment === "NORTH") {
+            this.alignment = "EAST";
+            this.angle = 0;
+        }
+        else if (this.alignment === "EAST") {
+            this.alignment = "SOUTH";
+            this.angle = -Math.PI / 2;
+        }
+        else if (this.alignment === "SOUTH") {
+            this.alignment = "WEST";
+            this.angle = -Math.PI;
+        }
     };
 
     findTarget(enemies: Invader[]) {
@@ -87,7 +106,7 @@ export class VectorTurret extends Defense {
         }
         return null;
     };
-    
+
     component(): JSX.Element {
         return super.component({ children: VectorTurretComponent({ turret: this }) });
     }
