@@ -27,7 +27,7 @@ export type Difficulty = "ROOKIE" | "CASUAL" | "MASTER" | "VETERAN" | "INSANE";
 export class BoardState {
     public frame: number = 0;
     public collections: { projectiles: Projectile[], invaders: Invader[], buildings: Building[], cells: Cell[][] } = { projectiles: [], invaders: [], buildings: [], cells: [] };
-    public energy: number = variables["initial-energy"];
+    public energy: number;
     public score: number = 0;
     public gameOver: boolean = false;
     public gameWon: boolean = false;
@@ -42,6 +42,8 @@ export class BoardState {
         const { rows, columns, turnFactor } = difficultyVariables[difficulty];
         this.invaderQueue = generateInvaderQueue(difficulty);
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
+        this.energy = difficultyVariables[difficulty]["energy"];
+
         this.cellSize = width / columns;
         const { matrix, path, slots } = generateGrid(rows, columns, turnFactor);
         this.collections.cells = matrixToCells(matrix, this.cellSize);
@@ -51,10 +53,10 @@ export class BoardState {
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
-        // slots.forEach((position) => {
-        //     const { row_index, column_index } = position;
-        //     this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "LASER");
-        // });
+        slots.forEach((position) => {
+            const { row_index, column_index } = position;
+            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "LASER");
+        });
 
 
         this.messages.push("You have " + this.energy + " energy");
