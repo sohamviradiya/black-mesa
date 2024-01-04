@@ -35,7 +35,7 @@ export function radiansToDegrees(radians: number) {
 }
 
 export function isInRadius(bomb: Explosive, invader: ScalarInterface) {
-    return distance(bomb, invader) <= bomb.template.radius;
+    return distance(bomb, invader) <= bomb.radius;
 };
 
 export function isInRange(defense: Defense, invader: ScalarInterface) {

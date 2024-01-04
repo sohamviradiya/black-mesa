@@ -7,19 +7,22 @@ import ExplosiveComponent from "../../components/units/buildings/defenses/explos
 export interface ExplosiveTemplate extends BuildingTemplate {
     type: "EXPLOSIVE";
     damage: number;
-    radius: number;
+    radiusFactor: number;
 };
 
 export class Explosive extends Building {
     public triggered: boolean = false;
+    public radius: number;
     constructor(row_index: number, column_index: number, public template: ExplosiveTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
+        this.radius = template.radiusFactor * cellSize;
     };
 
     update(state: BoardState): void {
         if (this.triggered) {
             this.explode(state.collections.invaders);
             this.removeSelf(state);
+            return;
         }
 
         state.collections.invaders.forEach((invader: Invader) => {
