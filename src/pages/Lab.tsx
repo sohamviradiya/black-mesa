@@ -26,11 +26,11 @@ export default function Lab() {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ height: "100vh", width: "100vw", backgroundColor: "whitesmoke", padding: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <Container maxWidth="xl" sx={{ height: "100vh", width: "100vw", backgroundColor: "whitesmoke", padding: "2rem", display: "flex", flexDirection: "column", gap: "5rem" }}>
             <Box sx={{ position: "relative" }} >
                 {boardState.components()}
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%" }}>
                 {boardState.messages.map((message, index) => (
                     <Box key={index} sx={{ padding: "1rem" }} >
                         <MessageComponent message={message} />
