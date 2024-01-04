@@ -55,7 +55,7 @@ export class BoardState {
 
         slots.forEach((position) => {
             const { row_index, column_index } = position;
-            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "SNIPER");
+            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "MACHINE_GUN");
         });
 
 

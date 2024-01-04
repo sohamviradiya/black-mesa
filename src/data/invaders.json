@@ -1,7 +1,7 @@
 {
     "ALPHA" : {
         "type": "ALPHA",
-        "speed": 0.6,
+        "speedFactor": 0.02,
         "maxHealth": 200,
         "bounty": 30,
         "damage": 20,
@@ -11,7 +11,7 @@
     },
     "GAMMA" : {
         "type" : "GAMMA",
-        "speed": 1,
+        "speedFactor": 0.05,
         "maxHealth": 100,
         "bounty": 50,
         "damage": 10,
@@ -21,7 +21,7 @@
     },
     "LAMBDA": {
         "type": "LAMBDA",
-        "speed": 0.8,
+        "speedFactor": 0.04,
         "maxHealth": 150,
         "bounty": 75,
         "damage": 20,
@@ -31,7 +31,7 @@
     },
     "SIGMA" : {
         "type" : "SIGMA",
-        "speed": 0.4,
+        "speedFactor": 0.01,
         "maxHealth": 400,
         "bounty": 100,
         "damage": 40,
@@ -41,7 +41,7 @@
     },
     "OMEGA" : {
         "type" : "OMEGA",
-        "speed": 0.2,
+        "speedFactor": 0.005,
         "maxHealth": 1000,
         "bounty": 200,
         "damage": 100,

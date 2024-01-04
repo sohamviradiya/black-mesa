@@ -11,7 +11,7 @@ export type InvaderType = "ALPHA" | "GAMMA" | "LAMBDA" | "SIGMA" | "OMEGA";
 
 export interface InvaderTemplate {
     type: InvaderType;
-    speed: number;
+    speedFactor: number;
     maxHealth: number;
     bounty: number;
     damage: number;
@@ -26,8 +26,10 @@ export class Invader extends VectorUnit {
     timer: number = 0;
     moving: boolean = true;
     health: number;
+    public speed: number = 0;
     constructor(public path: PositionInterface[], public template: InvaderTemplate, cellSize: number) {
         super(path[0].x, path[0].y, template.widthFactor * cellSize, template.heightFactor * cellSize, 0);
+        this.speed = template.speedFactor * cellSize;
         this.health = template.maxHealth;
     };
 
@@ -57,13 +59,13 @@ export class Invader extends VectorUnit {
 
             this.angle = Math.atan2(dy, dx);
 
-            if (distance < this.template.speed) {
+            if (distance < this.speed) {
                 this.path.shift();
                 this.x = target.x;
                 this.y = target.y;
             } else {
-                this.x += dx / distance * this.template.speed;
-                this.y += dy / distance * this.template.speed;
+                this.x += dx / distance * this.speed;
+                this.y += dy / distance * this.speed;
             }
         }
     };
