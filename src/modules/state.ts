@@ -53,13 +53,8 @@ export class BoardState {
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
-        // path.forEach((position) => {
-        //     if (Math.random() < 0.1) {
-        //         const { row_index, column_index } = position;
-        //         this.addExplosive(this.collections.cells[row_index][column_index] as PathCell);
-        //     }
-        // });
-
+        const { column_index, row_index } = path.toReversed()[2];
+        this.addExplosive(row_index, column_index);
 
         this.messages.push("You have " + this.energy + " energy");
         this.messages.push("Let the invasion begin!");
@@ -121,7 +116,6 @@ export class BoardState {
         if (!this.checkCost(template as BuildingTemplate))
             return;
         const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
-        this.collections.buildings.push(explosive);
         if (cell.occupy(explosive)) {
             this.addBuilding(explosive);
         }

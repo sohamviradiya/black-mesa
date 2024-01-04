@@ -40,7 +40,7 @@ export abstract class Unit {
     getState(): ScalarInterface {
         return this;
     }
-    
+
     component({ children }: { children: React.ReactNode }) {
         return UnitComponent({ unit: this, children });
     };

@@ -43,5 +43,4 @@ export class Explosive extends Building {
                 invader.takeDamage(this.template.damage);
         });
     }
-}
-;
+};
