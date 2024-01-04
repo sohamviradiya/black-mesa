@@ -22,17 +22,7 @@ export class Cell extends ScalarUnit {
     }
 
     update(state: BoardState): void {
-        if (collision(state.mouse, this)) {
-            this.triggered = true;
-            this.timer = 100;
-        }
-        else {
-            this.timer--;
-            if (this.timer <= 0) {
-                this.timer = 0;
-                this.triggered = false;
-            }
-        }
+        this.triggered = collision(state.mouse, this);
     }
     component() {
         return super.component({ children: CellComponent({ cell: this }) });
