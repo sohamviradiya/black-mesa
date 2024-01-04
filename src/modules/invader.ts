@@ -2,8 +2,10 @@ import InvaderComponent from "../components/units/invader";
 import { Building } from "./building";
 import { Installation } from "./buildings/installation";
 import { collision } from "./geometry";
-import { BoardState, CollectionType } from "./state";
+import { CollectionType, BoardState, Difficulty  } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
+import difficultyVariables from "../data/difficulty-mappers.json";
+
 
 export type InvaderType = "ALPHA" | "GAMMA" | "LAMBDA" | "SIGMA" | "OMEGA";
 
@@ -108,3 +110,23 @@ export class Invader extends VectorUnit {
         return super.component({ children: InvaderComponent({ invader: this }) });
     }
 };
+
+export function generateInvaderQueue(difficulty: Difficulty) {
+    const count = difficultyVariables[difficulty].invaderSpawns;
+    const invaderQueue: InvaderType[] = [];
+
+    Object.keys(count).forEach((key: string) => {
+        const invaderType: InvaderType = key as InvaderType;
+        const invaderCount: number = count[key as InvaderType];
+        for (let i = 0; i < invaderCount; i++)
+            invaderQueue.push(invaderType);
+    });
+
+    for (let i = invaderQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [invaderQueue[i], invaderQueue[j]] = [invaderQueue[j], invaderQueue[i]];
+    }
+
+    return invaderQueue;
+}
+;

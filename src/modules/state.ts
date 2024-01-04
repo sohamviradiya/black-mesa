@@ -18,6 +18,7 @@ import variables from "../data/game-variables.json";
 import buildings from "../data/buildings.json";
 import defenses from "../data/defenses.json";
 import invaders from "../data/invaders.json";
+import { generateInvaderQueue } from "./invader";
 
 export type CollectionType = "projectiles" | "invaders" | "buildings" | "cells";
 
@@ -39,7 +40,7 @@ export class BoardState {
 
     constructor(width: number, difficulty: Difficulty) {
         const { rows, columns, turnFactor } = difficultyVariables[difficulty];
-        this.setInvaderQueue(difficulty);
+        this.invaderQueue = generateInvaderQueue(difficulty);
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
         this.cellSize = width / columns;
         const { matrix, path, slots } = generateGrid(rows, columns, turnFactor);
@@ -169,25 +170,6 @@ export class BoardState {
         const invaderType: InvaderType = this.invaderQueue.shift() as InvaderType;
         const invader = new Invader(new Array(...this.path), invaders[invaderType] as InvaderTemplate, this.cellSize);
         this.collections.invaders.push(invader);
-    }
-
-    private setInvaderQueue(difficulty: Difficulty) {
-        const count = difficultyVariables[difficulty].invaderSpawns;
-        const invaderQueue: InvaderType[] = [];
-
-        Object.keys(count).forEach((key: string) => {
-            const invaderType: InvaderType = key as InvaderType;
-            const invaderCount: number = count[key as InvaderType];
-            for (let i = 0; i < invaderCount; i++)
-                invaderQueue.push(invaderType);
-        });
-
-        for (let i = invaderQueue.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [invaderQueue[i], invaderQueue[j]] = [invaderQueue[j], invaderQueue[i]];
-        }
-
-        this.invaderQueue = invaderQueue;
     }
 
     private updateCollections() {
