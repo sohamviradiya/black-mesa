@@ -1,4 +1,4 @@
-import { Building, BuildingTemplate } from "./building";
+import { Building, BuildingTemplate, BuildingType, BuildingTypes } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
 import { Cell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate, InvaderType } from "./invader";
@@ -11,7 +11,7 @@ import { Barricade, BarricadeTemplate } from "./buildings/barricade";
 import { Explosive, ExplosiveTemplate } from "./buildings/explosive";
 import { matrixToCells } from "./cell";
 import { pathToPositions } from "./geometry";
-import { Defense, DefenseTemplate, WeaponType, ScalarTurret, VectorTurret, VectorDefenseTemplate } from "./buildings/defenses";
+import { Defense, DefenseTemplate, WeaponType, ScalarTurret, VectorTurret, VectorDefenseTemplate, WeaponTypes } from "./buildings/defenses";
 
 import difficultyVariables from "../data/difficulty-mappers.json";
 import variables from "../data/game-variables.json";
@@ -51,15 +51,12 @@ export class BoardState {
         this.path = pathToPositions(path, this.cellSize);
 
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
-        this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
-
-        const { column_index, row_index } = path.toReversed()[2];
-        this.addBarricade(row_index, column_index);
+        this.addPathOccupier(base_row_index, base_column_index, "BASE");
 
         if (base_row_index > 0)
-            this.addDefense(base_row_index - 1, base_column_index, "LASER");
-        else 
-            this.addDefense(base_row_index + 1, base_column_index, "LASER");
+            this.addSlotOccupier(base_row_index - 1, base_column_index, "LASER");
+        else
+            this.addSlotOccupier(base_row_index + 1, base_column_index, "LASER");
 
         this.messages.push("You have " + this.energy + " energy");
         this.messages.push("Let the invasion begin!");
@@ -96,7 +93,14 @@ export class BoardState {
         this.messages.push(message);
     }
 
-    addDefense(row_index: number, column_index: number, type: WeaponType): void {
+    addOccupier(row_index: number, column_index: number, type: BuildingType | WeaponType): void {
+        if (BuildingTypes.includes(type as BuildingType))
+            this.addPathOccupier(row_index, column_index, type as InstallationType);
+        else if (WeaponTypes.includes(type as WeaponType))
+            this.addSlotOccupier(row_index, column_index, type as WeaponType);
+    }
+
+    private addSlotOccupier(row_index: number, column_index: number, type: WeaponType): void {
         const template = defenses[type];
         if (!this.checkCost(template as BuildingTemplate))
             return;
@@ -115,31 +119,11 @@ export class BoardState {
         }
     }
 
-    addExplosive(row_index: number, column_index: number,) {
-        const cell = this.collections.cells[row_index][column_index] as PathCell;
-        const template = buildings["EXPLOSIVE"];
-        if (!this.checkCost(template as BuildingTemplate))
-            return;
-        const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
-        if (cell.occupy(explosive)) {
-            this.addBuilding(explosive);
-        }
-    }
-
-    addBarricade(row_index: number, column_index: number,) {
-        const cell = this.collections.cells[row_index][column_index] as PathCell;
-        this.addInstallation(cell, "BARRICADE");
-    }
-
-    private addBase(cell: PathCell) {
-        this.addInstallation(cell, "BASE");
-    }
-
-    private addInstallation(cell: PathCell, type: InstallationType): void {
+    private addPathOccupier(row_index: number, column_index: number, type: Exclude<BuildingType, "DEFENSE">): void {
         const template = buildings[type];
         if (!this.checkCost(template as BuildingTemplate))
             return;
-        const { row_index, column_index } = cell;
+        const cell = this.collections.cells[row_index][column_index] as PathCell;
         let installation;
         if (template.type === "GENERATOR")
             installation = new Generator(row_index, column_index, template as GeneratorTemplate, this.cellSize);
@@ -147,6 +131,8 @@ export class BoardState {
             installation = new Barricade(row_index, column_index, template as BarricadeTemplate, this.cellSize);
         else if (template.type === "BASE")
             installation = new Base(row_index, column_index, template as BaseTemplate, this.cellSize);
+        else if (template.type === "EXPLOSIVE")
+            installation = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
         else
             return;
 
