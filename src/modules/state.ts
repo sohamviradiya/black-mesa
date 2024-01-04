@@ -53,10 +53,12 @@ export class BoardState {
         const { row_index: base_row_index, column_index: base_column_index } = path[path.length - 1];
         this.addBase(this.collections.cells[base_row_index][base_column_index] as PathCell);
 
-        slots.forEach((position) => {
-            const { row_index, column_index } = position;
-            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "MACHINE_GUN");
-        });
+        // path.forEach((position) => {
+        //     if (Math.random() < 0.1) {
+        //         const { row_index, column_index } = position;
+        //         this.addExplosive(this.collections.cells[row_index][column_index] as PathCell);
+        //     }
+        // });
 
 
         this.messages.push("You have " + this.energy + " energy");
@@ -94,12 +96,14 @@ export class BoardState {
         this.messages.push(message);
     }
 
-    addDefense(cell: SlotCell, type: WeaponType): void {
+    addDefense(row_index: number, column_index: number, type: WeaponType): void {
         const template = defenses[type];
         if (!this.checkCost(template as BuildingTemplate))
             return;
+        if (row_index < 0 || row_index >= this.collections.cells.length || column_index < 0 || column_index >= this.collections.cells[0].length)
+            return;
+        const cell = this.collections.cells[row_index][column_index] as SlotCell;
 
-        const { row_index, column_index } = cell;
         let defense: Defense;
         if (type === "SNIPER")
             defense = new VectorTurret(row_index, column_index, template as VectorDefenseTemplate, this.cellSize);
@@ -111,11 +115,11 @@ export class BoardState {
         }
     }
 
-    addExplosive(cell: PathCell) {
+    addExplosive(row_index: number, column_index: number,) {
+        const cell = this.collections.cells[row_index][column_index] as PathCell;
         const template = buildings["EXPLOSIVE"];
         if (!this.checkCost(template as BuildingTemplate))
             return;
-        const { row_index, column_index } = cell;
         const explosive = new Explosive(row_index, column_index, template as ExplosiveTemplate, this.cellSize);
         this.collections.buildings.push(explosive);
         if (cell.occupy(explosive)) {
@@ -123,7 +127,8 @@ export class BoardState {
         }
     }
 
-    addBarricade(cell: PathCell) {
+    addBarricade(row_index: number, column_index: number,) {
+        const cell = this.collections.cells[row_index][column_index] as PathCell;
         this.addInstallation(cell, "BARRICADE");
     }
 
