@@ -6,8 +6,8 @@
         "bounty": 30,
         "damage": 20,
         "period": 100,
-        "widthFactor": 0.5,
-        "heightFactor": 0.5
+        "widthFactor": 1,
+        "heightFactor": 1
     },
     "GAMMA" : {
         "type" : "GAMMA",
@@ -16,8 +16,8 @@
         "bounty": 50,
         "damage": 10,
         "period": 60,
-        "widthFactor": 0.6,
-        "heightFactor": 0.2
+        "widthFactor": 1,
+        "heightFactor": 1
     },
     "LAMBDA": {
         "type": "LAMBDA",
@@ -26,8 +26,8 @@
         "bounty": 75,
         "damage": 20,
         "period": 75,
-        "widthFactor": 0.8,
-        "heightFactor": 0.4
+        "widthFactor": 1,
+        "heightFactor": 1
     },
     "SIGMA" : {
         "type" : "SIGMA",
@@ -36,8 +36,8 @@
         "bounty": 100,
         "damage": 40,
         "period": 100,
-        "widthFactor": 0.8,
-        "heightFactor": 0.8
+        "widthFactor": 1,
+        "heightFactor": 1
     },
     "OMEGA" : {
         "type" : "OMEGA",
