@@ -55,7 +55,7 @@ export class BoardState {
 
         slots.forEach((position) => {
             const { row_index, column_index } = position;
-            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "LASER");
+            this.addDefense(this.collections.cells[row_index][column_index] as SlotCell, "SNIPER");
         });
 
 
@@ -63,7 +63,8 @@ export class BoardState {
         this.messages.push("Let the invasion begin!");
     }
 
-    update(): this {
+    update({ x, y }: { x: number, y: number }): this {
+        this.setMouse(x, y);
         if (this.gameOver || this.gameWon) {
             return this;
         }
@@ -160,6 +161,11 @@ export class BoardState {
             return false;
         }
         return true;
+    }
+
+    private setMouse(x: number, y: number) {
+        this.mouse.x = x;
+        this.mouse.y = y;
     }
 
     private isGameWon(): boolean {
