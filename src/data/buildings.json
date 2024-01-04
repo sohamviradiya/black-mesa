@@ -3,7 +3,6 @@
         "cost": 0,
         "type": "BASE",
         "description": "If you lose this, you lose the game.",
-        "cellSize": 40,
         "maxHealth": 1000,
         "rate": 1,
         "period": 100
@@ -12,7 +11,6 @@
         "cost": 150,
         "type": "GENERATOR",
         "description": "Generates fixed energy per turn.",
-        "cellSize": 40,
         "maxHealth": 200,
         "rate": 2,
         "period": 50
@@ -21,7 +19,6 @@
         "cost": 50,
         "type": "BARRICADE",
         "description": "Blocks enemy movement.",
-        "cellSize": 40,
         "health": 500,
         "maxHealth": 500,
         "rate": 1,
@@ -31,7 +28,6 @@
         "cost": 100,
         "type": "EXPLOSIVE",
         "description": "Explodes when triggered.",
-        "cellSize": 40,
         "damage": 100,
         "radius": 100
     }
