@@ -10,7 +10,7 @@ export class Generator extends Installation {
         super(row_index, column_index, template, cellSize);
     };
     component(): JSX.Element {
-        return GeneratorComponent({ generator: this });
+        return super.component({ children: GeneratorComponent({ generator: this }) });
     }
 }
 ;

@@ -3,7 +3,7 @@ import { BoardState } from "../modules/state";
 import { Box, Container, Typography } from "@mui/material";
 import MessageComponent from "../components/message";
 
-const newState = new BoardState(1000, "MASTER");
+const newState = new BoardState(1000, "ROOKIE");
 
 export default function Lab() {
     const [, setTick] = useState(0);
