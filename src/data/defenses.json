@@ -5,10 +5,10 @@
         "weapon": "SNIPER",
         "description": "Long range tower that shoots at enemy units if they are in scope.",
         "period": 200,
-        "range": 500,
+        "rangeFactor": 5,
         "scope": 0.5,
         "projectileTemplate": {
-            "speed": 7,
+            "speedFactor": 0.7,
             "damage": 100,
             "widthFactor": 0.4,
             "heightFactor": 0.1
@@ -20,9 +20,9 @@
         "weapon": "MISSILE_LAUNCHER",
         "description": "Shoots a missile at a high rate of fire.",
         "period": 200,
-        "range": 250,
+        "rangeFactor": 5,
         "projectileTemplate": {
-            "speed": 4,
+            "speedFactor": 0.4,
             "damage": 120,
             "widthFactor": 0.6,
             "heightFactor": 0.2
@@ -34,9 +34,9 @@
         "weapon": "MACHINE_GUN",
         "description": "Shoots a bullet at a high rate of fire.",
         "period": 25,
-        "range": 200,
+        "rangeFactor": 2,
         "projectileTemplate": {
-            "speed": 5,
+            "speedFactor": 0.5,
             "damage": 10,
             "widthFactor": 0.2,
             "heightFactor": 0.05
@@ -48,9 +48,9 @@
         "weapon": "LASER",
         "description": "Short range tower that shoots at enemy units if they are in range.",
         "period": 70,
-        "range": 200,
+        "rangeFactor": 3,
         "projectileTemplate": {
-            "speed": 5,
+            "speedFactor": 0.5,
             "damage": 25,
             "widthFactor": 0.2,
             "heightFactor": 0.05
@@ -62,9 +62,9 @@
         "weapon": "SHOTGUN",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
         "period": 150,
-        "range": 100,
+        "rangeFactor": 2,
         "projectileTemplate": {
-            "speed": 5,
+            "speedFactor": 0.5,
             "damage": 80,
             "widthFactor": 0.2,
             "heightFactor": 0.05

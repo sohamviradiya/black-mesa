@@ -5,7 +5,7 @@ import { BoardState, CollectionType } from "./state";
 import { VectorUnit } from "./unit";
 
 export interface ProjectileTemplate {
-    speed: number;
+    speedFactor: number;
     damage: number;
     widthFactor: number;
     heightFactor: number;
@@ -14,8 +14,10 @@ export interface ProjectileTemplate {
 export class Projectile extends VectorUnit {
     public active: boolean = true;
     collection: CollectionType = "projectiles";
+    public speed: number;
     constructor(x: number, y: number, angle: number, public target: Invader, public template: ProjectileTemplate, cellSize: number) {
         super(x, y, template.widthFactor * cellSize, template.heightFactor * cellSize, angle);
+        this.speed = template.speedFactor * cellSize;
     }
 
     update(state: BoardState): void {
@@ -38,14 +40,14 @@ export class Projectile extends VectorUnit {
         const dx = this.target.x - this.x;
         const dy = this.target.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < this.template.speed) {
+        if (distance < this.speed) {
             this.x = this.target.x;
             this.y = this.target.y;
             return;
         }
 
-        this.x += dx / distance * this.template.speed;
-        this.y += dy / distance * this.template.speed;
+        this.x += dx / distance * this.speed;
+        this.y += dy / distance * this.speed;
         this.angle = Math.atan2(dy, dx);
     };
 

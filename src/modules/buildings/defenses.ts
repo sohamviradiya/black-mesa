@@ -15,7 +15,7 @@ export interface DefenseTemplate extends BuildingTemplate {
     type: "DEFENSE";
     weapon: WeaponType;
     period: number;
-    range: number;
+    rangeFactor: number;
     projectileTemplate: ProjectileTemplate;
 };
 
@@ -27,8 +27,10 @@ export interface VectorDefenseTemplate extends DefenseTemplate {
 export abstract class Defense extends Building {
     public angle = 0;
     public timer = 0;
+    public range = 0;
     constructor(row_index: number, column_index: number, public template: DefenseTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
+        this.range = template.rangeFactor * cellSize;
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
