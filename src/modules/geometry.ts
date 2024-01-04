@@ -2,8 +2,9 @@ import { Explosive } from "./buildings/explosive";
 import { Defense, VectorTurret } from "./buildings/defenses";
 import { AlignmentType, PositionInterface, ScalarInterface, VectorInterface } from "./unit";
 
-export function collision(defense: ScalarInterface, invader: ScalarInterface) {
-    if (defense.x + defense.width < invader.x + 1 || invader.x + invader.width < defense.x + 1 || defense.y + defense.height < invader.y + 1 || invader.y + invader.height < defense.y + 1)
+export function collision(unitA: ScalarInterface, unitB: ScalarInterface) {
+    if (unitA.x === -1 || unitB.x === -1) return false;
+    if (unitA.x + unitA.width < unitB.x + 1 || unitB.x + unitB.width < unitA.x + 1 || unitA.y + unitA.height < unitB.y + 1 || unitB.y + unitB.height < unitA.y + 1)
         return false;
     else
         return true;
