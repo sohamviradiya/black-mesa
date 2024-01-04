@@ -23,7 +23,7 @@
         "range": 250,
         "projectileTemplate": {
             "speed": 4,
-            "damage": 150,
+            "damage": 120,
             "widthFactor": 0.6,
             "heightFactor": 0.2
         }
@@ -37,7 +37,7 @@
         "range": 200,
         "projectileTemplate": {
             "speed": 5,
-            "damage": 20,
+            "damage": 10,
             "widthFactor": 0.2,
             "heightFactor": 0.05
         }
@@ -51,7 +51,7 @@
         "range": 200,
         "projectileTemplate": {
             "speed": 5,
-            "damage": 40,
+            "damage": 25,
             "widthFactor": 0.2,
             "heightFactor": 0.05
         }
@@ -65,7 +65,7 @@
         "range": 100,
         "projectileTemplate": {
             "speed": 5,
-            "damage": 150,
+            "damage": 80,
             "widthFactor": 0.2,
             "heightFactor": 0.05
         }
