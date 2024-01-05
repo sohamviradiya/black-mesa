@@ -2,7 +2,7 @@ import InvaderComponent from "../components/units/invader";
 import { Building } from "./building";
 import { Installation } from "./buildings/installation";
 import { collision } from "./geometry";
-import { CollectionType, BoardState, Difficulty  } from "./state";
+import { CollectionType, BoardState, Difficulty } from "./state";
 import { PositionInterface, VectorUnit } from "./unit";
 import difficultyVariables from "../data/difficulty-mappers.json";
 
@@ -43,8 +43,7 @@ export class Invader extends VectorUnit {
             this.die(state);
             return;
         }
-        if (this.isFireReady())
-            this.hit(state.collections.buildings);
+        this.hit(state.collections.buildings);
 
         if (!this.moving)
             return;
@@ -85,7 +84,8 @@ export class Invader extends VectorUnit {
             console.log();
             if (collision(building, this)) {
                 this.moving = false;
-                building.takeDamage(this.template.damage);
+                if (this.isFireReady())
+                    building.takeDamage(this.template.damage);
                 return;
             }
         }
