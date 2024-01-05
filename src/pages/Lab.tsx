@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BoardState } from "../modules/state";
-import { Box, Container, MenuItem, Select, Typography } from "@mui/material";
+import { Box, MenuItem, Select, Typography } from "@mui/material";
 import MessageComponent from "../components/message";
 import { WeaponType } from "../modules/buildings/defenses";
 import { Building, BuildingType } from "../modules/building";
@@ -12,7 +12,6 @@ type ItemsType = "NO_ITEM" | WeaponType | BuildingType;
 export default function Lab() {
     const [, setTick] = useState(0);
     const [boardState, setBoardState] = useState<BoardState>(newState);
-    const [{ x, y }, setMousePosition] = useState({ x: 0, y: 0 });
     const [item, setItem] = useState<ItemsType>("NO_ITEM");
 
     const setBuilding = (row_index: number, col_index: number) => {
@@ -29,7 +28,7 @@ export default function Lab() {
         let animationFrameId: number;
 
         const gameLoop = () => {
-            setBoardState((prevBoardState: BoardState) => prevBoardState.update({ x, y }));
+            setBoardState((prevBoardState: BoardState) => prevBoardState.update());
             setTick((prevTick) => prevTick + 1);
             animationFrameId = requestAnimationFrame(gameLoop);
         };
@@ -43,7 +42,7 @@ export default function Lab() {
 
     return (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Box sx={{ position: "relative", backgroundColor: "whitesmoke", height: boardState.cellSize * (boardState.collections.cells.length), width: boardState.cellSize * (boardState.collections.cells[0].length ) }} onMouseMove={(e) => { setMousePosition({ x: e.nativeEvent.x - e.currentTarget.offsetLeft, y: e.nativeEvent.y - e.currentTarget.offsetTop }); }} onMouseLeave={(e) => { setMousePosition({ x: -1, y: -1 }) }}>
+            <Box sx={{ position: "relative", backgroundColor: "whitesmoke", height: boardState.cellSize * (boardState.collections.cells.length), width: boardState.cellSize * (boardState.collections.cells[0].length) }}>
                 {boardState.components({ setBuilding, demolishBuilding })}
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
