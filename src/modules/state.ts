@@ -3,7 +3,7 @@ import { Base, BaseTemplate } from "./buildings/base";
 import { Cell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate, InvaderType } from "./invader";
 import { Projectile } from "./projectile";
-import { PositionInterface, ScalarInterface } from "./unit";
+import { PositionInterface } from "./unit";
 import { generateGrid } from "./grid";
 import { InstallationType } from "./buildings/installation";
 import { Generator, GeneratorTemplate } from "./buildings/generator";
@@ -14,7 +14,6 @@ import { pathToPositions } from "./geometry";
 import { Defense, DefenseTemplate, WeaponType, ScalarTurret, VectorTurret, VectorDefenseTemplate, WeaponTypes } from "./buildings/defenses";
 
 import difficultyVariables from "../data/difficulty-mappers.json";
-import variables from "../data/game-variables.json";
 import buildings from "../data/buildings.json";
 import defenses from "../data/defenses.json";
 import invaders from "../data/invaders.json";

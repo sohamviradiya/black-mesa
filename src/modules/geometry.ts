@@ -3,7 +3,7 @@ import { Defense, VectorTurret } from "./buildings/defenses";
 import { AlignmentType, PositionInterface, ScalarInterface, VectorInterface } from "./unit";
 
 export function collision(unitA: ScalarInterface, unitB: ScalarInterface) {
-    if (unitA.x + unitA.width < unitB.x || unitB.x + unitB.width < unitA.x || unitA.y + unitA.height < unitB.y || unitB.y + unitB.height < unitA.y)
+    if (unitA.x + unitA.width <= unitB.x || unitB.x + unitB.width <= unitA.x || unitA.y + unitA.height <= unitB.y || unitB.y + unitB.height <= unitA.y)
         return false;
     else
         return true;
