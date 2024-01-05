@@ -17,6 +17,11 @@ export class Barricade extends Installation {
     };
 
     update(state: BoardState): void {
+        if (!this.active) {
+            state.addMessage("Your " + this.type + " building was destroyed");
+            this.removeSelf(state);
+            return;
+        }
         this.timer++;
         if (this.isReady())
             this.health += this.template.rate; // Regenerate
