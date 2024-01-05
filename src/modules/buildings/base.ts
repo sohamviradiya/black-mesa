@@ -17,6 +17,10 @@ export class Base extends Installation {
         super.update(state);
     }
 
+    dismantle(state: BoardState): void {
+        
+    }
+
     component(): JSX.Element {
         return super.component({ children: BaseComponent({ base: this }) });
     };
