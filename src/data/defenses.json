@@ -6,7 +6,7 @@
         "description": "Long range tower that shoots at enemy units if they are in scope.",
         "period": 200,
         "rangeFactor": 5,
-        "scope": 0.5,
+        "scope": 1,
         "projectileTemplate": {
             "speedFactor": 0.7,
             "damage": 100,
