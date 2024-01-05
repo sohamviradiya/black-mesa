@@ -1,6 +1,6 @@
 import { Building, BuildingTemplate, BuildingType, BuildingTypes } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
-import { Cell, OccupiableCell, PathCell, SlotCell } from "./cell";
+import { Cell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate, InvaderType } from "./invader";
 import { Projectile } from "./projectile";
 import { PositionInterface, ScalarInterface } from "./unit";
@@ -19,6 +19,7 @@ import buildings from "../data/buildings.json";
 import defenses from "../data/defenses.json";
 import invaders from "../data/invaders.json";
 import { generateInvaderQueue } from "./invader";
+import { ReactNode } from "react";
 
 export type CollectionType = "projectiles" | "invaders" | "buildings" | "cells";
 
@@ -78,10 +79,10 @@ export class BoardState {
         return this;
     }
 
-    components({ setBuilding, demolishBuilding }: { setBuilding: (row_index: number, col_index: number) => void, demolishBuilding: (row_index: number, col_index: number) => void }): JSX.Element[] {
+    components({ setBuilding, demolishBuilding }: { setBuilding: (row_index: number, col_index: number) => void, demolishBuilding: (building: Building) => void }): JSX.Element[] {
         return [
-            ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component({ setBuilding, demolishBuilding }))).flat(),
-            ...this.collections.buildings.map((building: Building) => building.component({} as { children: JSX.Element })),
+            ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component({ setBuilding }))).flat(),
+            ...this.collections.buildings.map((building: Building) => building.component({ demolishBuilding, children: {} as ReactNode } )),
             ...this.collections.invaders.map((invader: Invader) => invader.component()),
             ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
         ];
@@ -101,9 +102,8 @@ export class BoardState {
         return this;
     }
 
-    removeOccupier(row_index: number, column_index: number) {
-        const cell = this.collections.cells[row_index][column_index] as OccupiableCell;
-        cell.deOccupy(this);
+    removeOccupier(building: Building) {
+        building.dismantle(this);
         return this;
     }
 

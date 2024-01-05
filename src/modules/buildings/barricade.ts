@@ -1,4 +1,5 @@
 import BarricadeComponent from "../../components/units/buildings/barricade";
+import { Building } from "../building";
 import { BoardState } from "../state";
 import { Installation, InstallationTemplate } from "./installation";
 
@@ -21,7 +22,7 @@ export class Barricade extends Installation {
             this.health += this.template.rate; // Regenerate
     }
 
-    component(): JSX.Element {
-        return super.component({ children: BarricadeComponent({ barricade: this }) });
+    component({ demolishBuilding }: { demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: BarricadeComponent({ barricade: this }), demolishBuilding });
     }
 };

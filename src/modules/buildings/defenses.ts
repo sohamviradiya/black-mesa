@@ -8,6 +8,7 @@ import { BoardState } from "../state";
 import ScalarTurretComponent from "../../components/units/buildings/defenses/scalar-turret";
 import VectorTurretComponent from "../../components/units/buildings/defenses/vector-turret";
 import DefenseComponent from "../../components/units/buildings/defense";
+import { ReactNode } from "react";
 
 export const WeaponTypes = ["LASER", "SNIPER", "MISSILE_LAUNCHER", "MACHINE_GUN", "SHOTGUN"] as const;
 
@@ -36,10 +37,6 @@ export abstract class Defense extends Building {
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
-    isFireReady(): boolean {
-        return this.timer % this.template.period === 0;
-    };
-
     update(state: BoardState): void {
         this.timer++;
         if (this.isFireReady()) {
@@ -51,8 +48,13 @@ export abstract class Defense extends Building {
             }
         }
     }
-    component({ children }: { children: React.ReactNode }): JSX.Element {
-        return super.component({ children: DefenseComponent({ defense: this, children }) });
+
+    isFireReady(): boolean {
+        return this.timer % this.template.period === 0;
+    };
+
+    component({ children, demolishBuilding }: { children: ReactNode, demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: DefenseComponent({ defense: this, children }), demolishBuilding });
     }
 }
 
@@ -68,8 +70,8 @@ export class ScalarTurret extends Defense {
         }
         return null;
     };
-    component(): JSX.Element {
-        return super.component({ children: ScalarTurretComponent({ turret: this }) });
+    component({ demolishBuilding }: { demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: ScalarTurretComponent({ turret: this }), demolishBuilding });
     }
 }
 
@@ -111,8 +113,8 @@ export class VectorTurret extends Defense {
         return null;
     };
 
-    component(): JSX.Element {
-        return super.component({ children: VectorTurretComponent({ turret: this }) });
+    component({ demolishBuilding }: { demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: VectorTurretComponent({ turret: this }), demolishBuilding });
     }
 }
 

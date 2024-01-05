@@ -1,6 +1,7 @@
 import BaseComponent from "../../components/units/buildings/base";
 import { BoardState } from "../state";
 import { Installation, InstallationTemplate } from "./installation";
+import { Building } from "../building";
 
 export interface BaseTemplate extends InstallationTemplate {
     type: "BASE";
@@ -18,11 +19,11 @@ export class Base extends Installation {
     }
 
     dismantle(state: BoardState): void {
-        
+
     }
 
-    component(): JSX.Element {
-        return super.component({ children: BaseComponent({ base: this }) });
+    component({ demolishBuilding }: { demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: BaseComponent({ base: this }), demolishBuilding });
     };
 
 };

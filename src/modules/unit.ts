@@ -2,6 +2,7 @@ import React from "react";
 import { BoardState, CollectionType } from "./state";
 import UnitComponent from "../components/units/unit";
 import VectorComponent from "../components/units/vector";
+import { Building } from "./building";
 
 
 export interface PositionInterface {
@@ -41,7 +42,7 @@ export abstract class Unit {
         return this;
     }
 
-    component(props: { children: React.ReactNode, setBuilding?: (row_index: number, col_index: number) => void, demolishBuilding?: (row_index: number, col_index: number) => void }) {
+    component(props: { children?: React.ReactNode, setBuilding?: (row_index: number, col_index: number) => void, demolishBuilding?: (building: Building) => void }) {
         return UnitComponent({ unit: this, children: props.children });
     };
     abstract addSelf(state: BoardState): void;

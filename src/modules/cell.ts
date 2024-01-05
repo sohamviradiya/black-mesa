@@ -24,9 +24,9 @@ export class Cell extends ScalarUnit {
     update(state: BoardState): void {
         this.triggered = collision(state.mouse, this);
     }
-    component({ setBuilding, demolishBuilding }: { setBuilding?: (row_index: number, col_index: number) => void, demolishBuilding?: (row_index: number, col_index: number) => void }) {
-        if(!setBuilding || !demolishBuilding) throw new Error("setBuilding and demolishBuilding must be defined");
-        return CellComponent({ cell: this, setBuilding, demolishBuilding });
+    component({ setBuilding }: { setBuilding?: (row_index: number, col_index: number) => void}) {
+        if(!setBuilding ) throw new Error("setBuilding and demolishBuilding must be defined");
+        return CellComponent({ cell: this, setBuilding});
     }
 
     addSelf(state: BoardState): void {
@@ -69,10 +69,7 @@ export abstract class OccupiableCell extends Cell {
         return true;
     }
 
-    deOccupy(state: BoardState): void {
-        if (!this.occupier || this.occupier.type === "BASE")
-            return;
-        this.occupier.dismantle(state);
+    removeOccupier(): void {
         this.occupier = null;
     }
 }

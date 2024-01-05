@@ -47,8 +47,8 @@ export abstract class Installation extends Building {
             state.energy += this.template.rate;
     }
 
-    component({ children }: { children: ReactNode; }): JSX.Element {
-        return super.component({ children: InstallationComponent({ installation: this, children }) });
+    component({ children, demolishBuilding }: { children?: ReactNode, demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: InstallationComponent({ installation: this, children }), demolishBuilding });
     }
 }
 ;

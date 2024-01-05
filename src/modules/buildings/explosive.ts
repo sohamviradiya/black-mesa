@@ -46,8 +46,8 @@ export class Explosive extends Building {
         });
     }
 
-    component(): JSX.Element {
-        return super.component({ children: ExplosiveComponent({ explosive: this }) });
+    component({  demolishBuilding }: { demolishBuilding: (building: Building) => void }): JSX.Element {
+        return super.component({ children: ExplosiveComponent({ explosive: this }), demolishBuilding });
     }
 
     private explode(invaders: Invader[]) {
