@@ -12,6 +12,7 @@ export default function UnitComponent({ unit, children }: { unit: Unit, children
                 position: "absolute",
                 top: unit.y,
                 left: unit.x,
+                transform: "translate(-50%, -50%)",
                 zIndex: 0,
                 textAlign: "center",
                 display: "flex",

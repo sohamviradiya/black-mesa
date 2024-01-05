@@ -9,6 +9,7 @@ export default function CellComponent({ cell, setBuilding }: { cell: Cell, setBu
         position: "absolute",
         top: cell.y,
         left: cell.x,
+        transform: "translate(-50%, -50%)",
         textAlign: "center",
         zIndex: 0,
         fontSize: 0.5 * cell.height,

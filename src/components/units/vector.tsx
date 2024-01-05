@@ -12,7 +12,7 @@ export default function VectorComponent({ unit, children }: { unit: VectorUnit, 
             left: unit.x,
             textAlign: "center",
             zIndex: 2,
-            transform: `rotate(${unit.angle}rad)`,
+            transform: `translate(-50%, -50%) rotate(${unit.angle}rad)`,
             transformOrigin: "center center",
             fontSize: 0.5 * unit.height,
         }}>

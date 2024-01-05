@@ -3,8 +3,7 @@ import { Defense, VectorTurret } from "./buildings/defenses";
 import { AlignmentType, PositionInterface, ScalarInterface, VectorInterface } from "./unit";
 
 export function collision(unitA: ScalarInterface, unitB: ScalarInterface) {
-    if (unitA.x === -1 || unitB.x === -1) return false;
-    if (unitA.x + unitA.width < unitB.x + 1 || unitB.x + unitB.width < unitA.x + 1 || unitA.y + unitA.height < unitB.y + 1 || unitB.y + unitB.height < unitA.y + 1)
+    if (unitA.x + unitA.width < unitB.x || unitB.x + unitB.width < unitA.x || unitA.y + unitA.height < unitB.y || unitB.y + unitB.height < unitA.y)
         return false;
     else
         return true;
@@ -49,7 +48,7 @@ export function isInScope(defense: VectorTurret, invader: ScalarInterface) {
 
 export function pathToPositions(path: { column_index: number; row_index: number; }[], cellSize: number): PositionInterface[] {
     return path.map((position) => ({
-        x: position.column_index * cellSize,
-        y: position.row_index * cellSize,
+        x: position.column_index * cellSize + cellSize / 2,
+        y: position.row_index * cellSize + cellSize / 2,
     }));
 }
