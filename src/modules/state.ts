@@ -32,7 +32,6 @@ export class BoardState {
     public score: number = 0;
     public gameOver: boolean = false;
     public gameWon: boolean = false;
-    public mouse: ScalarInterface = { x: 0, y: 0, width: variables["mouse"]["width"], height: variables["mouse"]["height"] };
     public messages: string[] = [];
     public path: PositionInterface[];
     public cellSize: number = 0;
@@ -63,8 +62,7 @@ export class BoardState {
         this.messages.push("Let the invasion begin!");
     }
 
-    update({ x, y }: { x: number, y: number }): this {
-        this.setMouse(x, y);
+    update(): this {
         if (this.gameOver || this.gameWon) {
             return this;
         }
@@ -82,7 +80,7 @@ export class BoardState {
     components({ setBuilding, demolishBuilding }: { setBuilding: (row_index: number, col_index: number) => void, demolishBuilding: (building: Building) => void }): JSX.Element[] {
         return [
             ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component({ setBuilding }))).flat(),
-            ...this.collections.buildings.map((building: Building) => building.component({ demolishBuilding, children: {} as ReactNode } )),
+            ...this.collections.buildings.map((building: Building) => building.component({ demolishBuilding, children: {} as ReactNode })),
             ...this.collections.invaders.map((invader: Invader) => invader.component()),
             ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
         ];
@@ -160,11 +158,6 @@ export class BoardState {
         return true;
     }
 
-    private setMouse(x: number, y: number) {
-        this.mouse.x = x;
-        this.mouse.y = y;
-    }
-
     private isGameWon(): boolean {
         return (this.collections.invaders.length === 0 && this.invaderQueue.length === 0);
     }
@@ -181,6 +174,5 @@ export class BoardState {
         this.collections.projectiles.forEach((projectile: Projectile) => projectile.update(this));
         this.collections.invaders.forEach((invader: Invader) => invader.update(this));
         this.collections.buildings.forEach((building: Building) => building.update(this));
-        this.collections.cells.forEach((row: Cell[]) => row.forEach((cell: Cell) => cell.update(this)));
     }
 }

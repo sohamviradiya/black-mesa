@@ -1,6 +1,5 @@
 import CellComponent from "../components/units/cell";
 import { Building } from "./building";
-import { collision } from "./geometry";
 import { BoardState, CollectionType } from "./state";
 import { ScalarUnit } from "./unit";
 
@@ -14,15 +13,13 @@ export enum CellTypes {
 export type CellType = keyof typeof CellTypes;
 
 export class Cell extends ScalarUnit {
-    public triggered: boolean = false;
     collection: CollectionType = "cells";
-    timer: number = 0;
     constructor(public row_index: number, public column_index: number, cellSize: number, public type: CellType) {
         super(row_index, column_index, cellSize);
     }
 
     update(state: BoardState): void {
-        this.triggered = collision(state.mouse, this);
+        
     }
     component({ setBuilding }: { setBuilding?: (row_index: number, col_index: number) => void}) {
         if(!setBuilding ) throw new Error("setBuilding and demolishBuilding must be defined");
