@@ -16,7 +16,7 @@ export default function CellComponent({ cell, setBuilding }: { cell: Cell, setBu
         backgroundColor: getCellColor(cell.type),
     }}
         onClick={() => {
-            if (!(cell as OccupiableCell)?.occupier)
+            if (!(cell as OccupiableCell)?.occupier && (cell.type === "SLOT" || cell.type === "PATH"))
                 setBuilding(cell.row_index, cell.column_index);
         }}
     />
