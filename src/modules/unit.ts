@@ -41,8 +41,8 @@ export abstract class Unit {
         return this;
     }
 
-    component({ children }: { children: React.ReactNode }) {
-        return UnitComponent({ unit: this, children });
+    component(props: { children: React.ReactNode, setBuilding?: (row_index: number, col_index: number) => void, demolishBuilding?: (row_index: number, col_index: number) => void }) {
+        return UnitComponent({ unit: this, children: props.children });
     };
     abstract addSelf(state: BoardState): void;
     abstract removeSelf(state: BoardState): void;

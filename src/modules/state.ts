@@ -1,6 +1,6 @@
 import { Building, BuildingTemplate, BuildingType, BuildingTypes } from "./building";
 import { Base, BaseTemplate } from "./buildings/base";
-import { Cell, PathCell, SlotCell } from "./cell";
+import { Cell, OccupiableCell, PathCell, SlotCell } from "./cell";
 import { Invader, InvaderTemplate, InvaderType } from "./invader";
 import { Projectile } from "./projectile";
 import { PositionInterface, ScalarInterface } from "./unit";
@@ -78,9 +78,9 @@ export class BoardState {
         return this;
     }
 
-    components(): JSX.Element[] {
+    components({ setBuilding, demolishBuilding }: { setBuilding: (row_index: number, col_index: number) => void, demolishBuilding: (row_index: number, col_index: number) => void }): JSX.Element[] {
         return [
-            ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component())).flat(),
+            ...this.collections.cells.map((row: Cell[]) => row.map((cell: Cell) => cell.component({ setBuilding, demolishBuilding }))).flat(),
             ...this.collections.buildings.map((building: Building) => building.component({} as { children: JSX.Element })),
             ...this.collections.invaders.map((invader: Invader) => invader.component()),
             ...this.collections.projectiles.map((projectile: Projectile) => projectile.component()),
@@ -93,11 +93,18 @@ export class BoardState {
         this.messages.push(message);
     }
 
-    addOccupier(row_index: number, column_index: number, type: BuildingType | WeaponType): void {
+    addOccupier(row_index: number, column_index: number, type: BuildingType | WeaponType) {
         if (BuildingTypes.includes(type as BuildingType))
             this.addPathOccupier(row_index, column_index, type as InstallationType);
         else if (WeaponTypes.includes(type as WeaponType))
             this.addSlotOccupier(row_index, column_index, type as WeaponType);
+        return this;
+    }
+
+    removeOccupier(row_index: number, column_index: number) {
+        const cell = this.collections.cells[row_index][column_index] as OccupiableCell;
+        cell.deOccupy(this);
+        return this;
     }
 
     private addSlotOccupier(row_index: number, column_index: number, type: WeaponType): void {
@@ -142,7 +149,7 @@ export class BoardState {
 
     private addBuilding(building: Building) {
         this.energy -= building.cost;
-        this.collections.buildings.push(building);
+        building.addSelf(this);
     }
 
     private checkCost(template: BuildingTemplate) {
