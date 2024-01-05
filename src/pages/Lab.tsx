@@ -3,7 +3,7 @@ import { BoardState } from "../modules/state";
 import { Box, Container, MenuItem, Select, Typography } from "@mui/material";
 import MessageComponent from "../components/message";
 import { WeaponType } from "../modules/buildings/defenses";
-import { BuildingType } from "../modules/building";
+import { Building, BuildingType } from "../modules/building";
 
 const newState = new BoardState(1000, "ROOKIE");
 
@@ -21,8 +21,8 @@ export default function Lab() {
         }
     };
 
-    const demolishBuilding = (row_index: number, col_index: number) => {
-        setBoardState((prevBoardState: BoardState) => prevBoardState.removeOccupier(row_index, col_index));
+    const demolishBuilding = (building: Building) => {
+        setBoardState((prevBoardState: BoardState) => prevBoardState.removeOccupier(building));
     };
 
     useEffect(() => {
@@ -39,34 +39,35 @@ export default function Lab() {
         return () => {
             cancelAnimationFrame(animationFrameId);
         };
-    }, [x, y]);
+    }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ height: "100vh", width: "100vw", backgroundColor: "whitesmoke", display: "flex", flexDirection: "column", gap: "10rem" }}>
-            <Box sx={{ position: "relative", height: boardState.cellSize * boardState.collections.cells.length }} onMouseMove={(e) => { setMousePosition({ x: e.nativeEvent.x - e.currentTarget.offsetLeft, y: e.nativeEvent.y - e.currentTarget.offsetTop }); }} onMouseLeave={(e) => { setMousePosition({ x: -1, y: -1 }) }}>
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ position: "relative", backgroundColor: "whitesmoke", height: boardState.cellSize * (boardState.collections.cells.length + 1), width: boardState.cellSize * (boardState.collections.cells[0].length + 1) }} onMouseMove={(e) => { setMousePosition({ x: e.nativeEvent.x - e.currentTarget.offsetLeft, y: e.nativeEvent.y - e.currentTarget.offsetTop }); }} onMouseLeave={(e) => { setMousePosition({ x: -1, y: -1 }) }}>
                 {boardState.components({ setBuilding, demolishBuilding })}
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 {boardState.messages.map((message, index) => (
                     <Box key={index} sx={{ padding: "1rem" }} >
                         <MessageComponent message={message} />
                     </Box>
                 ))}
+                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    {boardState.cellSize * (boardState.collections.cells[0].length + 1)}
+                    <Typography variant="h6">Energy: {boardState.energy}</Typography>
+                    <Select defaultValue="NO_ITEM" onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} sx={{ width: "100%" }}>
+                        <MenuItem value="NO_ITEM">No Item</MenuItem>
+                        <MenuItem value="EXPLOSIVE">Explosive 💣</MenuItem>
+                        <MenuItem value="BARRICADE">Barricade 🚧</MenuItem>
+                        <MenuItem value="GENERATOR">Generator ⚡</MenuItem>
+                        <MenuItem value="LASER">Laser 🔫</MenuItem>
+                        <MenuItem value="SNIPER">Sniper 🎯</MenuItem>
+                        <MenuItem value="MISSILE_LAUNCHER">Missile Launcher 🚀</MenuItem>
+                        <MenuItem value="MACHINE_GUN">Machine Gun 🎆</MenuItem>
+                        <MenuItem value="SHOTGUN">Shotgun 🎇</MenuItem>
+                    </Select>
+                </Box>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100%" }}>
-                <Typography variant="h6">Energy: {boardState.energy}</Typography>
-                <Select defaultValue="NO_ITEM" onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} sx={{ width: "50%" }}>
-                    <MenuItem value="NO_ITEM">No Item</MenuItem>
-                    <MenuItem value="EXPLOSIVE">Explosive 💣</MenuItem>
-                    <MenuItem value="BARRICADE">Barricade 🚧</MenuItem>
-                    <MenuItem value="GENERATOR">Generator ⚡</MenuItem>
-                    <MenuItem value="LASER">Laser 🔫</MenuItem>
-                    <MenuItem value="SNIPER">Sniper 🎯</MenuItem>
-                    <MenuItem value="MISSILE_LAUNCHER">Missile Launcher 🚀</MenuItem>
-                    <MenuItem value="MACHINE_GUN">Machine Gun 🎆</MenuItem>
-                    <MenuItem value="SHOTGUN">Shotgun 🎇</MenuItem>
-                </Select>
-            </Box>
-        </Container>
+        </Box>
     );
 }

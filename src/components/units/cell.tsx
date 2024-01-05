@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Cell, CellType, OccupiableCell } from "../../modules/cell";
 
-export default function CellComponent({ cell, setBuilding, demolishBuilding }: { cell: Cell, setBuilding: (row_index: number, col_index: number) => void, demolishBuilding: (row_index: number, col_index: number) => void }) {
+export default function CellComponent({ cell, setBuilding }: { cell: Cell, setBuilding: (row_index: number, col_index: number) => void }) {
     return <Box key={cell.id} sx={{
         width: cell.width,
         height: cell.height,
@@ -17,11 +17,6 @@ export default function CellComponent({ cell, setBuilding, demolishBuilding }: {
         onClick={() => {
             if (!(cell as OccupiableCell)?.occupier)
                 setBuilding(cell.row_index, cell.column_index);
-        }}
-        onContextMenu={(e) => {
-            e.preventDefault();
-            if ((cell as OccupiableCell)?.occupier)
-                demolishBuilding(cell.row_index, cell.column_index);
         }}
     />
 };
