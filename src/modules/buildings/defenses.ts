@@ -27,7 +27,7 @@ export interface VectorDefenseTemplate extends DefenseTemplate {
 
 
 export abstract class Defense extends Building {
-    public angle = 0;
+    public angle = Math.PI;
     public timer = 0;
     public range = 0;
     constructor(row_index: number, column_index: number, public template: DefenseTemplate, cellSize: number) {
