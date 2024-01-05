@@ -43,7 +43,7 @@ export default function Lab() {
 
     return (
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Box sx={{ position: "relative", backgroundColor: "whitesmoke", height: boardState.cellSize * (boardState.collections.cells.length + 1), width: boardState.cellSize * (boardState.collections.cells[0].length + 1) }} onMouseMove={(e) => { setMousePosition({ x: e.nativeEvent.x - e.currentTarget.offsetLeft, y: e.nativeEvent.y - e.currentTarget.offsetTop }); }} onMouseLeave={(e) => { setMousePosition({ x: -1, y: -1 }) }}>
+            <Box sx={{ position: "relative", backgroundColor: "whitesmoke", height: boardState.cellSize * (boardState.collections.cells.length), width: boardState.cellSize * (boardState.collections.cells[0].length ) }} onMouseMove={(e) => { setMousePosition({ x: e.nativeEvent.x - e.currentTarget.offsetLeft, y: e.nativeEvent.y - e.currentTarget.offsetTop }); }} onMouseLeave={(e) => { setMousePosition({ x: -1, y: -1 }) }}>
                 {boardState.components({ setBuilding, demolishBuilding })}
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
