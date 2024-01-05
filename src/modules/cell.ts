@@ -70,7 +70,7 @@ export abstract class OccupiableCell extends Cell {
     }
 
     deOccupy(state: BoardState): void {
-        if (!this.occupier)
+        if (!this.occupier || this.occupier.type === "BASE")
             return;
         this.occupier.dismantle(state);
         this.occupier = null;
