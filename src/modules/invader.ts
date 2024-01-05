@@ -17,8 +17,6 @@ export interface InvaderTemplate {
     bounty: number;
     damage: number;
     period: number;
-    widthFactor: number;
-    heightFactor: number;
 };
 
 export class Invader extends VectorUnit {
@@ -29,7 +27,7 @@ export class Invader extends VectorUnit {
     health: number;
     public speed: number = 0;
     constructor(public path: PositionInterface[], public template: InvaderTemplate, cellSize: number) {
-        super(path[0].x, path[0].y, template.widthFactor * cellSize, template.heightFactor * cellSize, 0);
+        super(path[0].x, path[0].y, cellSize, cellSize, 0);
         this.speed = template.speedFactor * cellSize;
         this.health = template.maxHealth;
     };
@@ -84,6 +82,7 @@ export class Invader extends VectorUnit {
             const building = buildings[i];
             if (!(building instanceof Installation)) continue;
             if (!building.active) continue;
+            console.log();
             if (collision(building, this)) {
                 this.moving = false;
                 building.takeDamage(this.template.damage);
