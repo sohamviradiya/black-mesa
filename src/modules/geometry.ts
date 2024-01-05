@@ -21,11 +21,11 @@ export function getAngle(defense: ScalarInterface, invader: ScalarInterface) {
 export function angleToAlignment(defense: VectorInterface, invader: ScalarInterface, alignment: AlignmentType) {
     let angle = Math.atan2(invader.y - defense.y, invader.x - defense.x);
     if (alignment === "NORTH")
-        angle -= Math.PI / 2;
+        angle += Math.PI / 2;
     else if (alignment === "WEST")
         angle -= Math.PI;
     else if (alignment === "SOUTH")
-        angle += Math.PI / 2;
+        angle -= Math.PI / 2;
     return Math.min(Math.abs(angle), Math.abs(angle - 2 * Math.PI), Math.abs(angle + 2 * Math.PI));
 }
 

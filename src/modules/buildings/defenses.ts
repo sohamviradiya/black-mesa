@@ -39,14 +39,14 @@ export abstract class Defense extends Building {
 
     update(state: BoardState): void {
         this.timer++;
-        if (this.isFireReady()) {
-            const target = this.findTarget(state.collections.invaders);
-            if (target) {
-                this.angle = getAngle(this, target);
-                const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate, state.cellSize);
-                projectile.addSelf(state);
-            }
-        }
+        if (!this.isFireReady())
+            return;
+        const target = this.findTarget(state.collections.invaders);
+        if (!target)
+            return;
+        this.angle = getAngle(this, target);
+        const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate, state.cellSize);
+        projectile.addSelf(state);
     }
 
     isFireReady(): boolean {
