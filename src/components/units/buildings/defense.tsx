@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Defense, WeaponType } from "../../../modules/buildings/defenses";
 import missileImage from "../../../assets/images/missile-launcher.svg";
 import laserImage from "../../../assets/images/laser.svg";
