@@ -6,7 +6,6 @@ export default function VectorComponent({ unit, children }: { unit: VectorUnit, 
         sx={{
             width: unit.width,
             height: unit.height,
-            border: "1px solid black",
             position: "absolute",
             top: unit.y,
             left: unit.x,
