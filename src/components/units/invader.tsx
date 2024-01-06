@@ -6,8 +6,7 @@ import omegaImg from "../../assets/images/omega.svg";
 import sigmaImg from "../../assets/images/sigma.svg";
 
 export default function InvaderComponent({ invader }: { invader: Invader }) {
-    return <div style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative", width: invader.width, height: invader.height }}>
-        <p style={{ fontSize: "1rem" }}>❤ {invader.health} </p>
+    return <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: invader.width, height: invader.height * 0.8 }}>
         <img src={getInvaderImage(invader)} alt="base" height={invader.height * 0.8} width={invader.width} />
     </div>;
 };

@@ -4,7 +4,7 @@ import MessageComponent from "../components/message";
 import { WeaponType } from "../modules/buildings/defenses";
 import { Building, BuildingType } from "../modules/building";
 
-const newState = new BoardState(40, "VETERAN");
+const newState = new BoardState(40, "ROOKIE");
 
 type ItemsType = "NO_ITEM" | WeaponType | BuildingType;
 
@@ -41,19 +41,19 @@ export default function Lab() {
 
     return (
         <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ position: "relative", backgroundColor: "whitesmoke", height: 2 * boardState.cellSize * (boardState.collections.cells.length), width: 2 * boardState.cellSize * (boardState.collections.cells.length) }}>
+            <div style={{ position: "relative", backgroundColor: "whitesmoke", height: "100vh", width: "60vw" }}>
                 {boardState.components({ setBuilding, demolishBuilding })}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80vh", padding: "3rem", gap: "1rem" }}>
                 {boardState.messages.map((message, index) => (
-                    <div key={index} style={{ padding: "1rem" }} >
+                    <div key={index} >
                         <MessageComponent message={message} />
                     </div>
                 ))}
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                     <h3>Score: {boardState.score}</h3>
                     <h3>Energy: {boardState.energy}</h3>
-                    <select defaultValue="NO_ITEM" onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} style={{ width: "100%" }}>
+                    <select onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} style={{ width: "100%" }}>
                         <option value="NO_ITEM">No Item</option>
                         <option value="EXPLOSIVE">Explosive 💣</option>
                         <option value="BARRICADE">Barricade 🚧</option>

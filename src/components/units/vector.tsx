@@ -14,7 +14,6 @@ export default function VectorComponent({ unit, children }: { unit: VectorUnit, 
                 zIndex: 2,
                 transform: `translate(-50%, -50%) rotate(${unit.angle}rad)`,
                 transformOrigin: "center center",
-                fontSize: `${0.5 * unit.height}px`,
             }}
         >
             {children}
