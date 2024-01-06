@@ -69,6 +69,7 @@ export class BoardState {
         if (this.isGameWon()) {
             this.messages.push("You won with a score of " + this.score);
             this.gameWon = true;
+            this.collections.projectiles = [];
             return this;
         }
         this.spawnInvaders();
