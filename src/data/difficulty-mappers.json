@@ -5,13 +5,13 @@
         "turnFactor": 0.9,
         "energy": 400,
         "invaderSpawns": {
-            "ALPHA": 10,
-            "GAMMA": 2,
-            "LAMBDA": 0,
-            "SIGMA": 0,
-            "OMEGA": 0
+            "ALPHA": 40,
+            "GAMMA": 8,
+            "LAMBDA": 6,
+            "SIGMA": 4,
+            "OMEGA": 4
         },
-        "invader-period": 1000
+        "invader-period": 200
     },
     "CASUAL": {
         "rows": 10,

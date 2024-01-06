@@ -33,17 +33,15 @@ export class BoardState {
     public gameWon: boolean = false;
     public messages: string[] = [];
     public path: PositionInterface[];
-    public cellSize: number = 0;
     private invaderQueue: InvaderType[] = [];
     private invaderPeriod: number = 0;
 
-    constructor(width: number, difficulty: Difficulty) {
+    constructor(public cellSize: number, difficulty: Difficulty) {
         const { rows, columns, turnFactor } = difficultyVariables[difficulty];
         this.invaderQueue = generateInvaderQueue(difficulty);
         this.invaderPeriod = difficultyVariables[difficulty]["invader-period"];
         this.energy = difficultyVariables[difficulty]["energy"];
 
-        this.cellSize = width / columns;
         const { matrix, path } = generateGrid(rows, columns, turnFactor);
         this.collections.cells = matrixToCells(matrix, this.cellSize);
 

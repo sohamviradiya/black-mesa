@@ -1,8 +1,7 @@
-import { Box } from "@mui/material";
 import { Cell, CellType, OccupiableCell } from "../../modules/cell";
 
 export default function CellComponent({ cell, setBuilding }: { cell: Cell, setBuilding: (row_index: number, col_index: number) => void }) {
-    return <Box key={cell.id} sx={{
+    return <div key={cell.id} style={{
         width: cell.width,
         height: cell.height,
         border: "1px solid black",

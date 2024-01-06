@@ -1,17 +1,16 @@
-import { Box } from "@mui/material";
 import { Unit } from "../../modules/unit";
 
 export default function UnitComponent({ unit, children }: { unit: Unit, children: React.ReactNode }) {
     return (
-        <Box
+        <div
             key={unit.id}
-            sx={{
-                width: unit.width,
-                height: unit.height,
+            style={{
+                width: `${unit.width}px`,
+                height: `${unit.height}px`,
                 border: "1px solid black",
                 position: "absolute",
-                top: unit.y,
-                left: unit.x,
+                top: `${unit.y}px`,
+                left: `${unit.x}px`,
                 transform: "translate(-50%, -50%)",
                 zIndex: 0,
                 textAlign: "center",
@@ -19,10 +18,10 @@ export default function UnitComponent({ unit, children }: { unit: Unit, children
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                fontSize: 0.5*unit.height,
+                fontSize: `${0.5 * unit.height}px`,
             }}
         >
             {children}
-        </Box>
+        </div>
     );
 };
