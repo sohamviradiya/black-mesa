@@ -16,7 +16,6 @@ export type WeaponType = typeof WeaponTypes[number];
 
 export interface DefenseTemplate extends BuildingTemplate {
     type: "DEFENSE";
-    weapon: WeaponType;
     period: number;
     rangeFactor: number;
     projectileTemplate: ProjectileTemplate;

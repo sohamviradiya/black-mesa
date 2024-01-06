@@ -1,4 +1,5 @@
 import ProjectileComponent from "../components/units/projectile";
+import { WeaponType } from "./buildings/defenses";
 import { collision } from "./geometry";
 import { Invader } from "./invader";
 import { BoardState, CollectionType } from "./state";
@@ -9,6 +10,7 @@ export interface ProjectileTemplate {
     damage: number;
     widthFactor: number;
     heightFactor: number;
+    name: WeaponType;
 };
 
 export class Projectile extends VectorUnit {

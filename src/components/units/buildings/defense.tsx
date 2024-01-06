@@ -8,7 +8,7 @@ import sniperImage from "../../../assets/images/sniper.svg";
 
 export default function DefenseComponent({ defense, children }: { defense: Defense, children: React.ReactNode }) {
     return (<Box sx={{ border: "2px solid red", width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-        <img src={getSymbol(defense.template.weapon)} style={{ transform: `rotate(${defense.angle}rad)`, }} alt="defense" height={defense.height * 0.8} width={defense.width * 0.8} />
+        <img src={getSymbol(defense.template.projectileTemplate.name)} style={{ transform: `rotate(${defense.angle}rad)`, }} alt="defense" height={defense.height * 0.8} width={defense.width * 0.8} />
         {children}
     </Box>);
 };

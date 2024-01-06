@@ -2,12 +2,12 @@
     "SNIPER": {
         "cost": 200,
         "type": "DEFENSE",
-        "weapon": "SNIPER",
         "description": "Long range tower that shoots at enemy units if they are in scope.",
         "period": 200,
         "rangeFactor": 5,
         "scope": 0.75,
         "projectileTemplate": {
+            "name" : "SNIPER",
             "speedFactor": 0.7,
             "damage": 100,
             "widthFactor": 0.4,
@@ -17,11 +17,11 @@
     "MISSILE_LAUNCHER": {
         "cost": 200,
         "type": "DEFENSE",
-        "weapon": "MISSILE_LAUNCHER",
         "description": "Shoots a missile at a high rate of fire.",
         "period": 200,
         "rangeFactor": 5,
         "projectileTemplate": {
+            "name" : "MISSILE",
             "speedFactor": 0.4,
             "damage": 120,
             "widthFactor": 0.6,
@@ -31,11 +31,11 @@
     "MACHINE_GUN": {
         "cost": 150,
         "type": "DEFENSE",
-        "weapon": "MACHINE_GUN",
         "description": "Shoots a bullet at a high rate of fire.",
         "period": 25,
         "rangeFactor": 2,
         "projectileTemplate": {
+            "name" : "BULLET",
             "speedFactor": 0.5,
             "damage": 10,
             "widthFactor": 0.2,
@@ -45,11 +45,11 @@
     "LASER": {
         "cost": 100,
         "type": "DEFENSE",
-        "weapon": "LASER",
         "description": "Short range tower that shoots at enemy units if they are in range.",
         "period": 70,
         "rangeFactor": 3,
         "projectileTemplate": {
+            "name" : "LASER",
             "speedFactor": 0.5,
             "damage": 25,
             "widthFactor": 0.2,
@@ -59,11 +59,11 @@
     "SHOTGUN": {
         "cost": 120,
         "type": "DEFENSE",
-        "weapon": "SHOTGUN",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
         "period": 100,
         "rangeFactor": 2,
         "projectileTemplate": {
+            "name" : "SHOTGUN",
             "speedFactor": 0.5,
             "damage": 80,
             "widthFactor": 0.2,
