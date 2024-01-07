@@ -21,7 +21,7 @@
         "period": 200,
         "rangeFactor": 5,
         "projectileTemplate": {
-            "name" : "MISSILE",
+            "name" : "MISSILE_LAUNCHER",
             "speedFactor": 0.4,
             "damage": 120,
             "widthFactor": 0.6,
@@ -35,7 +35,7 @@
         "period": 25,
         "rangeFactor": 2,
         "projectileTemplate": {
-            "name" : "BULLET",
+            "name" : "MACHINE_GUN",
             "speedFactor": 0.5,
             "damage": 10,
             "widthFactor": 0.2,
