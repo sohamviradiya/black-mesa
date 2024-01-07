@@ -8,10 +8,10 @@
             "ALPHA": 40,
             "GAMMA": 8,
             "LAMBDA": 6,
-            "SIGMA": 4,
-            "OMEGA": 4
+            "SIGMA": 3,
+            "OMEGA": 2
         },
-        "invader-period": 200
+        "invader-period": 500
     },
     "CASUAL": {
         "rows": 10,
@@ -19,13 +19,13 @@
         "turnFactor": 0.8,
         "energy": 600,
         "invaderSpawns": {
-            "ALPHA": 30,
-            "GAMMA": 10,
-            "LAMBDA": 2,
-            "SIGMA": 0,
-            "OMEGA": 0
+            "ALPHA": 60,
+            "GAMMA": 15,
+            "LAMBDA": 12,
+            "SIGMA": 10,
+            "OMEGA": 5
         },
-        "invader-period": 800
+        "invader-period": 300
     },
     "MASTER": {
         "rows": 15,
@@ -33,13 +33,13 @@
         "turnFactor": 0.7,
         "energy": 800,
         "invaderSpawns": {
-            "ALPHA": 50,
-            "GAMMA": 25,
-            "LAMBDA": 5,
-            "SIGMA": 2,
-            "OMEGA": 0
+            "ALPHA": 100,
+            "GAMMA": 40,
+            "LAMBDA": 30,
+            "SIGMA": 25,
+            "OMEGA": 12
         },
-        "invader-period": 600
+        "invader-period": 200
     },
     "VETERAN": {
         "rows": 20,
@@ -47,13 +47,13 @@
         "turnFactor": 0.6,
         "energy": 1000,
         "invaderSpawns": {
-            "ALPHA": 100,
-            "GAMMA": 60,
-            "LAMBDA": 10,
-            "SIGMA": 16,
-            "OMEGA": 3
+            "ALPHA": 150,
+            "GAMMA": 70,
+            "LAMBDA": 50,
+            "SIGMA": 40,
+            "OMEGA": 25
         },
-        "invader-period": 400
+        "invader-period": 150
     },
     "INSANE": {
         "rows": 40,
@@ -61,12 +61,12 @@
         "turnFactor": 0.5,
         "energy": 2000,
         "invaderSpawns": {
-            "ALPHA": 300,
-            "GAMMA": 120,
-            "LAMBDA": 30,
-            "SIGMA": 30,
-            "OMEGA": 10
+            "ALPHA": 500,
+            "GAMMA": 100,
+            "LAMBDA": 100,
+            "SIGMA": 100,
+            "OMEGA": 50
         },
-        "invader-period": 250
+        "invader-period": 100
     }
 }

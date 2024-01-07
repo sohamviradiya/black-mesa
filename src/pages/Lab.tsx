@@ -4,7 +4,7 @@ import MessageComponent from "../components/message";
 import { WeaponType } from "../modules/buildings/defenses";
 import { Building, BuildingType } from "../modules/building";
 
-const newState = new BoardState(40, "ROOKIE");
+const newState = new BoardState(40, "VETERAN");
 
 type ItemsType = "NO_ITEM" | WeaponType | BuildingType;
 
