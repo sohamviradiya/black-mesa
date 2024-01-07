@@ -57,7 +57,7 @@
         }
     },
     "FLAME_THROWER": {
-        "cost": 120,
+        "cost": 150,
         "type": "DEFENSE",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
         "period": 60,

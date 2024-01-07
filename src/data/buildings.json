@@ -8,7 +8,7 @@
         "period": 100
     },
     "GENERATOR": {
-        "cost": 150,
+        "cost": 200,
         "type": "GENERATOR",
         "description": "Generates fixed energy per turn.",
         "maxHealth": 200,
@@ -16,7 +16,7 @@
         "period": 50
     },
     "BARRICADE": {
-        "cost": 50,
+        "cost": 100,
         "type": "BARRICADE",
         "description": "Blocks enemy movement.",
         "health": 500,
