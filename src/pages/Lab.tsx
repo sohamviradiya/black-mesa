@@ -47,7 +47,7 @@ export default function Lab() {
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
             <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: "whitesmoke", height: "10vh", padding: "1rem" }}>
-                <select onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} style={{ width: "40%", fontSize: "2rem" }}>
+                <select onChange={(e) => { setItem(e.target.value as ItemsType) }} value={item} style={{ width: "20%", fontSize: "2rem" }}>
                     <option value="NO_ITEM">No Item</option>
                     <option value="EXPLOSIVE">Explosive - 150</option>
                     <option value="BARRICADE">Barricade - 100</option>
@@ -58,22 +58,23 @@ export default function Lab() {
                     <option value="MISSILE_LAUNCHER">Missile Launcher - 200</option>
                     <option value="GENERATOR">Generator - 200</option>
                 </select>
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "50%" }}>
-                    <h1>Score: {boardState.score} 💲</h1>
-                    <h1> Energy: {boardState.energy} ⚡</h1>
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "40%" }}>
+                    <h1>Score: {boardState.score}💲</h1>
+                    <h1> Energy: {boardState.energy}⚡</h1>
                 </div>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "80%", marginTop: "1rem" }}>
-                <div style={{ position: "relative", backgroundColor: "whitesmoke", flex: "1" }}>
-                    {boardState.components({ setBuilding, demolishBuilding })}
-                </div>
-                <div style={{ position: "absolute", bottom: "1rem", right: "1rem", textAlign: "right", maxWidth: "30%" }}>
+                <div style={{ textAlign: "center" }}>
                     {boardState.messages.map((message, index) => (
                         <div key={index}>
                             <p style={{ fontSize: "0.8rem" }}>{message}</p>
                         </div>
                     ))}
                 </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "80%", marginTop: "1rem" }}>
+                <div style={{ position: "relative", backgroundColor: "whitesmoke", flex: "1" }}>
+                    {boardState.components({ setBuilding, demolishBuilding })}
+                </div>
+
             </div>
         </div>
     );

@@ -55,8 +55,8 @@ export class BoardState {
         else
             this.addSlotOccupier(base_row_index + 1, base_column_index, "LASER");
 
-        this.messages.push("You have " + this.energy + " energy");
-        this.messages.push("Let the invasion begin!");
+        this.addMessage("You have " + this.energy + " energy");
+        this.addMessage("Let the invasion begin!");
     }
 
     update(): this {
@@ -65,7 +65,7 @@ export class BoardState {
         }
         this.frame++;
         if (this.isGameWon()) {
-            this.messages.push("You won with a score of " + this.score);
+            this.addMessage("You won with a score of " + this.score);
             this.gameWon = true;
             this.collections.projectiles = [];
             return this;
@@ -85,7 +85,7 @@ export class BoardState {
     }
 
     addMessage(message: string): void {
-        if (this.messages.length > 5)
+        if (this.messages.length > 2)
             this.messages.shift();
         this.messages.push(message);
     }
