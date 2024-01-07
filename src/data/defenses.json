@@ -10,8 +10,8 @@
             "name" : "SNIPER",
             "speedFactor": 0.7,
             "damage": 100,
-            "widthFactor": 0.4,
-            "heightFactor": 0.1
+            "widthFactor": 0.8,
+            "heightFactor": 0.2
         }
     },
     "MISSILE_LAUNCHER": {
@@ -24,8 +24,8 @@
             "name" : "MISSILE_LAUNCHER",
             "speedFactor": 0.4,
             "damage": 120,
-            "widthFactor": 0.6,
-            "heightFactor": 0.2
+            "widthFactor": 1,
+            "heightFactor": 1
         }
     },
     "MACHINE_GUN": {
@@ -39,7 +39,7 @@
             "speedFactor": 0.5,
             "damage": 10,
             "widthFactor": 0.2,
-            "heightFactor": 0.05
+            "heightFactor": 0.6
         }
     },
     "LASER": {
@@ -53,7 +53,7 @@
             "speedFactor": 0.5,
             "damage": 25,
             "widthFactor": 0.2,
-            "heightFactor": 0.05
+            "heightFactor": 0.6
         }
     },
     "SHOTGUN": {
@@ -67,7 +67,7 @@
             "speedFactor": 0.5,
             "damage": 80,
             "widthFactor": 0.2,
-            "heightFactor": 0.05
+            "heightFactor": 0.4
         }
     }
 }

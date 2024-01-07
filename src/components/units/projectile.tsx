@@ -1,7 +1,7 @@
 import { Projectile } from "../../modules/projectile";
 
 export default function ProjectileComponent({ projectile }: { projectile: Projectile }) {
-    return <div style={{ backgroundColor: "dimgrey", height: "100%", width: "100%" }} >
+    return <div style={{ height: "100%", width: "100%" }} >
         <img src={getProjectileImage(projectile)} alt="projectile" style={{ width: projectile.width, height: projectile.height }} />
     </div>
 };
