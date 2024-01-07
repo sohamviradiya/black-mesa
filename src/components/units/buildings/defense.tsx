@@ -11,6 +11,6 @@ function getSymbol(type: WeaponType) {
     if (type === "MISSILE_LAUNCHER") return "/images/missile-launcher.svg"
     else if (type === "LASER") return "/images/laser.svg"
     else if (type === "MACHINE_GUN") return "/images/machine-gun.svg"
-    else if (type === "SHOTGUN") return "/images/shot-gun.svg"
+    else if (type === "FLAME_THROWER") return "/images/flame-thrower.svg"
     else if (type === "SNIPER") return "/images/sniper.svg"
 }

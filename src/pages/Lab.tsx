@@ -62,7 +62,7 @@ export default function Lab() {
                         <option value="SNIPER">Sniper 🎯</option>
                         <option value="MISSILE_LAUNCHER">Missile Launcher 🚀</option>
                         <option value="MACHINE_GUN">Machine Gun 🎆</option>
-                        <option value="SHOTGUN">Shotgun 🎇</option>
+                        <option value="FLAME_THROWER">FLAME_THROWER 🎇</option>
                     </select>
                 </div>
             </div>

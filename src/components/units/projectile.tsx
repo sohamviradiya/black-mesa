@@ -14,8 +14,8 @@ function getProjectileImage(projectile: Projectile) {
             return "/images/machine-gun-bullet.svg"
         case "MISSILE_LAUNCHER":
             return "/images/missile.svg"
-        case "SHOTGUN":
-            return "/images/shot-gun-bullet.svg"
+        case "FLAME_THROWER":
+            return "/images/flame-thrower-bullet.svg"
         case "LASER":
             return "/images/laser-bullet.svg"
     }

@@ -10,7 +10,7 @@ import VectorTurretComponent from "../../components/units/buildings/defenses/vec
 import DefenseComponent from "../../components/units/buildings/defense";
 import { ReactNode } from "react";
 
-export const WeaponTypes = ["LASER", "SNIPER", "MISSILE_LAUNCHER", "MACHINE_GUN", "SHOTGUN"] as const;
+export const WeaponTypes = ["LASER", "SNIPER", "MISSILE_LAUNCHER", "MACHINE_GUN", "FLAME_THROWER"] as const;
 
 export type WeaponType = typeof WeaponTypes[number];
 

@@ -3,13 +3,13 @@
         "cost": 200,
         "type": "DEFENSE",
         "description": "Long range tower that shoots at enemy units if they are in scope.",
-        "period": 200,
+        "period": 100,
         "rangeFactor": 5,
         "scope": 0.75,
         "projectileTemplate": {
-            "name" : "SNIPER",
+            "name": "SNIPER",
             "speedFactor": 0.7,
-            "damage": 100,
+            "damage": 120,
             "widthFactor": 0.8,
             "heightFactor": 0.2
         }
@@ -18,12 +18,12 @@
         "cost": 200,
         "type": "DEFENSE",
         "description": "Shoots a missile at a high rate of fire.",
-        "period": 200,
+        "period": 100,
         "rangeFactor": 5,
         "projectileTemplate": {
-            "name" : "MISSILE_LAUNCHER",
+            "name": "MISSILE_LAUNCHER",
             "speedFactor": 0.4,
-            "damage": 120,
+            "damage": 150,
             "widthFactor": 1,
             "heightFactor": 1
         }
@@ -32,12 +32,12 @@
         "cost": 150,
         "type": "DEFENSE",
         "description": "Shoots a bullet at a high rate of fire.",
-        "period": 25,
+        "period": 10,
         "rangeFactor": 2,
         "projectileTemplate": {
-            "name" : "MACHINE_GUN",
+            "name": "MACHINE_GUN",
             "speedFactor": 0.5,
-            "damage": 10,
+            "damage": 15,
             "widthFactor": 0.2,
             "heightFactor": 0.6
         }
@@ -46,26 +46,26 @@
         "cost": 100,
         "type": "DEFENSE",
         "description": "Short range tower that shoots at enemy units if they are in range.",
-        "period": 70,
+        "period": 40,
         "rangeFactor": 3,
         "projectileTemplate": {
-            "name" : "LASER",
+            "name": "LASER",
             "speedFactor": 0.5,
-            "damage": 25,
+            "damage": 30,
             "widthFactor": 0.2,
             "heightFactor": 0.6
         }
     },
-    "SHOTGUN": {
+    "FLAME_THROWER": {
         "cost": 120,
         "type": "DEFENSE",
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
-        "period": 100,
+        "period": 60,
         "rangeFactor": 2,
         "projectileTemplate": {
-            "name" : "SHOTGUN",
+            "name": "FLAME_THROWER",
             "speedFactor": 0.5,
-            "damage": 80,
+            "damage": 100,
             "widthFactor": 0.2,
             "heightFactor": 0.4
         }
