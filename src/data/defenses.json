@@ -6,6 +6,7 @@
         "period": 100,
         "rangeFactor": 5,
         "scope": 0.75,
+        "ammo": 25,
         "projectileTemplate": {
             "name": "SNIPER",
             "speedFactor": 0.7,
@@ -20,6 +21,7 @@
         "description": "Shoots a missile at a high rate of fire.",
         "period": 100,
         "rangeFactor": 5,
+        "ammo": "20",
         "projectileTemplate": {
             "name": "MISSILE_LAUNCHER",
             "speedFactor": 0.4,
@@ -34,6 +36,7 @@
         "description": "Shoots a bullet at a high rate of fire.",
         "period": 10,
         "rangeFactor": 2,
+        "ammo": "200",
         "projectileTemplate": {
             "name": "MACHINE_GUN",
             "speedFactor": 0.5,
@@ -48,6 +51,7 @@
         "description": "Short range tower that shoots at enemy units if they are in range.",
         "period": 40,
         "rangeFactor": 3,
+        "ammo": "50",
         "projectileTemplate": {
             "name": "LASER",
             "speedFactor": 0.5,
@@ -62,6 +66,7 @@
         "description": "High damage, short range tower that shoots at enemy units if they are in range.",
         "period": 60,
         "rangeFactor": 2,
+        "ammo" : "30",
         "projectileTemplate": {
             "name": "FLAME_THROWER",
             "speedFactor": 0.5,

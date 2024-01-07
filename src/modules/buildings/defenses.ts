@@ -1,4 +1,3 @@
-
 import { Building, BuildingTemplate } from "../building";
 import { AlignmentType } from "../unit";
 import { Invader } from "../invader";
@@ -19,6 +18,7 @@ export interface DefenseTemplate extends BuildingTemplate {
     period: number;
     rangeFactor: number;
     projectileTemplate: ProjectileTemplate;
+    ammo: number;
 };
 
 export interface VectorDefenseTemplate extends DefenseTemplate {
@@ -30,13 +30,19 @@ export abstract class Defense extends Building {
     public angle = Math.PI;
     public timer = 0;
     public range = 0;
+    public ammo = 0;
     constructor(row_index: number, column_index: number, public template: DefenseTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
+        this.ammo = template.ammo;
         this.range = template.rangeFactor * cellSize;
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
 
     update(state: BoardState): void {
+        if (!this.ammo) {
+            this.removeSelf(state);
+            return;
+        }
         this.timer++;
         if (!this.isFireReady())
             return;
@@ -45,11 +51,19 @@ export abstract class Defense extends Building {
             return;
         this.angle = getAngle(this, target);
         const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate, state.cellSize);
+        this.ammo--;
         projectile.addSelf(state);
     }
 
+    dismantle(state: BoardState): void {
+        const amount = this.cost * this.ammo / this.template.ammo; 
+        state.addMessage("You dismantled a " + this.type + " for " + amount + " energy");
+        state.energy += amount;
+        this.removeSelf(state);
+    }
+
     isFireReady(): boolean {
-        return this.timer % this.template.period === 0;
+        return this.timer % this.template.period === 0 && this.ammo > 0;
     };
 
     component({ children, demolishBuilding }: { children: ReactNode, demolishBuilding: (building: Building) => void }): JSX.Element {
