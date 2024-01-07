@@ -1,2 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M256 16c-72 0-120 48.094-120 96.093 0 48.416 24.277 66.635 51.563 112.5-3.476 47.475-3.75 111.834-3.75 199.218 15.588-51.96 28.137-91.943 38.437-121.406C236.71 347.18 249.23 407.97 256 495.997c6.77-88.027 19.288-148.818 33.75-193.593 10.3 29.462 22.85 69.444 38.438 121.407 0-87.915-.21-152.607-3.75-200.156C351.563 178.276 376 160.274 376 112.09 376 64.09 328 16 256 16zm0 47.813c39.765 0 72.188 26.863 72.188 60 0 13.097-5.516 25.29-14.063 35.156-10.095-33.71-27.39-46.876-58.125-46.876s-48.03 13.167-58.125 46.875c-8.547-9.866-14.063-22.06-14.063-35.158 0-33.136 32.423-60 72.188-60z"/></svg>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#00FFFF" stroke="#00FFFF" stroke-width="23.04">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="4.096"/>
+<g id="SVGRepo_iconCarrier">
+<path fill="#FFFF00" d="M291.17 299.252l109.093 150.173-21.76 15.786-109.07-150.16v72.135h-26.865V315.05l-109.07 150.16-21.74-15.795 109.07-150.163-68.6 22.287-8.307-25.555 68.602-22.287L36 216.348l8.307-25.565 176.533 57.362-42.404-58.36 21.686-15.776 42.446 58.36V46.79h26.864v185.58l42.446-58.36 21.74 15.795-42.404 58.36 176.48-57.382L476 216.337 299.467 273.71l68.602 22.286-8.308 25.554z"/>
+</g>
+</svg>
