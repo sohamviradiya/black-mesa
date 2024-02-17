@@ -4,5 +4,6 @@
         "width" : 0,
         "height" : 0
     },
+    "hit-sound" : "/sounds/hit.mp3",
     "dismantle-factor" : 0.75
 }

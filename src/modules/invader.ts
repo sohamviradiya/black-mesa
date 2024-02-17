@@ -10,6 +10,8 @@ export const InvaderTypes = ["ALPHA", "GAMMA", "LAMBDA", "SIGMA", "OMEGA"] as co
 
 export type InvaderType = typeof InvaderTypes[number];
 
+const audio = new Audio("/sounds/hit.mp3");
+
 export interface InvaderTemplate {
     type: InvaderType;
     speedFactor: number;
@@ -95,6 +97,7 @@ export class Invader extends VectorUnit {
     takeDamage(damage: number): void {
         if (this.dead) return;
         this.health -= damage;
+        audio.play();
         if (this.health <= 0) {
             this.dead = true;
         }
