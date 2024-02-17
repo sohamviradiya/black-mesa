@@ -19,6 +19,7 @@ export interface DefenseTemplate extends BuildingTemplate {
     rangeFactor: number;
     projectileTemplate: ProjectileTemplate;
     ammo: number;
+    audio: string;
 };
 
 export interface VectorDefenseTemplate extends DefenseTemplate {
@@ -31,9 +32,11 @@ export abstract class Defense extends Building {
     public timer = 0;
     public range = 0;
     public ammo = 0;
+    public audio : HTMLAudioElement;
     constructor(row_index: number, column_index: number, public template: DefenseTemplate, cellSize: number) {
         super(row_index, column_index, template, cellSize);
         this.ammo = template.ammo;
+        this.audio = new Audio(template.audio);
         this.range = template.rangeFactor * cellSize;
     };
     abstract findTarget(enemies: Invader[]): Invader | null;
@@ -47,11 +50,12 @@ export abstract class Defense extends Building {
         if (!this.isFireReady())
             return;
         const target = this.findTarget(state.collections.invaders);
-        if (!target)
+        if (!target) 
             return;
         this.angle = getAngle(this, target);
         const projectile = new Projectile(this.x, this.y, this.angle, target, this.template.projectileTemplate, state.cellSize);
         this.ammo--;
+        this.audio.play();
         projectile.addSelf(state);
     }
 

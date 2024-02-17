@@ -7,6 +7,7 @@
         "rangeFactor": 5,
         "scope": 0.75,
         "ammo": 25,
+        "audio": "/sounds/sniper-launch.mp3",
         "projectileTemplate": {
             "name": "SNIPER",
             "speedFactor": 0.7,
@@ -22,6 +23,7 @@
         "period": 100,
         "rangeFactor": 5,
         "ammo": "20",
+        "audio": "/sounds/missile-launch.mp3",
         "projectileTemplate": {
             "name": "MISSILE_LAUNCHER",
             "speedFactor": 0.4,
@@ -37,6 +39,7 @@
         "period": 10,
         "rangeFactor": 2,
         "ammo": "200",
+        "audio": "/sounds/machine-gun-launch.mp3",
         "projectileTemplate": {
             "name": "MACHINE_GUN",
             "speedFactor": 0.5,
@@ -52,6 +55,7 @@
         "period": 40,
         "rangeFactor": 3,
         "ammo": "50",
+        "audio": "/sounds/laser-launch.mp3",
         "projectileTemplate": {
             "name": "LASER",
             "speedFactor": 0.5,
@@ -67,6 +71,7 @@
         "period": 60,
         "rangeFactor": 2,
         "ammo" : "30",
+        "audio": "/sounds/flame-thrower-launch.mp3",
         "projectileTemplate": {
             "name": "FLAME_THROWER",
             "speedFactor": 0.5,
