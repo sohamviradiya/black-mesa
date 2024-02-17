@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { JSX } from "react/jsx-runtime";
 import InstallationComponent from "../../components/units/buildings/installation";
 
+const audio = new Audio("/sounds/explosion.mp3");
 
 export interface InstallationTemplate extends BuildingTemplate {
     maxHealth: number;
@@ -24,6 +25,7 @@ export abstract class Installation extends Building {
     };
 
     takeDamage(damage: number): void {
+        audio.play();
         if (!this.active)
             return;
         this.health -= damage;
